@@ -1,4 +1,13 @@
-import { gql } from '@apollo/client';
+﻿import { gql } from '@apollo/client';
+
+export const LIKE_TARGET_RESORT = gql`
+	mutation LikeTargetResort($resortId: String!) {
+		likeTargetResort(resortId: $resortId) {
+			_id
+			resortLikes
+		}
+	}
+`;
 
 /**************************
  *         MEMBER         *
@@ -119,95 +128,8 @@ export const LIKE_TARGET_MEMBER = gql`
 `;
 
 /**************************
- *        PROPERTY        *
+ *        CATALOG         *
  *************************/
-
-export const CREATE_PROPERTY = gql`
-	mutation CreateProperty($input: PropertyInput!) {
-		createProperty(input: $input) {
-			_id
-			propertyType
-			propertyStatus
-			propertyLocation
-			propertyAddress
-			propertyTitle
-			propertyPrice
-			propertySquare
-			propertyBeds
-			propertyRooms
-			propertyViews
-			propertyLikes
-			propertyImages
-			propertyDesc
-			propertyBarter
-			propertyRent
-			memberId
-			soldAt
-			deletedAt
-			constructedAt
-			createdAt
-			updatedAt
-		}
-	}
-`;
-
-export const UPDATE_PROPERTY = gql`
-	mutation UpdateProperty($input: PropertyUpdate!) {
-		updateProperty(input: $input) {
-			_id
-			propertyType
-			propertyStatus
-			propertyLocation
-			propertyAddress
-			propertyTitle
-			propertyPrice
-			propertySquare
-			propertyBeds
-			propertyRooms
-			propertyViews
-			propertyLikes
-			propertyImages
-			propertyDesc
-			propertyBarter
-			propertyRent
-			memberId
-			soldAt
-			deletedAt
-			constructedAt
-			createdAt
-			updatedAt
-		}
-	}
-`;
-
-export const LIKE_TARGET_PROPERTY = gql`
-	mutation LikeTargetProperty($input: String!) {
-		likeTargetProperty(propertyId: $input) {
-			_id
-			propertyType
-			propertyStatus
-			propertyLocation
-			propertyAddress
-			propertyTitle
-			propertyPrice
-			propertySquare
-			propertyBeds
-			propertyRooms
-			propertyViews
-			propertyLikes
-			propertyImages
-			propertyDesc
-			propertyBarter
-			propertyRent
-			memberId
-			soldAt
-			deletedAt
-			constructedAt
-			createdAt
-			updatedAt
-		}
-	}
-`;
 
 /**************************
  *      BOARD-ARTICLE     *
@@ -325,6 +247,31 @@ export const UNSUBSCRIBE = gql`
 			followerId
 			createdAt
 			updatedAt
+		}
+	}
+`;
+
+export const LIKE_TARGET_EQUIPMENT = gql`
+	mutation LikeTargetEquipment($equipmentId: String!) {
+		likeTargetEquipment(equipmentId: $equipmentId) {
+			_id
+			equipmentLikes
+		}
+	}
+`;
+export const CREATE_INSTRUCTOR_APPLICATION = gql`
+	mutation CreateInstructorApplication($input: InstructorApplicationInput!) {
+		createInstructorApplication(input: $input) {
+			_id
+			applicationStatus
+		}
+	}
+`;
+export const UPDATE_INSTRUCTOR_PROFILE = gql`
+	mutation UpdateInstructorProfile($input: InstructorProfileUpdate!) {
+		updateInstructorProfile(input: $input) {
+			_id
+			accessToken
 		}
 	}
 `;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+﻿import { gql } from '@apollo/client';
 
 /**************************
  *         MEMBER         *
@@ -39,65 +39,8 @@ export const GET_ALL_MEMBERS_BY_ADMIN = gql`
 `;
 
 /**************************
- *        PROPERTY        *
+ *        CATALOG         *
  *************************/
-
-export const GET_ALL_PROPERTIES_BY_ADMIN = gql`
-	query GetAllPropertiesByAdmin($input: AllPropertiesInquiry!) {
-		getAllPropertiesByAdmin(input: $input) {
-			list {
-				_id
-				propertyType
-				propertyStatus
-				propertyLocation
-				propertyAddress
-				propertyTitle
-				propertyPrice
-				propertySquare
-				propertyBeds
-				propertyRooms
-				propertyViews
-				propertyLikes
-				propertyImages
-				propertyDesc
-				propertyBarter
-				propertyRent
-				memberId
-				soldAt
-				deletedAt
-				constructedAt
-				createdAt
-				updatedAt
-				memberData {
-					_id
-					memberType
-					memberStatus
-					memberAuthType
-					memberPhone
-					memberNick
-					memberFullName
-					memberImage
-					memberAddress
-					memberDesc
-					memberWarnings
-					memberBlocks
-					memberProperties
-					memberRank
-					memberPoints
-					memberLikes
-					memberViews
-					deletedAt
-					createdAt
-					updatedAt
-					accessToken
-				}
-			}
-			metaCounter {
-				total
-			}
-		}
-	}
-`;
 
 /**************************
  *      BOARD-ARTICLE     *
@@ -195,3 +138,9 @@ export const GET_COMMENTS = gql`
 		}
 	}
 `;
+
+import { resortFields, equipmentFields, applicationFields } from '../user/query';
+export const GET_ALL_RESORTS_BY_ADMIN = gql`query GetAllResortsByAdmin($input: AllResortsInquiry!) { getAllResortsByAdmin(input: $input) { list { ${resortFields} } metaCounter { total } } }`;
+export const GET_ALL_EQUIPMENTS_BY_ADMIN = gql`query GetAllEquipmentsByAdmin($input: AllEquipmentsInquiry!) { getAllEquipmentsByAdmin(input: $input) { list { ${equipmentFields} } metaCounter { total } } }`;
+export const GET_ALL_INSTRUCTOR_APPLICATIONS_BY_ADMIN = gql`query GetAllInstructorApplicationsByAdmin($input: InstructorApplicationsInquiry!) { getAllInstructorApplicationsByAdmin(input: $input) { list { ${applicationFields} } metaCounter { total } } }`;
+export const GET_INSTRUCTOR_APPLICATION_BY_ADMIN = gql`query GetInstructorApplicationByAdmin($applicationId: String!) { getInstructorApplicationByAdmin(applicationId: $applicationId) { ${applicationFields} } }`;

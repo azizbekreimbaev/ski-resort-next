@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+﻿import { useMemo } from 'react';
 import { ApolloClient, ApolloLink, InMemoryCache, split, from, NormalizedCacheObject } from '@apollo/client';
 import createUploadLink from 'apollo-upload-client/public/createUploadLink.js';
 import { WebSocketLink } from '@apollo/client/link/ws';
@@ -52,36 +52,29 @@ function createIsomorphicLink() {
 			private socket: WebSocket;
 
 			constructor(url: string) {
-				this.socket = new WebSocket(url)
+				this.socket = new WebSocket(url);
 
 				this.socket.onopen = () => {
-					console.log("WEbsocket connected!!!")
-				}
+					console.log('WEbsocket connected!!!');
+				};
 
 				this.socket.onmessage = (msg) => {
-					console.log("WebSocket message:", msg.data)
-				}
+					console.log('WebSocket message:', msg.data);
+				};
 
 				this.socket.onerror = (error) => {
-					console.log("WebSocket error:", error)
-				}
-
-
-
+					console.log('WebSocket error:', error);
+				};
 			}
 
-			send(
-				data: string | ArrayBuffer | Blob | ArrayBufferView<ArrayBuffer>
-			): void {
+			send(data: string | ArrayBuffer | Blob | ArrayBufferView): void {
 				this.socket.send(data);
 			}
 
 			close() {
 				this.socket.close();
 			}
-
 		}
-
 
 		/* WEBSOCKET SUBSCRIPTION LINK */
 		const wsLink = new WebSocketLink({
@@ -94,18 +87,15 @@ function createIsomorphicLink() {
 				},
 			},
 
-			webSocketImpl: LoggingWebSocket
-
+			webSocketImpl: LoggingWebSocket,
 		});
 
 		const errorLink = onError(({ graphQLErrors, networkError, response }) => {
 			if (graphQLErrors) {
 				graphQLErrors.map(({ message, locations, path, extensions }) => {
 					console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
-					if (!message.includes("input")) sweetErrorAlert(message)
-				}
-
-				);
+					if (!message.includes('input')) sweetErrorAlert(message);
+				});
 			}
 			if (networkError) console.log(`[Network error]: ${networkError}`);
 			// @ts-ignore

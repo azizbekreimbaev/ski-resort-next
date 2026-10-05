@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { NextPage } from 'next';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Pagination, Stack, Typography } from '@mui/material';
@@ -43,8 +43,6 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 		},
 	});
 
-
-
 	/** HANDLERS **/
 	const paginationHandler = (e: T, value: number) => {
 		setSearchCommunity({ ...searchCommunity, page: value });
@@ -70,7 +68,6 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 		}
 	};
 
-
 	if (device === 'mobile') {
 		return <>ARTICLE PAGE MOBILE</>;
 	} else
@@ -85,7 +82,14 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 				<Stack className="article-list-box">
 					{boardArticles?.length > 0 ? (
 						boardArticles?.map((boardArticle: BoardArticle) => {
-							return <CommunityCard boardArticle={boardArticle} key={boardArticle?._id} size={'small'} likeBoardArticleHandler={likeBoardArticleHandler} />;
+							return (
+								<CommunityCard
+									boardArticle={boardArticle}
+									key={boardArticle?._id}
+									size={'small'}
+									likeBoardArticleHandler={likeBoardArticleHandler}
+								/>
+							);
 						})
 					) : (
 						<div className={'no-data'}>

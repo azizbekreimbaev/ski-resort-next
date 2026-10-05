@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+﻿import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Box, Button, Pagination, Stack, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { useRouter } from 'next/router';
@@ -17,7 +17,7 @@ interface MemberFollowsProps {
 	subscribeHandler: any;
 	unsubscribeHandler: any;
 	redirectToMemberPageHandler: any;
-	likeMemberHandler: any
+	likeMemberHandler: any;
 }
 
 const MemberFollowers = (props: MemberFollowsProps) => {
@@ -25,7 +25,7 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const [total, setTotal] = useState<number>(0);
-	const category: any = router.query?.category ?? 'properties';
+	const category: any = router.query?.category ?? 'articles';
 	const [followInquiry, setFollowInquiry] = useState<FollowInquiry>(initialInput);
 	const [memberFollowers, setMemberFollowers] = useState<Follower[]>([]);
 	const user = useReactiveVar(userVar);
@@ -56,7 +56,7 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 	}, [router]);
 
 	useEffect(() => {
-		getMemberFollowersRefetch({ input: followInquiry }).then()
+		getMemberFollowersRefetch({ input: followInquiry }).then();
 	}, [followInquiry]);
 
 	/** HANDLERS **/
@@ -64,10 +64,7 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 		followInquiry.page = value;
 		setFollowInquiry({ ...followInquiry });
 	};
-
-	if (device === 'mobile') {
-		return <div>NESTAR FOLLOWS MOBILE</div>;
-	} else {
+	{
 		return (
 			<div id="member-follows-page">
 				<Stack className="main-title-box">
@@ -112,9 +109,18 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 									</Box>
 									<Box className={'info-box'} component={'div'}>
 										{follower?.meLiked && follower?.meLiked[0]?.myFavorite ? (
-											<FavoriteIcon color="primary" onClick={() => likeMemberHandler(follower?.followerData?._id, getMemberFollowersRefetch, followInquiry)} />
+											<FavoriteIcon
+												color="primary"
+												onClick={() =>
+													likeMemberHandler(follower?.followerData?._id, getMemberFollowersRefetch, followInquiry)
+												}
+											/>
 										) : (
-											<FavoriteBorderIcon onClick={() => likeMemberHandler(follower?.followerData?._id, getMemberFollowersRefetch, followInquiry)} />
+											<FavoriteBorderIcon
+												onClick={() =>
+													likeMemberHandler(follower?.followerData?._id, getMemberFollowersRefetch, followInquiry)
+												}
+											/>
 										)}
 										<span>({follower?.followerData?.memberLikes})</span>
 									</Box>
@@ -127,7 +133,9 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 												<Button
 													variant="outlined"
 													sx={{ background: '#ed5858', ':hover': { background: '#ee7171' } }}
-													onClick={() => unsubscribeHandler(follower?.followerData?._id, getMemberFollowersRefetch, followInquiry)}
+													onClick={() =>
+														unsubscribeHandler(follower?.followerData?._id, getMemberFollowersRefetch, followInquiry)
+													}
 												>
 													Unfollow
 												</Button>
@@ -136,7 +144,9 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 											<Button
 												variant="contained"
 												sx={{ background: '#60eb60d4', ':hover': { background: '#60eb60d4' } }}
-												onClick={() => subscribeHandler(follower?.followerData?._id, getMemberFollowersRefetch, followInquiry)}
+												onClick={() =>
+													subscribeHandler(follower?.followerData?._id, getMemberFollowersRefetch, followInquiry)
+												}
 											>
 												Follow
 											</Button>

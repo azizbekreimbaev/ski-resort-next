@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+﻿import React, { useCallback, useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import withAdminLayout from '../../../libs/components/layout/LayoutAdmin';
 import { MemberPanelList } from '../../../libs/components/admin/users/MemberList';
@@ -57,18 +57,17 @@ const AdminUsers: NextPage = ({ initialInquiry, ...props }: any) => {
 		getAllMembersRefetch({ input: membersInquiry }).then();
 	}, [membersInquiry]);
 
-
 	/** HANDLERS **/
 	const changePageHandler = async (event: unknown, newPage: number) => {
 		membersInquiry.page = newPage + 1;
-		await getAllMembersRefetch({ input: membersInquiry })
+		await getAllMembersRefetch({ input: membersInquiry });
 		setMembersInquiry({ ...membersInquiry });
 	};
 
 	const changeRowsPerPageHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
 		membersInquiry.limit = parseInt(event.target.value, 10);
 		membersInquiry.page = 1;
-		await getAllMembersRefetch({ input: membersInquiry })
+		await getAllMembersRefetch({ input: membersInquiry });
 		setMembersInquiry({ ...membersInquiry });
 	};
 
@@ -229,7 +228,7 @@ const AdminUsers: NextPage = ({ initialInquiry, ...props }: any) => {
 																text: '',
 															},
 														});
-														await getAllMembersRefetch({ input: membersInquiry })
+														await getAllMembersRefetch({ input: membersInquiry });
 													}}
 												/>
 											)}
@@ -246,8 +245,8 @@ const AdminUsers: NextPage = ({ initialInquiry, ...props }: any) => {
 									<MenuItem value={'USER'} onClick={() => searchTypeHandler('USER')}>
 										User
 									</MenuItem>
-									<MenuItem value={'AGENT'} onClick={() => searchTypeHandler('AGENT')}>
-										Agent
+									<MenuItem value={'INSTRUCTOR'} onClick={() => searchTypeHandler('INSTRUCTOR')}>
+										Instructor
 									</MenuItem>
 									<MenuItem value={'ADMIN'} onClick={() => searchTypeHandler('ADMIN')}>
 										Admin

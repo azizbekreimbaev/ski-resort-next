@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+﻿import React, { useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import Head from 'next/head';
@@ -15,70 +15,65 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 const withLayoutBasic = (Component: any) => {
-	return (props: any) => {
+	return function LayoutBasic(props: any) {
 		const router = useRouter();
 		const { t, i18n } = useTranslation('common');
 		const device = useDeviceDetect();
-		const [authHeader, setAuthHeader] = useState<boolean>(false);
+		const authHeader = router.pathname === '/account/join';
 		const user = useReactiveVar(userVar);
 
 		const memoizedValues = useMemo(() => {
 			let title = '',
-				desc = '',
-				bgImage = '';
+				desc = '';
 
 			switch (router.pathname) {
-				case '/property':
-					title = 'Property Search';
-					desc = 'We are glad to see you again!';
-					bgImage = '/img/banner/properties.png';
+				case '/resort/detail':
+				case '/resort':
+					title = 'Resort Search';
+					desc = 'Home / Resorts';
 					break;
-				case '/agent':
-					title = 'Agents';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/agents.webp';
+				case '/instructor':
+					title = 'Instructors';
+					desc = 'Home / Instructors';
 					break;
-				case '/agent/detail':
-					title = 'Agent Page';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/header2.svg';
+				case '/equipment/detail':
+				case '/equipment':
+					title = 'Equipments';
+					desc = 'Home / Equipments';
+					break;
+				case '/instructor/detail':
+					title = 'Instructor Profile';
+					desc = 'Home / Instructors';
 					break;
 				case '/mypage':
 					title = 'my page';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/header1.svg';
+					desc = 'Home / My Page';
 					break;
 				case '/community':
 					title = 'Community';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/header2.svg';
+					desc = 'Home / Community';
 					break;
 				case '/community/detail':
 					title = 'Community Detail';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/header2.svg';
+					desc = 'Home / Community';
 					break;
 				case '/cs':
 					title = 'CS';
 					desc = 'We are glad to see you again!';
-					bgImage = '/img/banner/header2.svg';
 					break;
 				case '/account/join':
 					title = 'Login/Signup';
 					desc = 'Authentication Process';
-					bgImage = '/img/banner/header2.svg';
-					setAuthHeader(true);
 					break;
 				case '/member':
 					title = 'Member Page';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/header1.svg';
+					desc = 'Home / Members';
 					break;
 				default:
 					break;
 			}
 
-			return { title, desc, bgImage };
+			return { title, desc };
 		}, [router.pathname]);
 
 		/** LIFECYCLES **/
@@ -93,8 +88,8 @@ const withLayoutBasic = (Component: any) => {
 			return (
 				<>
 					<Head>
-						<title>Nestar</title>
-						<meta name={'title'} content={`Nestar`} />
+						<title>SkiResort</title>
+						<meta name={'title'} content={`SkiResort`} />
 					</Head>
 					<Stack id="mobile-wrap">
 						<Stack id={'top'}>
@@ -115,22 +110,15 @@ const withLayoutBasic = (Component: any) => {
 			return (
 				<>
 					<Head>
-						<title>Nestar</title>
-						<meta name={'title'} content={`Nestar`} />
+						<title>SkiResort</title>
+						<meta name={'title'} content={`SkiResort`} />
 					</Head>
 					<Stack id="pc-wrap">
 						<Stack id={'top'}>
 							<Top />
 						</Stack>
 
-						<Stack
-							className={`header-basic ${authHeader && 'auth'}`}
-							style={{
-								backgroundImage: `url(${memoizedValues.bgImage})`,
-								backgroundSize: 'cover',
-								boxShadow: 'inset 10px 40px 150px 40px rgb(24 22 36)',
-							}}
-						>
+						<Stack className={`header-basic skiresort-banner ${authHeader ? 'auth' : ''}`}>
 							<Stack className={'container'}>
 								<strong>{t(memoizedValues.title)}</strong>
 								<span>{t(memoizedValues.desc)}</span>

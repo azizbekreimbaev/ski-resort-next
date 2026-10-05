@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { Box, Stack } from '@mui/material';
@@ -30,10 +30,7 @@ const CS: NextPage = () => {
 		);
 	};
 	const tab = router.query.tab ?? 'notice';
-
-	if (device === 'mobile') {
-		return <h1>CS PAGE MOBILE</h1>;
-	} else {
+	{
 		return (
 			<Stack className={'cs-page'}>
 				<Stack className={'container'}>

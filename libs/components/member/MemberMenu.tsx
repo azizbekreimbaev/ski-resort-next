@@ -38,10 +38,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 			setMember(data?.getMember);
 		},
 	});
-
-	if (device === 'mobile') {
-		return <div>MEMBER MENU MOBILE</div>;
-	} else {
+	{
 		return (
 			<Stack width={'100%'} padding={'30px 24px'}>
 				<Stack className={'profile'}>
@@ -52,7 +49,13 @@ const MemberMenu = (props: MemberMenuProps) => {
 						/>
 					</Box>
 					<Stack className={'user-info'}>
-						<Typography className={'user-name'}>{member?.memberNick}</Typography>
+						<Typography className={'user-name'}>{member?.memberFullName || member?.memberNick}</Typography>
+						<Typography>{member?.memberDesc}</Typography>
+						{member?.memberType === 'INSTRUCTOR' && (
+							<Button component={Link} href={`/instructor/detail?instructorId=${encodeURIComponent(member._id)}`}>
+								Instructor profile
+							</Button>
+						)}
 						<Box component={'div'} className={'user-phone'}>
 							<img src={'/img/icons/call.svg'} alt={'icon'} />
 							<Typography className={'p-number'}>{member?.memberPhone}</Typography>
@@ -88,32 +91,6 @@ const MemberMenu = (props: MemberMenuProps) => {
 							Details
 						</Typography>
 						<List className={'sub-section'}>
-							{member?.memberType === 'AGENT' && (
-								<ListItem className={category === 'properties' ? 'focus' : ''}>
-									<Link
-										href={{
-											pathname: '/member',
-											query: { ...router.query, category: 'properties' },
-										}}
-										scroll={false}
-										style={{ width: '100%' }}
-									>
-										<div className={'flex-box'}>
-											{category === 'properties' ? (
-												<img className={'com-icon'} src={'/img/icons/homeWhite.svg'} alt={'com-icon'} />
-											) : (
-												<img className={'com-icon'} src={'/img/icons/home.svg'} alt={'com-icon'} />
-											)}
-											<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
-												Properties
-											</Typography>
-											<Typography className="count-title" variant="subtitle1">
-												{member?.memberProperties}
-											</Typography>
-										</div>
-									</Link>
-								</ListItem>
-							)}
 							<ListItem className={category === 'followers' ? 'focus' : ''}>
 								<Link
 									href={{

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import Head from 'next/head';
@@ -14,7 +14,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 const withLayoutFull = (Component: any) => {
-	return (props: any) => {
+	return function LayoutFull(props: any) {
 		const router = useRouter();
 		const device = useDeviceDetect();
 		const user = useReactiveVar(userVar);
@@ -31,8 +31,8 @@ const withLayoutFull = (Component: any) => {
 			return (
 				<>
 					<Head>
-						<title>Nestar</title>
-						<meta name={'title'} content={`Nestar`} />
+						<title>SkiResort</title>
+						<meta name={'title'} content={`SkiResort`} />
 					</Head>
 					<Stack id="mobile-wrap">
 						<Stack id={'top'}>
@@ -53,8 +53,8 @@ const withLayoutFull = (Component: any) => {
 			return (
 				<>
 					<Head>
-						<title>Nestar</title>
-						<meta name={'title'} content={`Nestar`} />
+						<title>SkiResort</title>
+						<meta name={'title'} content={`SkiResort`} />
 					</Head>
 					<Stack id="pc-wrap">
 						<Stack id={'top'}>

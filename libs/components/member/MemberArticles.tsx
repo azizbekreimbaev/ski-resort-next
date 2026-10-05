@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { Pagination, Stack, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
@@ -12,16 +12,16 @@ import { LIKE_TARGET_BOARD_ARTICLE } from '../../../apollo/user/mutation';
 import { GET_BOARD_ARTICLES } from '../../../apollo/user/query';
 import { Messages } from '../../config';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
+import { useTranslation } from 'next-i18next';
 
 const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
+	const { t } = useTranslation('common');
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const [total, setTotal] = useState<number>(0);
 	const { memberId } = router.query;
 	const [searchFilter, setSearchFilter] = useState<BoardArticlesInquiry>(initialInput);
 	const [memberBoArticles, setMemberBoArticles] = useState<BoardArticle[]>([]);
-
-
 
 	/** APOLLO REQUESTS **/
 	const [likeTargetBoardArticle] = useMutation(LIKE_TARGET_BOARD_ARTICLE);
@@ -67,14 +67,11 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
 			await boardArticlesRefetch({ input: searchFilter });
 			await sweetTopSmallSuccessAlert('success', 800);
 		} catch (err: any) {
-			console.log('ERROR, likePropertyHandler:', err.message);
+			console.log('ERROR, likeArticleHandler:', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};
-
-	if (device === 'mobile') {
-		return <div>MEMBER ARTICLES MOBILE</div>;
-	} else {
+	{
 		return (
 			<div id="member-articles-page">
 				<Stack className="main-title-box">
@@ -90,7 +87,14 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
 						</div>
 					)}
 					{memberBoArticles?.map((boardArticle: BoardArticle) => {
-						return <CommunityCard boardArticle={boardArticle} key={boardArticle?._id} size={'small'} likeBoardArticleHandler={likeBoardArticleHandler} />;
+						return (
+							<CommunityCard
+								boardArticle={boardArticle}
+								key={boardArticle?._id}
+								size={'small'}
+								likeBoardArticleHandler={likeBoardArticleHandler}
+							/>
+						);
 					})}
 				</Stack>
 				{memberBoArticles?.length !== 0 && (
@@ -105,7 +109,9 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
 							/>
 						</Stack>
 						<Stack className="total-result">
-							<Typography>{total} property available</Typography>
+							<Typography>
+								{total} {t('Articles available')}
+							</Typography>
 						</Stack>
 					</Stack>
 				)}

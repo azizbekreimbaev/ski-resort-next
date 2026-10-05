@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { NextPage } from 'next';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { Stack } from '@mui/material';
 import MemberMenu from '../../libs/components/member/MemberMenu';
-import MemberProperties from '../../libs/components/member/MemberProperties';
 import { useRouter } from 'next/router';
 import MemberFollowers from '../../libs/components/member/MemberFollowers';
 import MemberArticles from '../../libs/components/member/MemberArticles';
@@ -28,7 +27,6 @@ const MemberPage: NextPage = () => {
 	const category: any = router.query?.category;
 	const user = useReactiveVar(userVar);
 
-
 	/** APOLLO REQUESTS **/
 	const [subscribe] = useMutation(SUBSCRIBE);
 	const [unsubscribe] = useMutation(UNSUBSCRIBE);
@@ -41,7 +39,7 @@ const MemberPage: NextPage = () => {
 			router.replace(
 				{
 					pathname: router.pathname,
-					query: { ...router.query, category: 'properties' },
+					query: { ...router.query, category: 'articles' },
 				},
 				undefined,
 				{ shallow: true },
@@ -111,10 +109,7 @@ const MemberPage: NextPage = () => {
 			await sweetErrorHandling(error);
 		}
 	};
-
-	if (device === 'mobile') {
-		return <>MEMBER PAGE MOBILE</>;
-	} else {
+	{
 		return (
 			<div id="member-page" style={{ position: 'relative' }}>
 				<div className="container">
@@ -125,7 +120,6 @@ const MemberPage: NextPage = () => {
 							</Stack>
 							<Stack className="main-config" mb={'76px'}>
 								<Stack className={'list-config'}>
-									{category === 'properties' && <MemberProperties />}
 									{category === 'followers' && (
 										<MemberFollowers
 											subscribeHandler={subscribeHandler}

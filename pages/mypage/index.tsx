@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { Stack } from '@mui/material';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
-import MyProperties from '../../libs/components/mypage/MyProperties';
 import MyFavorites from '../../libs/components/mypage/MyFavorites';
 import RecentlyVisited from '../../libs/components/mypage/RecentlyVisited';
-import AddProperty from '../../libs/components/mypage/AddNewProperty';
+import useMemberSession from '../../libs/hooks/useMemberSession';
+import InstructorWorkflow from '../../libs/components/mypage/InstructorWorkflow';
 import MyProfile from '../../libs/components/mypage/MyProfile';
 import MyArticles from '../../libs/components/mypage/MyArticles';
 import { useMutation, useReactiveVar } from '@apollo/client';
@@ -29,10 +29,23 @@ export const getStaticProps = async ({ locale }: any) => ({
 
 const MyPage: NextPage = () => {
 	const device = useDeviceDetect();
-	const user = useReactiveVar(userVar);
+	const { user, ready } = useMemberSession();
 	const router = useRouter();
-	const category: any = router.query?.category ?? 'myProfile';
-
+	const rawCategory = router.query.category;
+	const category =
+		typeof rawCategory === 'string' &&
+		[
+			'myProfile',
+			'myFavorites',
+			'recentlyVisited',
+			'myArticles',
+			'writeArticle',
+			'followers',
+			'followings',
+			'instructor',
+		].includes(rawCategory)
+			? rawCategory
+			: 'myProfile';
 
 	/** APOLLO REQUESTS **/
 	const [subscribe] = useMutation(SUBSCRIBE);
@@ -41,8 +54,8 @@ const MyPage: NextPage = () => {
 
 	/** LIFECYCLES **/
 	useEffect(() => {
-		if (!user._id) router.push('/').then();
-	}, [user]);
+		if (ready && !user._id) void router.replace('/account/join?referrer=/mypage');
+	}, [user, ready, router]);
 
 	/** HANDLERS **/
 	const subscribeHandler = async (id: string, refetch: any, query: any) => {
@@ -80,7 +93,6 @@ const MyPage: NextPage = () => {
 		}
 	};
 
-
 	const likeMemberHandler = async (id: string, refetch: any, query: any) => {
 		try {
 			if (!id) return;
@@ -107,10 +119,8 @@ const MyPage: NextPage = () => {
 			await sweetErrorHandling(error);
 		}
 	};
-
-	if (device === 'mobile') {
-		return <div>MY PAGE</div>;
-	} else {
+	if (!ready || !user._id) return null;
+	{
 		return (
 			<div id="my-page" style={{ position: 'relative' }}>
 				<div className="container">
@@ -121,13 +131,12 @@ const MyPage: NextPage = () => {
 							</Stack>
 							<Stack className="main-config" mb={'76px'}>
 								<Stack className={'list-config'}>
-									{category === 'addProperty' && <AddProperty />}
-									{category === 'myProperties' && <MyProperties />}
 									{category === 'myFavorites' && <MyFavorites />}
 									{category === 'recentlyVisited' && <RecentlyVisited />}
 									{category === 'myArticles' && <MyArticles />}
 									{category === 'writeArticle' && <WriteArticle />}
 									{category === 'myProfile' && <MyProfile />}
+									{category === 'instructor' && <InstructorWorkflow />}
 									{category === 'followers' && (
 										<MemberFollowers
 											subscribeHandler={subscribeHandler}

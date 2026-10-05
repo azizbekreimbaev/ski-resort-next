@@ -1,4 +1,4 @@
-export enum CommentStatus {
+﻿export enum CommentStatus {
 	ACTIVE = 'ACTIVE',
 	DELETE = 'DELETE',
 }
@@ -6,6 +6,6 @@ export enum CommentStatus {
 export enum CommentGroup {
 	MEMBER = 'MEMBER',
 	ARTICLE = 'ARTICLE',
-	PROPERTY = 'PROPERTY',
-	COMMENT = 'COMMENT',
+	RESORT = 'RESORT',
+	EQUIPMENT = 'EQUIPMENT',
 }

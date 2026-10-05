@@ -1,4 +1,4 @@
-import { MemberAuthType, MemberStatus, MemberType } from '../../enums/member.enum';
+﻿import { MemberAuthType, MemberStatus, MemberType } from '../../enums/member.enum';
 import { Direction } from '../../enums/common.enum';
 
 export interface MemberInput {
@@ -12,18 +12,6 @@ export interface MemberInput {
 export interface LoginInput {
 	memberNick: string;
 	memberPassword: string;
-}
-
-interface AISearch {
-	text?: string;
-}
-
-export interface AgentsInquiry {
-	page: number;
-	limit: number;
-	sort?: string;
-	direction?: Direction;
-	search: AISearch;
 }
 
 interface MISearch {

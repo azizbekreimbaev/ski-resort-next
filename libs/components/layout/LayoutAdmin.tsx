@@ -1,3 +1,5 @@
+﻿import useMediaQuery from '@mui/material/useMediaQuery';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import type { ComponentType } from 'react';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -18,11 +20,14 @@ import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import { REACT_APP_API_URL } from '../../config';
 import { MemberType } from '../../enums/member.enum';
+import Head from 'next/head';
 const drawerWidth = 280;
 
 const withAdminLayout = (Component: ComponentType) => {
-	return (props: object) => {
+	return function LayoutAdmin(props: object) {
 		const router = useRouter();
+		const compact = useMediaQuery('(max-width:900px)');
+		const [drawerOpen, setDrawerOpen] = useState(false);
 		const user = useReactiveVar(userVar);
 		const [settingsState, setSettingsStateState] = useState(false);
 		const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -62,17 +67,26 @@ const withAdminLayout = (Component: ComponentType) => {
 
 		return (
 			<main id="pc-wrap" className="admin">
+				<Head>
+					<title>SkiResort Admin</title>
+					<meta name="title" content="SkiResort Admin" />
+				</Head>
 				<Box component={'div'} sx={{ display: 'flex' }}>
 					<AppBar
 						position="fixed"
 						sx={{
-							width: `calc(100% - ${drawerWidth}px)`,
-							ml: `${drawerWidth}px`,
+							width: compact ? '100%' : `calc(100% - ${drawerWidth}px)`,
+							ml: compact ? 0 : `${drawerWidth}px`,
 							boxShadow: 'rgb(100 116 139 / 12%) 0px 1px 4px',
 							background: 'none',
 						}}
 					>
 						<Toolbar>
+							{compact && (
+								<IconButton aria-label="Open navigation" onClick={() => setDrawerOpen(true)}>
+									<MenuRoundedIcon />
+								</IconButton>
+							)}
 							<Tooltip title="Open settings">
 								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 									<Avatar
@@ -129,20 +143,22 @@ const withAdminLayout = (Component: ComponentType) => {
 
 					<Drawer
 						sx={{
-							width: drawerWidth,
+							width: compact ? 0 : drawerWidth,
 							flexShrink: 0,
 							'& .MuiDrawer-paper': {
-								width: drawerWidth,
+								width: compact ? 0 : drawerWidth,
 								boxSizing: 'border-box',
 							},
 						}}
-						variant="permanent"
+						variant={compact ? 'temporary' : 'permanent'}
+						open={!compact || drawerOpen}
+						onClose={() => setDrawerOpen(false)}
 						anchor="left"
 						className="aside"
 					>
 						<Toolbar sx={{ flexDirection: 'column', alignItems: 'flexStart' }}>
 							<Stack className={'logo-box'}>
-								<img src={'/img/logo/logoText.svg'} alt={'logo'} />
+								<strong className="skiresort-wordmark">SkiResort</strong>
 							</Stack>
 
 							<Stack

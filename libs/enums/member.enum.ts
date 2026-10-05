@@ -1,6 +1,6 @@
-export enum MemberType {
+﻿export enum MemberType {
 	USER = 'USER',
-	AGENT = 'AGENT',
+	INSTRUCTOR = 'INSTRUCTOR',
 	ADMIN = 'ADMIN',
 }
 
@@ -13,5 +13,5 @@ export enum MemberStatus {
 export enum MemberAuthType {
 	PHONE = 'PHONE',
 	EMAIL = 'EMAIL',
-	TELEGRAM = 'TELEGRAM',
+	TELEGRAPH = 'TELEGRAPH',
 }

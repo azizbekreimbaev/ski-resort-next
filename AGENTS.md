@@ -145,6 +145,7 @@ For every major frontend phase:
 9. Remove obsolete domain references from the changed area.
 10. Run TypeScript/lint/build checks.
 11. Report changed files, tests/checks and remaining work.
+12. Write to memory.md if made changes.
 
 ## Migration Order
 

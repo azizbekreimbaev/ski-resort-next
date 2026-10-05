@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+﻿import { gql } from '@apollo/client';
 
 /**************************
  *         MEMBER         *
@@ -34,66 +34,8 @@ export const UPDATE_MEMBER_BY_ADMIN = gql`
 `;
 
 /**************************
- *        PROPERTY        *
+ *        CATALOG         *
  *************************/
-
-export const UPDATE_PROPERTY_BY_ADMIN = gql`
-	mutation UpdatePropertyByAdmin($input: PropertyUpdate!) {
-		updatePropertyByAdmin(input: $input) {
-			_id
-			propertyType
-			propertyStatus
-			propertyLocation
-			propertyAddress
-			propertyTitle
-			propertyPrice
-			propertySquare
-			propertyBeds
-			propertyRooms
-			propertyViews
-			propertyLikes
-			propertyImages
-			propertyDesc
-			propertyBarter
-			propertyRent
-			memberId
-			soldAt
-			deletedAt
-			constructedAt
-			createdAt
-			updatedAt
-		}
-	}
-`;
-
-export const REMOVE_PROPERTY_BY_ADMIN = gql`
-	mutation RemovePropertyByAdmin($input: String!) {
-		removePropertyByAdmin(input: $input) {
-			_id
-			propertyType
-			propertyStatus
-			propertyLocation
-			propertyAddress
-			propertyTitle
-			propertyPrice
-			propertySquare
-			propertyBeds
-			propertyRooms
-			propertyViews
-			propertyLikes
-			propertyImages
-			propertyDesc
-			propertyBarter
-			propertyRent
-			memberId
-			soldAt
-			deletedAt
-			constructedAt
-			createdAt
-			updatedAt
-		}
-	}
-`;
 
 /**************************
  *      BOARD-ARTICLE     *
@@ -150,6 +92,68 @@ export const REMOVE_COMMENT_BY_ADMIN = gql`
 			memberId
 			createdAt
 			updatedAt
+		}
+	}
+`;
+
+export const CREATE_RESORT = gql`
+	mutation CreateResort($input: ResortInput!) {
+		createResort(input: $input) {
+			_id
+		}
+	}
+`;
+export const UPDATE_RESORT_BY_ADMIN = gql`
+	mutation UpdateResortByAdmin($input: ResortUpdate!) {
+		updateResortByAdmin(input: $input) {
+			_id
+			resortStatus
+		}
+	}
+`;
+export const REMOVE_RESORT_BY_ADMIN = gql`
+	mutation RemoveResortByAdmin($resortId: String!) {
+		removeResortByAdmin(resortId: $resortId) {
+			_id
+		}
+	}
+`;
+export const CREATE_EQUIPMENT = gql`
+	mutation CreateEquipment($input: EquipmentInput!) {
+		createEquipment(input: $input) {
+			_id
+		}
+	}
+`;
+export const UPDATE_EQUIPMENT_BY_ADMIN = gql`
+	mutation UpdateEquipmentByAdmin($input: EquipmentUpdate!) {
+		updateEquipmentByAdmin(input: $input) {
+			_id
+			equipmentStatus
+		}
+	}
+`;
+export const REMOVE_EQUIPMENT_BY_ADMIN = gql`
+	mutation RemoveEquipmentByAdmin($equipmentId: String!) {
+		removeEquipmentByAdmin(equipmentId: $equipmentId) {
+			_id
+		}
+	}
+`;
+export const APPROVE_INSTRUCTOR_APPLICATION_BY_ADMIN = gql`
+	mutation ApproveInstructorApplicationByAdmin($applicationId: String!) {
+		approveInstructorApplicationByAdmin(applicationId: $applicationId) {
+			_id
+			applicationStatus
+		}
+	}
+`;
+export const REJECT_INSTRUCTOR_APPLICATION_BY_ADMIN = gql`
+	mutation RejectInstructorApplicationByAdmin($input: InstructorApplicationReject!) {
+		rejectInstructorApplicationByAdmin(input: $input) {
+			_id
+			applicationStatus
+			rejectionReason
 		}
 	}
 `;

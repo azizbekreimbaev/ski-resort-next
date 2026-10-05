@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+﻿import React, { useCallback, useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { useRouter, withRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -12,7 +12,8 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import { CaretDown } from 'phosphor-react';
 import useDeviceDetect from '../hooks/useDeviceDetect';
 import Link from 'next/link';
-import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
+import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import IconButton from '@mui/material/IconButton';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../apollo/store';
 import { Logout } from '@mui/icons-material';
@@ -45,7 +46,7 @@ const Top = () => {
 
 	useEffect(() => {
 		switch (router.pathname) {
-			case '/property/detail':
+			case '/resort/detail':
 				setBgColor(true);
 				break;
 			default:
@@ -135,25 +136,48 @@ const Top = () => {
 		},
 	}));
 
-	if (typeof window !== 'undefined') {
+	useEffect(() => {
 		window.addEventListener('scroll', changeNavbarColor);
-	}
+		return () => window.removeEventListener('scroll', changeNavbarColor);
+	}, []);
 
 	if (device == 'mobile') {
 		return (
 			<Stack className={'top'}>
+				<Link href={'/'} aria-label="SkiResort home">
+					<strong className="skiresort-wordmark">SkiResort</strong>
+				</Link>
 				<Link href={'/'}>
 					<div>{t('Home')}</div>
 				</Link>
-				<Link href={'/property'}>
-					<div>{t('Properties')}</div>
+				<Link href={'/resort'}>
+					<div>{t('Resorts')}</div>
 				</Link>
-				<Link href={'/agent'}>
-					<div> {t('Agents')} </div>
+				<Link href={'/instructor'}>
+					<div> {t('Instructors')} </div>
+				</Link>
+				<Link href={'/equipment'}>
+					<div>{t('Equipments')}</div>
 				</Link>
 				<Link href={'/community?articleCategory=FREE'}>
 					<div> {t('Community')} </div>
 				</Link>
+				{user._id && device === 'mobile' && (
+					<>
+						<IconButton component={Link} href="/mypage?category=myFavorites" aria-label={t('My Favorites')}>
+							<FavoriteBorderRoundedIcon />
+						</IconButton>
+						<Button component={Link} href="/mypage">
+							{t('My Page')}
+						</Button>
+						<Button onClick={() => logOut()}>{t('Logout')}</Button>
+					</>
+				)}
+				{!user._id && device === 'mobile' && (
+					<Button component={Link} href="/account/join">
+						{t('Login')} / {t('Register')}
+					</Button>
+				)}
 				<Link href={'/cs'}>
 					<div> {t('CS')} </div>
 				</Link>
@@ -166,18 +190,21 @@ const Top = () => {
 					<Stack className={'container'}>
 						<Box component={'div'} className={'logo-box'}>
 							<Link href={'/'}>
-								<img src="/img/logo/logoWhite.svg" alt="" />
+								<strong className="skiresort-wordmark skiresort-wordmark-light">SkiResort</strong>
 							</Link>
 						</Box>
 						<Box component={'div'} className={'router-box'}>
 							<Link href={'/'}>
 								<div>{t('Home')}</div>
 							</Link>
-							<Link href={'/property'}>
-								<div>{t('Properties')}</div>
+							<Link href={'/resort'}>
+								<div>{t('Resorts')}</div>
 							</Link>
-							<Link href={'/agent'}>
-								<div> {t('Agents')} </div>
+							<Link href={'/instructor'}>
+								<div> {t('Instructors')} </div>
+							</Link>
+							<Link href={'/equipment'}>
+								<div>{t('Equipments')}</div>
 							</Link>
 							<Link href={'/community?articleCategory=FREE'}>
 								<div> {t('Community')} </div>
@@ -187,6 +214,22 @@ const Top = () => {
 									<div> {t('My Page')} </div>
 								</Link>
 							)}
+							{user._id && device === 'mobile' && (
+								<>
+									<IconButton component={Link} href="/mypage?category=myFavorites" aria-label={t('My Favorites')}>
+										<FavoriteBorderRoundedIcon />
+									</IconButton>
+									<Button component={Link} href="/mypage">
+										{t('My Page')}
+									</Button>
+									<Button onClick={() => logOut()}>{t('Logout')}</Button>
+								</>
+							)}
+							{!user._id && device === 'mobile' && (
+								<Button component={Link} href="/account/join">
+									{t('Login')} / {t('Register')}
+								</Button>
+							)}
 							<Link href={'/cs'}>
 								<div> {t('CS')} </div>
 							</Link>
@@ -194,14 +237,19 @@ const Top = () => {
 						<Box component={'div'} className={'user-box'}>
 							{user?._id ? (
 								<>
-									<div className={'login-user'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)}>
+									<button
+										type="button"
+										aria-label={t('My Page')}
+										className={'login-user'}
+										onClick={(event) => setLogoutAnchor(event.currentTarget)}
+									>
 										<img
 											src={
 												user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'
 											}
 											alt=""
 										/>
-									</div>
+									</button>
 
 									<Menu
 										id="basic-menu"
@@ -212,6 +260,9 @@ const Top = () => {
 										}}
 										sx={{ mt: '5px' }}
 									>
+										<MenuItem component={Link} href="/mypage" onClick={() => setLogoutAnchor(null)}>
+											{t('My Page')}
+										</MenuItem>
 										<MenuItem onClick={() => logOut()}>
 											<Logout fontSize="small" style={{ color: 'blue', marginRight: '10px' }} />
 											Logout
@@ -230,7 +281,11 @@ const Top = () => {
 							)}
 
 							<div className={'lan-box'}>
-								{user?._id && <NotificationsOutlinedIcon className={'notification-icon'} />}
+								{user?._id && (
+									<IconButton component={Link} href="/mypage?category=myFavorites" aria-label={t('My Favorites')}>
+										<FavoriteBorderRoundedIcon />
+									</IconButton>
+								)}
 								<Button
 									disableRipple
 									className="btn-lang"

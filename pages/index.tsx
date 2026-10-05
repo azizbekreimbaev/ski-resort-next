@@ -1,48 +1,35 @@
-import { NextPage } from 'next';
-import useDeviceDetect from '../libs/hooks/useDeviceDetect';
-import withLayoutMain from '../libs/components/layout/LayoutHome';
-import CommunityBoards from '../libs/components/homepage/CommunityBoards';
-import PopularProperties from '../libs/components/homepage/PopularProperties';
-import TopAgents from '../libs/components/homepage/TopAgents';
-import Events from '../libs/components/homepage/Events';
-import TrendProperties from '../libs/components/homepage/TrendProperties';
-import TopProperties from '../libs/components/homepage/TopProperties';
+﻿import useCatalogFavorite from '../libs/hooks/useCatalogFavorite';
+import React from 'react';
+import { GetStaticProps, NextPage } from 'next';
 import { Stack } from '@mui/material';
-import Advertisement from '../libs/components/homepage/Advertisement';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import withLayoutMain from '../libs/components/layout/LayoutHome';
+import PopularResorts from '../libs/components/homepage/PopularResorts';
+import ResortDifficultySection from '../libs/components/homepage/ResortDifficultySection';
+import TrendResorts from '../libs/components/homepage/TrendResorts';
+import EquipmentSection from '../libs/components/homepage/EquipmentSection';
+import TopInstructors from '../libs/components/homepage/TopInstructors';
+import WhySkiResort from '../libs/components/homepage/WhySkiResort';
+import HomeCTA from '../libs/components/homepage/HomeCTA';
 
-export const getStaticProps = async ({ locale }: any) => ({
-	props: {
-		...(await serverSideTranslations(locale, ['common'])),
-	},
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+	props: { ...(await serverSideTranslations(locale ?? 'en', ['common'])) },
 });
 
 const Home: NextPage = () => {
-	const device = useDeviceDetect();
+	const { pending: pendingIds, toggle: favoriteHandler } = useCatalogFavorite('resort');
 
-	if (device === 'mobile') {
-		return (
-			<Stack className={'home-page'}>
-				<TrendProperties />
-				<PopularProperties />
-				<Advertisement />
-				<TopProperties />
-				<TopAgents />
-			</Stack>
-		);
-	} else {
-		return (
-			<Stack className={'home-page'}>
-				<TrendProperties />
-				<PopularProperties />
-				<Advertisement />
-				<TopProperties />
-				<TopAgents />
-				<Events />
-				<CommunityBoards />
-			</Stack>
-		);
-	}
+	return (
+		<Stack className="home-page skiresort-home">
+			<PopularResorts pendingIds={pendingIds} onFavorite={favoriteHandler} />
+			<ResortDifficultySection />
+			<TrendResorts pendingIds={pendingIds} onFavorite={favoriteHandler} />
+			<EquipmentSection />
+			<TopInstructors />
+			<WhySkiResort />
+			<HomeCTA />
+		</Stack>
+	);
 };
 
 export default withLayoutMain(Home);

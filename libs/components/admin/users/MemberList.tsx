@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import Link from 'next/link';
 import {
 	TableCell,
@@ -197,7 +197,12 @@ export const MemberPanelList = (props: MemberPanelListType) => {
 												sx={{ p: 1 }}
 											>
 												{Object.values(MemberType)
-													.filter((ele) => ele !== member?.memberType)
+													.filter(
+														(ele) =>
+															member.memberType !== MemberType.INSTRUCTOR &&
+															ele !== MemberType.INSTRUCTOR &&
+															ele !== member?.memberType,
+													)
 													.map((type: string) => (
 														<MenuItem
 															onClick={() => updateMemberHandler({ _id: member._id, memberType: type })}
