@@ -2,9 +2,8 @@ import React from 'react';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import withAdminLayout from '../../../libs/components/layout/LayoutAdmin';
-import AdminEquipment from '../../../libs/components/admin/AdminEquipment';
+import AdminEquipmentCreate from '../../../libs/components/admin/AdminEquipmentCreate';
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
 	props: { ...(await serverSideTranslations(locale ?? 'en', ['common'])) },
 });
-const Page = () => <AdminEquipment />;
-export default withAdminLayout(Page, { membersDesign: true });
+export default withAdminLayout(AdminEquipmentCreate, { membersDesign: true });

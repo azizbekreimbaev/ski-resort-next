@@ -28,7 +28,7 @@ export default function ResourceComments({
 	group: 'RESORT' | 'EQUIPMENT' | 'MEMBER' | 'ARTICLE';
 	onChange?: () => Promise<unknown>;
 	onTotalChange?: (total: number) => void;
-	variant?: 'community';
+	variant?: 'community' | 'instructor';
 }) {
 	const { t, i18n } = useTranslation('common');
 	const user = useReactiveVar(userVar);
@@ -123,8 +123,8 @@ export default function ResourceComments({
 		}
 	};
 	const composer = user._id ? (
-		<Stack spacing={1} className={variant === 'community' ? 'detail-comment-composer' : undefined}>
-			{variant === 'community' && (
+		<Stack spacing={1} className={variant ? 'detail-comment-composer' : undefined}>
+			{variant && (
 				<>
 					<Typography component="h3">{t(editing ? 'Edit comment' : 'Write a Comment')}</Typography>
 					<div className="detail-comment-identity">
@@ -137,7 +137,7 @@ export default function ResourceComments({
 			)}
 			<TextField
 				multiline
-				minRows={variant === 'community' ? 3 : undefined}
+				minRows={variant ? 3 : undefined}
 				label={t('Comment')}
 				inputRef={inputRef}
 				inputProps={{ maxLength: 100 }}
@@ -175,9 +175,7 @@ export default function ResourceComments({
 		<Stack spacing={2}>
 			<Typography component="h2" variant="h5">
 				{t('Comments')}
-				{variant === 'community' && data?.getComments && !error
-					? ` (${data.getComments.metaCounter?.[0]?.total ?? 0})`
-					: ''}
+				{variant && data?.getComments && !error ? ` (${data.getComments.metaCounter?.[0]?.total ?? 0})` : ''}
 			</Typography>
 			<HomeCollectionState
 				loading={loading}
@@ -188,7 +186,7 @@ export default function ResourceComments({
 			{failure && <Alert severity="error">{failure}</Alert>}
 			{data?.getComments.list.map((comment) => (
 				<Stack key={comment._id} className="resource-comment" spacing={1}>
-					{variant === 'community' && (
+					{variant && (
 						<Avatar src={homeImageUrl(comment.memberData?.memberImage)}>
 							{(comment.memberData?.memberNick ?? String(t('Member'))).slice(0, 2).toUpperCase()}
 						</Avatar>

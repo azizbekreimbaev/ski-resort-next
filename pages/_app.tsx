@@ -11,6 +11,8 @@ import '../scss/pc/main.scss';
 import '../scss/mobile/main.scss';
 import '../scss/home-discovery.scss';
 import '../scss/snowkr.scss';
+import '../scss/instructor-directory.scss';
+import '../scss/instructor-detail.scss';
 
 const App = ({ Component, pageProps }: AppProps) => {
 	// @ts-ignore

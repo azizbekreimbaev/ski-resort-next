@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { Alert, Button, MenuItem, Stack, TextField, Typography } from '@mui/material';
 import { useTranslation } from 'next-i18next';
@@ -26,6 +26,7 @@ export default function InstructorWorkflow() {
 	});
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState(false);
+	const submitting = useRef(false);
 	const application = useQuery<{ getMyInstructorApplication: Application | null }>(GET_MY_INSTRUCTOR_APPLICATION, {
 		skip: !ready || !user._id || profile,
 		fetchPolicy: 'network-only',
@@ -59,6 +60,7 @@ export default function InstructorWorkflow() {
 	const current = application.data?.getMyInstructorApplication;
 	const submit = async (event: React.FormEvent) => {
 		event.preventDefault();
+		if (submitting.current) return;
 		setError('');
 		setSuccess(false);
 		const languages = form.languages
@@ -81,6 +83,7 @@ export default function InstructorWorkflow() {
 			instructorAudience: form.audience || null,
 			instructorResortId: form.resort || null,
 		};
+		submitting.current = true;
 		try {
 			if (profile) {
 				const result = await update({
@@ -108,6 +111,8 @@ export default function InstructorWorkflow() {
 			setSuccess(true);
 		} catch (failure) {
 			setError(failure instanceof Error ? failure.message : t('Unable to save'));
+		} finally {
+			submitting.current = false;
 		}
 	};
 	if (!ready || !user._id) return null;
@@ -129,85 +134,86 @@ export default function InstructorWorkflow() {
 					{current.applicationStatus === 'APPROVED' && ` — ${t('Sign in again to activate your Instructor role.')}`}
 				</Alert>
 			)}
-			{(profile ||
-				(user.memberType === 'USER' &&
-					current?.applicationStatus !== 'PENDING' &&
-					current?.applicationStatus !== 'APPROVED')) && (
-				<Stack component="form" onSubmit={submit} spacing={2}>
-					<TextField
-						type="number"
-						inputProps={{ min: 0, step: 1 }}
-						required={!profile}
-						label={t('Experience years')}
-						value={form.experience}
-						onChange={(event) => setForm({ ...form, experience: event.target.value })}
-					/>
-					<TextField
-						required={!profile}
-						label={t('Languages separated by commas')}
-						value={form.languages}
-						onChange={(event) => setForm({ ...form, languages: event.target.value })}
-					/>
-					<TextField
-						select
-						required={!profile}
-						label={t('Instructor level')}
-						value={form.level}
-						onChange={(event) => setForm({ ...form, level: event.target.value })}
-					>
-						<MenuItem value="">{t('Not configured')}</MenuItem>
-						{Object.values(InstructorLevel).map((level) => (
-							<MenuItem key={level} value={level}>
-								{t(`Instructor level ${level}`)}
-							</MenuItem>
-						))}
-					</TextField>
-					<TextField
-						select
-						required={!profile}
-						label={t('Audience')}
-						value={form.audience}
-						onChange={(event) => setForm({ ...form, audience: event.target.value })}
-					>
-						<MenuItem value="">{t('Not configured')}</MenuItem>
-						{Object.values(InstructorAudience).map((audience) => (
-							<MenuItem key={audience} value={audience}>
-								{t(`Audience ${audience}`)}
-							</MenuItem>
-						))}
-					</TextField>
-					<ResortSelect value={form.resort} onChange={(resort) => setForm({ ...form, resort })} />
-					{profile ? (
-						form.prices.map((price, index) => (
-							<TextField
-								key={index}
-								type="number"
-								inputProps={{ min: 0 }}
-								label={`${t('Weekly price')} (${index + 1})`}
-								value={price}
-								onChange={(event) =>
-									setForm({
-										...form,
-										prices: form.prices.map((value, i) => (i === index ? event.target.value : value)),
-									})
-								}
-							/>
-						))
-					) : (
+			{!(profile ? member.loading || member.error : application.loading || application.error) &&
+				(profile ||
+					(user.memberType === 'USER' &&
+						current?.applicationStatus !== 'PENDING' &&
+						current?.applicationStatus !== 'APPROVED')) && (
+					<Stack component="form" onSubmit={submit} spacing={2}>
 						<TextField
-							multiline
-							label={t('Biography')}
-							value={form.bio}
-							onChange={(event) => setForm({ ...form, bio: event.target.value })}
+							type="number"
+							inputProps={{ min: 0, step: 1 }}
+							required={!profile}
+							label={t('Experience years')}
+							value={form.experience}
+							onChange={(event) => setForm({ ...form, experience: event.target.value })}
 						/>
-					)}
-					{error && <Alert severity="error">{error}</Alert>}
-					{success && <Alert severity="success">{t('Saved successfully')}</Alert>}
-					<Button variant="contained" type="submit" disabled={createState.loading || updateState.loading}>
-						{t(profile ? 'Save' : 'Submit application')}
-					</Button>
-				</Stack>
-			)}
+						<TextField
+							required={!profile}
+							label={t('Languages separated by commas')}
+							value={form.languages}
+							onChange={(event) => setForm({ ...form, languages: event.target.value })}
+						/>
+						<TextField
+							select
+							required={!profile}
+							label={t('Instructor level')}
+							value={form.level}
+							onChange={(event) => setForm({ ...form, level: event.target.value })}
+						>
+							<MenuItem value="">{t('Not configured')}</MenuItem>
+							{Object.values(InstructorLevel).map((level) => (
+								<MenuItem key={level} value={level}>
+									{t(`Instructor level ${level}`)}
+								</MenuItem>
+							))}
+						</TextField>
+						<TextField
+							select
+							required={!profile}
+							label={t('Audience')}
+							value={form.audience}
+							onChange={(event) => setForm({ ...form, audience: event.target.value })}
+						>
+							<MenuItem value="">{t('Not configured')}</MenuItem>
+							{Object.values(InstructorAudience).map((audience) => (
+								<MenuItem key={audience} value={audience}>
+									{t(`Audience ${audience}`)}
+								</MenuItem>
+							))}
+						</TextField>
+						<ResortSelect value={form.resort} onChange={(resort) => setForm({ ...form, resort })} />
+						{profile ? (
+							form.prices.map((price, index) => (
+								<TextField
+									key={index}
+									type="number"
+									inputProps={{ min: 0 }}
+									label={`${t('Weekly price')} (${index + 1})`}
+									value={price}
+									onChange={(event) =>
+										setForm({
+											...form,
+											prices: form.prices.map((value, i) => (i === index ? event.target.value : value)),
+										})
+									}
+								/>
+							))
+						) : (
+							<TextField
+								multiline
+								label={t('Biography')}
+								value={form.bio}
+								onChange={(event) => setForm({ ...form, bio: event.target.value })}
+							/>
+						)}
+						{error && <Alert severity="error">{error}</Alert>}
+						{success && <Alert severity="success">{t('Saved successfully')}</Alert>}
+						<Button variant="contained" type="submit" disabled={createState.loading || updateState.loading}>
+							{t(profile ? 'Save' : 'Submit application')}
+						</Button>
+					</Stack>
+				)}
 		</Stack>
 	);
 }

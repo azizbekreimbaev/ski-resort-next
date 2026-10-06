@@ -1,0 +1,623 @@
+﻿#pc-wrap.snowkr-app .account-dashboard {
+	padding-top: 36px;
+	padding-bottom: 40px;
+	color: #0f172a;
+	h1,
+	h2,
+	h3,
+	p {
+		margin: 0;
+	}
+	h2 {
+		font-size: 19px;
+		font-weight: 700;
+	}
+	p {
+		color: #64748b;
+		font-size: 13px;
+		line-height: 1.7;
+	}
+	.MuiButton-root {
+		text-transform: none;
+		border-radius: 8px;
+		font-size: 12px;
+		box-shadow: none;
+	}
+	.MuiButton-contained {
+		background: #0284c7;
+	}
+	.MuiButton-outlined {
+		border-color: #e2e8f0;
+		color: #334155;
+	}
+	.account-identity {
+		display: flex;
+		align-items: center;
+		gap: 24px;
+		padding: 32px;
+		border: 1px solid #e2e8f0;
+		border-radius: 16px;
+		background: linear-gradient(110deg, #fff 65%, #f0f9ff);
+		margin-bottom: 32px;
+	}
+	.account-identity > img {
+		width: 100px;
+		height: 100px;
+		border-radius: 16px;
+		object-fit: cover;
+		background: #e0e7ff;
+	}
+	.account-identity-copy {
+		flex: 1;
+		min-width: 0;
+	}
+	.account-name {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		flex-wrap: wrap;
+		margin-bottom: 8px;
+		h1 {
+			font-size: 28px;
+		}
+		span {
+			color: #64748b;
+			font-size: 13px;
+		}
+		b {
+			color: #0284c7;
+			background: #e0f2fe;
+			font-size: 11px;
+			padding: 4px 10px;
+			border-radius: 6px;
+		}
+	}
+	.account-meta {
+		display: flex;
+		gap: 24px;
+		flex-wrap: wrap;
+		margin-top: 14px;
+		color: #64748b;
+		font-size: 12px;
+		span {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
+		svg {
+			width: 15px;
+			height: 15px;
+		}
+	}
+	.account-layout {
+		display: grid;
+		grid-template-columns: 280px minmax(0, 1fr);
+		gap: 32px;
+		align-items: flex-start;
+	}
+	.account-navigation {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 16px;
+		padding: 16px;
+		position: sticky;
+		top: 96px;
+		> p {
+			font-size: 10px;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			padding: 8px 12px 14px;
+		}
+		nav {
+			display: flex;
+			flex-direction: column;
+			gap: 6px;
+		}
+		nav a {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 12px;
+			font-size: 13px;
+			border-radius: 8px;
+		}
+		svg {
+			width: 19px;
+			height: 19px;
+		}
+		small {
+			margin-left: auto;
+			border-radius: 20px;
+			background: #f1f5f9;
+			color: #64748b;
+			padding: 2px 6px;
+		}
+		nav a:hover {
+			background: #f0f9ff;
+		}
+		nav a.active {
+			background: #0284c7;
+			color: #fff;
+		}
+	}
+	.account-logout {
+		border: 0;
+		background: transparent;
+		color: #ef4444;
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 16px 12px 8px;
+		margin-top: 18px;
+		border-top: 1px solid #e2e8f0;
+		width: 100%;
+		cursor: pointer;
+	}
+	.account-content {
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+	.account-stats {
+		display: grid;
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+		gap: 14px;
+	}
+	.account-stat {
+		border: 1px solid #e2e8f0;
+		border-radius: 14px;
+		padding: 18px 16px;
+		background: #fff;
+		div {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-size: 12px;
+			gap: 4px;
+		}
+		svg {
+			width: 16px;
+			color: #0284c7;
+		}
+		strong {
+			display: block;
+			font-size: 28px;
+			margin-top: 12px;
+			font-weight: 500;
+		}
+		small {
+			font-size: 10px;
+			color: #64748b;
+		}
+		&:hover {
+			border-color: #0284c7;
+		}
+	}
+	.account-instructor-banner {
+		padding: 24px;
+		border-radius: 16px;
+		background: linear-gradient(110deg, #0284c7, #0f172a);
+		color: white;
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		justify-content: space-between;
+		small {
+			font-size: 10px;
+			letter-spacing: 0.8px;
+			padding: 4px 8px;
+			background: #ffffff20;
+			border-radius: 6px;
+		}
+		h2 {
+			margin: 12px 0 8px;
+			font-size: 22px;
+		}
+		p {
+			color: #e0f2fe;
+			max-width: 580px;
+		}
+		.MuiButton-root {
+			background: white;
+			color: #0f172a;
+			flex-shrink: 0;
+		}
+	}
+	.account-section {
+		background: #fff;
+		padding: 24px;
+		border: 1px solid #e2e8f0;
+		border-radius: 16px;
+		min-width: 0;
+		scroll-margin-top: 100px;
+		> .MuiStack-root > h1 {
+			font-size: 20px;
+		}
+	}
+	.account-highlights {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 24px;
+		h2 {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			font-size: 16px;
+			margin-bottom: 18px;
+			svg {
+				width: 18px;
+				color: #0284c7;
+			}
+		}
+		a:not(.MuiButton-root) {
+			display: flex;
+			justify-content: space-between;
+			padding: 12px 0;
+			font-size: 12px;
+			color: #475569;
+			border-top: 1px solid #f1f5f9;
+		}
+		.MuiButton-root {
+			margin-top: 18px;
+			width: 100%;
+		}
+	}
+	.account-section-heading {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 16px;
+		margin-bottom: 24px;
+		p {
+			margin-top: 5px;
+		}
+	}
+	.account-photo {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		background: #f8fafc;
+		padding: 20px;
+		border-radius: 12px;
+		margin-bottom: 24px;
+		img {
+			width: 80px;
+			height: 80px;
+			border-radius: 12px;
+			object-fit: cover;
+			background: #e0e7ff;
+		}
+		h3 {
+			font-size: 14px;
+		}
+		p {
+			margin: 6px 0 10px;
+			font-size: 11px;
+		}
+	}
+	.account-form-grid,
+	.account-instructor form {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 24px 18px;
+		.MuiTextField-root {
+			margin: 0;
+		}
+	}
+	.account-full-field {
+		grid-column: 1/-1;
+	}
+	.MuiOutlinedInput-root {
+		background: #f8fafc;
+		border-radius: 8px;
+		font-size: 13px;
+	}
+	.MuiOutlinedInput-notchedOutline {
+		border-color: #e2e8f0;
+	}
+	.MuiInputLabel-root {
+		font-size: 13px;
+	}
+	.account-profile-form > .MuiAlert-root {
+		margin-top: 20px;
+	}
+	.account-instructor form > .MuiButton-root,
+	.account-instructor form > .MuiAlert-root {
+		grid-column: 1/-1;
+	}
+	.account-instructor form > .MuiButton-root {
+		justify-self: end;
+	}
+	#member-follows-page {
+		.follows-list-box {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 16px;
+			> * {
+				margin: 0;
+			}
+		}
+		.follows-card-box {
+			border: 1px solid #e2e8f0;
+			border-radius: 12px;
+			padding: 16px;
+			gap: 10px;
+		}
+		.info {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			.MuiButton-root {
+				padding: 0;
+				text-align: left;
+			}
+			.MuiTypography-root {
+				display: block;
+			}
+		}
+		.profile-avatar {
+			width: 48px;
+			height: 48px;
+			border-radius: 10px;
+			object-fit: cover;
+			background: #e0e7ff;
+		}
+		.action-box .MuiButton-root {
+			width: 100%;
+		}
+	}
+	.catalog-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 18px;
+	}
+	a:focus-visible,
+	button:focus-visible {
+		outline: 3px solid #38bdf8;
+		outline-offset: 3px;
+	}
+	@media (max-width: 1150px) {
+		.account-layout {
+			grid-template-columns: 220px minmax(0, 1fr);
+			gap: 20px;
+		}
+		.account-stats {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+		#member-follows-page .follows-list-box,
+		.catalog-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+	@media (max-width: 800px) {
+		padding-top: 20px;
+		.account-layout {
+			grid-template-columns: 1fr;
+		}
+		.account-navigation {
+			position: static;
+			nav {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+		}
+		.account-identity {
+			flex-wrap: wrap;
+			padding: 20px;
+			gap: 16px;
+		}
+		.account-identity > img {
+			width: 72px;
+			height: 72px;
+		}
+		.account-name h1 {
+			font-size: 22px;
+		}
+		.account-identity > .MuiButton-root {
+			margin-left: 88px;
+		}
+		.account-highlights {
+			grid-template-columns: 1fr;
+		}
+		.account-instructor-banner {
+			flex-wrap: wrap;
+		}
+	}
+	@media (max-width: 480px) {
+		.account-stats {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+		.account-section {
+			padding: 18px;
+		}
+		.account-form-grid,
+		.account-instructor form,
+		#member-follows-page .follows-list-box,
+		.catalog-grid {
+			grid-template-columns: 1fr;
+		}
+		.account-section-heading {
+			flex-wrap: wrap;
+		}
+		.account-meta {
+			gap: 12px;
+		}
+		.account-photo {
+			padding: 14px;
+			gap: 12px;
+		}
+	}
+}
+#pc-wrap.snowkr-app .account-dashboard .account-article-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 18px;
+	> div {
+		padding: 18px;
+		border: 1px solid #e2e8f0;
+		border-radius: 12px;
+	}
+	.snowkr-article-card {
+		border: 0;
+		padding: 0;
+		box-shadow: none;
+		h3 {
+			font-size: 16px;
+			margin: 14px 0 10px;
+		}
+		> p {
+			font-size: 12px;
+			color: #64748b;
+		}
+	}
+	.snowkr-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		font-size: 10px;
+		color: #64748b;
+		margin-top: 16px;
+	}
+	@media (max-width: 600px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// Keep legacy Member layout rules and the global box-sizing reset out of account forms.
+#pc-wrap.snowkr-app #main .account-dashboard {
+	.account-section {
+		padding: 24px;
+	}
+	.account-form-grid,
+	.account-instructor form {
+		align-items: flex-start;
+		gap: 24px 20px;
+		> * {
+			min-width: 0;
+			margin: 0;
+		}
+	}
+	.account-profile-form,
+	.account-instructor {
+		.MuiFormControl-root {
+			width: 100%;
+		}
+		.MuiOutlinedInput-root {
+			min-height: 48px;
+		}
+		.MuiOutlinedInput-input {
+			box-sizing: content-box;
+			height: 1.4375em;
+			padding: 13px 14px;
+			line-height: 1.4375;
+		}
+		.MuiInputLabel-outlined {
+			transform: translate(14px, 15px) scale(1);
+		}
+		.MuiInputLabel-shrink {
+			transform: translate(14px, -9px) scale(0.75);
+		}
+		.MuiInputBase-multiline {
+			padding: 14px;
+			.MuiOutlinedInput-input {
+				height: auto;
+				padding: 0;
+				line-height: 1.6;
+			}
+		}
+		.MuiAutocomplete-root .MuiOutlinedInput-root {
+			padding: 0 40px 0 0;
+			.MuiAutocomplete-input {
+				padding: 13px 14px;
+			}
+		}
+	}
+	.account-instructor form > .MuiButton-root {
+		min-height: 40px;
+		margin-top: 0;
+		padding: 10px 24px;
+	}
+	.account-photo {
+		margin-bottom: 28px;
+	}
+	.account-section-heading .MuiButton-root {
+		min-height: 40px;
+		padding: 10px 20px;
+		flex-shrink: 0;
+	}
+	#member-follows-page {
+		align-items: stretch;
+		justify-content: flex-start;
+		> h1 {
+			width: 100%;
+			text-align: left;
+			margin: 0;
+			line-height: 1.4;
+		}
+		.follows-list-box {
+			margin-top: 24px;
+			align-items: stretch;
+			> * {
+				margin: 0;
+			}
+		}
+		.follows-card-box {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr);
+			align-items: stretch;
+			gap: 10px;
+			padding: 16px;
+			margin: 0;
+			height: auto;
+			min-width: 0;
+			.info {
+				width: 100%;
+				flex: none;
+				min-width: 0;
+				gap: 12px;
+			}
+			.info > img {
+				width: 48px;
+				height: 48px;
+				flex-shrink: 0;
+			}
+			.info > div {
+				min-width: 0;
+			}
+			.info .MuiButton-root {
+				min-width: 0;
+				justify-content: flex-start;
+				overflow-wrap: anywhere;
+				line-height: 1.5;
+			}
+			.details-box,
+			.action-box {
+				width: 100%;
+				margin: 0;
+				padding: 0;
+			}
+			.details-box {
+				justify-content: flex-start;
+			}
+			.details-box .MuiButton-root {
+				min-width: 0;
+				padding: 0;
+			}
+			.action-box .MuiButton-root {
+				min-height: 36px;
+				width: 100%;
+			}
+		}
+	}
+	@media (max-width: 480px) {
+		.account-section {
+			padding: 18px;
+		}
+		.account-form-grid,
+		.account-instructor form {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 22px;
+		}
+	}
+}

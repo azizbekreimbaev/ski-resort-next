@@ -9,7 +9,7 @@ import { BoardArticles } from '../../types/board-article/board-article';
 import useMemberSession from '../../hooks/useMemberSession';
 import ArticleCard from '../common/ArticleCard';
 import HomeCollectionState from '../homepage/HomeCollectionState';
-export default function MyArticles() {
+export default function MyArticles({ onChanged }: { onChanged?: () => Promise<unknown> }) {
 	const { user, ready } = useMemberSession();
 	const { t } = useTranslation('common');
 	const [page, setPage] = useState(1);
@@ -28,6 +28,7 @@ export default function MyArticles() {
 			await update({ variables: { input: { _id: id, articleStatus: 'DELETE' } } });
 			if (articles.length === 1 && page > 1) setPage(page - 1);
 			else await refetch();
+			await onChanged?.();
 		} catch {
 			setFailure(t('Unable to save article'));
 		}
@@ -42,18 +43,20 @@ export default function MyArticles() {
 			</Button>
 			<HomeCollectionState loading={loading} error={Boolean(error)} empty={!articles.length} retry={refetch} />
 			{failure && <Alert severity="error">{failure}</Alert>}
-			{!error &&
-				articles.map((article) => (
-					<div key={article._id}>
-						<ArticleCard article={article} />
-						<Button component={Link} href={'/mypage?category=writeArticle&articleId=' + article._id}>
-							{t('Edit')}
-						</Button>
-						<Button disabled={state.loading} onClick={() => void remove(article._id)}>
-							{t('Delete')}
-						</Button>
-					</div>
-				))}
+			<div className="account-article-grid">
+				{!error &&
+					articles.map((article) => (
+						<div key={article._id}>
+							<ArticleCard article={article} />
+							<Button component={Link} href={'/mypage?category=writeArticle&articleId=' + article._id}>
+								{t('Edit')}
+							</Button>
+							<Button disabled={state.loading} onClick={() => void remove(article._id)}>
+								{t('Delete')}
+							</Button>
+						</div>
+					))}
+			</div>
 			{total > 6 && (
 				<Pagination page={page} count={Math.ceil(total / 6)} onChange={(_event, value) => setPage(value)} />
 			)}

@@ -17,6 +17,7 @@ type Interaction = (
 	input: FollowInquiry,
 ) => Promise<void>;
 export interface MemberFollowsProps {
+	ownerId?: string;
 	initialInput?: FollowInquiry;
 	subscribeHandler: Interaction;
 	unsubscribeHandler: Interaction;
@@ -26,6 +27,7 @@ export interface MemberFollowsProps {
 export default function MemberFollows({
 	following = false,
 	initialInput,
+	ownerId,
 	subscribeHandler,
 	unsubscribeHandler,
 	likeMemberHandler,
@@ -37,7 +39,7 @@ export default function MemberFollows({
 	const [page, setPage] = useState(1);
 	const [pending, setPending] = useState('');
 	const lock = useRef(false);
-	const memberId = typeof router.query.memberId === 'string' ? router.query.memberId : user._id;
+	const memberId = ownerId ?? (typeof router.query.memberId === 'string' ? router.query.memberId : user._id);
 	const limit = initialInput?.limit ?? 5;
 	const input: FollowInquiry = {
 		page,

@@ -38,7 +38,7 @@ export default function CatalogEditor({
 						resortLocation: resort?.resortLocation ?? Object.values(ResortLocation)[0],
 						resortLevel: resort?.resortLevel ?? '',
 						resortPricePerDay: String(resort?.resortPricePerDay ?? 0),
-						resortMinDays: String(resort?.resortMinDays ?? 2),
+						resortMinDays: String(resort?.resortMinDays ?? 1),
 						resortDesc: resort?.resortDesc ?? '',
 						resortStatus: resort?.resortStatus ?? 'ACTIVE',
 				  }
@@ -175,7 +175,7 @@ export default function CatalogEditor({
 								].includes(key)}
 								multiline={key.endsWith('Desc')}
 								inputProps={{
-									min: key === 'resortMinDays' ? 2 : 0,
+									min: key === 'resortMinDays' ? 1 : 0,
 									step: key === 'resortMinDays' || key === 'equipmentQuantity' ? 1 : 'any',
 								}}
 								value={value}

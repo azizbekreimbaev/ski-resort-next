@@ -1,10 +1,10 @@
-﻿import React from 'react';
+import React from 'react';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import withAdminLayout from '../../../libs/components/layout/LayoutAdmin';
-import CatalogAdmin from '../../../libs/components/admin/CatalogAdmin';
+import AdminResorts from '../../../libs/components/admin/AdminResorts';
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
 	props: { ...(await serverSideTranslations(locale ?? 'en', ['common'])) },
 });
-const Page = () => <CatalogAdmin domain="resort" />;
-export default withAdminLayout(Page);
+const Page = () => <AdminResorts />;
+export default withAdminLayout(Page, { membersDesign: true });

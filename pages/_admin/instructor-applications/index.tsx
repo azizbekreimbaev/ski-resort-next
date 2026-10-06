@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import withAdminLayout from '../../../libs/components/layout/LayoutAdmin';
@@ -7,4 +7,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
 	props: { ...(await serverSideTranslations(locale ?? 'en', ['common'])) },
 });
 const Page = () => <InstructorApplications />;
-export default withAdminLayout(Page);
+export default withAdminLayout(Page, { membersDesign: true });

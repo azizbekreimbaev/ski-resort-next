@@ -43,7 +43,18 @@ export default function AdminMembersShell({ children }: { children: ReactNode })
 	return (
 		<div className="admin-members-shell">
 			<Head>
-				<title>{t('Members')} | SNOWKR Admin</title>
+				<title>
+					{t(
+						router.pathname.startsWith('/_admin/equipment')
+							? 'Equipment'
+						: router.pathname.startsWith('/_admin/resort')
+						? 'Resorts'
+						: router.pathname.startsWith('/_admin/community')
+						? 'Community'
+						: 'Members',
+					)}{' '}
+					| SNOWKR Admin
+				</title>
 			</Head>
 			<a className="admin-shell-skip" href="#admin-members-main">
 				{t('Skip to content')}
@@ -115,7 +126,11 @@ export default function AdminMembersShell({ children }: { children: ReactNode })
 							<Link
 								href={href}
 								key={href}
-								aria-current={router.pathname === href ? 'page' : undefined}
+								aria-current={
+									router.pathname === href || (href !== '/_admin' && router.pathname.startsWith(href + '/'))
+										? 'page'
+										: undefined
+								}
 								onClick={() => setMobileOpen(false)}
 							>
 								<Icon />
