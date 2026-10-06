@@ -29,7 +29,6 @@ const AdminCommunity: NextPage = ({ initialInquiry, ...props }: any) => {
 	);
 	const [searchType, setSearchType] = useState('ALL');
 
-
 	/** APOLLO REQUESTS **/
 	const [updateBoardArticleByAdmin] = useMutation(UPDATE_BOARD_ARTICLE_BY_ADMIN);
 	const [removeBoardArticleByAdmin] = useMutation(REMOVE_BOARD_ARTICLE_BY_ADMIN);
@@ -51,21 +50,20 @@ const AdminCommunity: NextPage = ({ initialInquiry, ...props }: any) => {
 
 	/** LIFECYCLES **/
 	useEffect(() => {
-		getAllBoardArticlesByAdminRefetch({ input: communityInquiry }).then()
+		getAllBoardArticlesByAdminRefetch({ input: communityInquiry }).then();
 	}, [communityInquiry]);
 
 	/** HANDLERS **/
 	const changePageHandler = async (event: unknown, newPage: number) => {
 		communityInquiry.page = newPage + 1;
-		getAllBoardArticlesByAdminRefetch({ input: communityInquiry })
+		getAllBoardArticlesByAdminRefetch({ input: communityInquiry });
 		setCommunityInquiry({ ...communityInquiry });
-
 	};
 
 	const changeRowsPerPageHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
 		communityInquiry.limit = parseInt(event.target.value, 10);
 		communityInquiry.page = 1;
-		getAllBoardArticlesByAdminRefetch({ input: communityInquiry })
+		getAllBoardArticlesByAdminRefetch({ input: communityInquiry });
 		setCommunityInquiry({ ...communityInquiry });
 	};
 
@@ -127,11 +125,11 @@ const AdminCommunity: NextPage = ({ initialInquiry, ...props }: any) => {
 			console.log('+updateData: ', updateData);
 			await updateBoardArticleByAdmin({
 				variables: {
-					input: updateData
-				}
-			})
+					input: updateData,
+				},
+			});
 			menuIconCloseHandler();
-			await getAllBoardArticlesByAdminRefetch({ input: communityInquiry })
+			await getAllBoardArticlesByAdminRefetch({ input: communityInquiry });
 		} catch (err: any) {
 			menuIconCloseHandler();
 			sweetErrorHandling(err).then();
@@ -143,11 +141,11 @@ const AdminCommunity: NextPage = ({ initialInquiry, ...props }: any) => {
 			if (await sweetConfirmAlert('are you sure to remove?')) {
 				await removeBoardArticleByAdmin({
 					variables: {
-						input: id
-					}
-				})
+						input: id,
+					},
+				});
 			}
-			await getAllBoardArticlesByAdminRefetch({ input: communityInquiry })
+			await getAllBoardArticlesByAdminRefetch({ input: communityInquiry });
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		}
@@ -239,3 +237,5 @@ AdminCommunity.defaultProps = {
 };
 
 export default withAdminLayout(AdminCommunity);
+
+export { getStaticProps } from '../../../libs/pageTranslations';

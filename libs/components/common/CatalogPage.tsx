@@ -61,6 +61,14 @@ export default function CatalogPage({ domain }: { domain: CatalogDomain }) {
 			<div className="catalog-layout">
 				<CatalogFilters domain={domain} input={input} onApply={navigate} />
 				<Stack spacing={3} className="catalog-content">
+					<div className="catalog-toolbar">
+						<Typography>
+							{t('Results')}: {total}
+						</Typography>
+						<Typography variant="body2" color="text.secondary">
+							{t('Sort')}: {t(input.sort)} · {input.direction}
+						</Typography>
+					</div>
 					<HomeCollectionState
 						loading={loading || !router.isReady}
 						error={Boolean(error)}

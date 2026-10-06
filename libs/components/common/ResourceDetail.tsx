@@ -17,6 +17,8 @@ import { InstructorImage } from '../homepage/InstructorCard';
 import ResourceGallery from './ResourceGallery';
 import ResourceComments from './ResourceComments';
 import HomeCollectionState from '../homepage/HomeCollectionState';
+import DemoBookingPanel from './DemoBookingPanel';
+import AssociatedResort from './AssociatedResort';
 
 export default function ResourceDetail({ domain }: { domain: CatalogDomain }) {
 	const router = useRouter();
@@ -122,97 +124,98 @@ export default function ResourceDetail({ domain }: { domain: CatalogDomain }) {
 				)}
 			</Stack>
 			{failure && <Alert severity="error">{failure}</Alert>}
-			{resort && (
-				<Stack spacing={2}>
-					<Typography>
-						{t(resort.resortLocation)} Â· {resort.resortAddress}
-					</Typography>
-					{resort.resortLevel && <Chip sx={{ alignSelf: 'flex-start' }} label={t(resort.resortLevel)} />}
-					{resort.resortStatus === 'SOLD_OUT' && <Alert severity="info">{t('Sold out')}</Alert>}
-					<Typography variant="h5">
-						{homePrice(resort.resortPricePerDay, i18n.language)} / {t('day')}
-					</Typography>
-					<Typography>{t('Minimum stay', { count: resort.resortMinDays })}</Typography>
-					<Stack direction="row" gap={1} flexWrap="wrap">
-						{resort.resortFacilities?.map((facility) => (
-							<Chip key={facility} label={t(facility)} />
-						))}
-					</Stack>
-					<Typography sx={{ whiteSpace: 'pre-wrap' }}>{resort.resortDesc}</Typography>
-				</Stack>
-			)}
-			{equipment && (
-				<Stack spacing={2}>
-					<Typography>
-						{t(equipment.equipmentCategory)} Â· {t(`Audience ${equipment.equipmentAudience}`)}
-					</Typography>
-					{equipment.equipmentBrand && <Typography>{equipment.equipmentBrand}</Typography>}
-					{equipment.equipmentSize && (
-						<Typography>
-							{t(equipment.equipmentCategory === 'BOOTS' ? 'Size (Mondopoint / CM)' : 'Size')}:{' '}
-							{equipment.equipmentSize}
-						</Typography>
+			<div className="resource-detail-grid">
+				<div className="resource-detail-content">
+					{resort && (
+						<Stack spacing={2}>
+							<Typography>
+								{t(resort.resortLocation)} Â· {resort.resortAddress}
+							</Typography>
+							{resort.resortLevel && <Chip sx={{ alignSelf: 'flex-start' }} label={t(resort.resortLevel)} />}
+							{resort.resortStatus === 'SOLD_OUT' && <Alert severity="info">{t('Sold out')}</Alert>}
+							<Typography variant="h5">
+								{homePrice(resort.resortPricePerDay, i18n.language)} / {t('day')}
+							</Typography>
+							<Typography>{t('Minimum stay', { count: resort.resortMinDays })}</Typography>
+							<Stack direction="row" gap={1} flexWrap="wrap">
+								{resort.resortFacilities?.map((facility) => (
+									<Chip key={facility} label={t(facility)} />
+								))}
+							</Stack>
+							<Typography sx={{ whiteSpace: 'pre-wrap' }}>{resort.resortDesc}</Typography>
+						</Stack>
 					)}
-					<Typography variant="h5">{t('Rental packages')}</Typography>
-					{equipment.equipmentRentalRates.map((rate) => (
-						<Typography key={rate.durationHours}>
-							{t('Rental package', { hours: rate.durationHours, price: homePrice(rate.price, i18n.language) })}
-						</Typography>
-					))}
-					{equipment.equipmentPurchasable && (
-						<Typography>
-							{t('Purchase option')}:{' '}
-							{equipment.equipmentPurchasePrice == null
-								? t('Price not configured')
-								: homePrice(equipment.equipmentPurchasePrice, i18n.language)}
-						</Typography>
-					)}
-					<Typography sx={{ whiteSpace: 'pre-wrap' }}>{equipment.equipmentDesc}</Typography>
-					{equipment.resortId && (
-						<Button component={Link} href={`/resort/detail?id=${encodeURIComponent(equipment.resortId)}`}>
-							{t('View associated Resort')}
-						</Button>
-					)}
-					<Alert severity="info">{t('Catalog stock does not confirm trip availability.')}</Alert>
-				</Stack>
-			)}
-			{instructor && (
-				<Stack spacing={2}>
-					{instructor.instructorExperienceYears != null && (
-						<Typography>{t('Instructor experience', { count: instructor.instructorExperienceYears })}</Typography>
-					)}
-					<Typography>{instructor.instructorLanguages?.join(', ')}</Typography>
-					{instructor.instructorLevel && <Typography>{t(`Instructor level ${instructor.instructorLevel}`)}</Typography>}
-					{instructor.instructorAudience && <Typography>{t(`Audience ${instructor.instructorAudience}`)}</Typography>}
-					{[
-						instructor.instructorPrice1Week,
-						instructor.instructorPrice2Weeks,
-						instructor.instructorPrice3Weeks,
-						instructor.instructorPrice4Weeks,
-					].map(
-						(price, index) =>
-							price != null && (
-								<Typography key={index}>
-									{t('Weekly profile price', { count: index + 1, price: homePrice(price, i18n.language) })}
+					{equipment && (
+						<Stack spacing={2}>
+							<Typography>
+								{t(equipment.equipmentCategory)} Â· {t(`Audience ${equipment.equipmentAudience}`)}
+							</Typography>
+							{equipment.equipmentBrand && <Typography>{equipment.equipmentBrand}</Typography>}
+							{equipment.equipmentSize && (
+								<Typography>
+									{t(equipment.equipmentCategory === 'BOOTS' ? 'Size (Mondopoint / CM)' : 'Size')}:{' '}
+									{equipment.equipmentSize}
 								</Typography>
-							),
+							)}
+							<Typography variant="h5">{t('Rental packages')}</Typography>
+							{equipment.equipmentRentalRates.map((rate) => (
+								<Typography key={rate.durationHours}>
+									{t('Rental package', { hours: rate.durationHours, price: homePrice(rate.price, i18n.language) })}
+								</Typography>
+							))}
+							{equipment.equipmentPurchasable && (
+								<Typography>
+									{t('Purchase option')}:{' '}
+									{equipment.equipmentPurchasePrice == null
+										? t('Price not configured')
+										: homePrice(equipment.equipmentPurchasePrice, i18n.language)}
+								</Typography>
+							)}
+							<Typography sx={{ whiteSpace: 'pre-wrap' }}>{equipment.equipmentDesc}</Typography>
+							{equipment.resortId && <AssociatedResort id={equipment.resortId} />}
+							<Alert severity="info">{t('Catalog stock does not confirm trip availability.')}</Alert>
+						</Stack>
 					)}
-					<Typography sx={{ whiteSpace: 'pre-wrap' }}>{instructor.memberDesc}</Typography>
-					{instructor.instructorResortId && (
-						<Button component={Link} href={`/resort/detail?id=${encodeURIComponent(instructor.instructorResortId)}`}>
-							{t('View associated Resort')}
-						</Button>
+					{instructor && (
+						<Stack spacing={2}>
+							{instructor.instructorExperienceYears != null && (
+								<Typography>{t('Instructor experience', { count: instructor.instructorExperienceYears })}</Typography>
+							)}
+							<Typography>{instructor.instructorLanguages?.join(', ')}</Typography>
+							{instructor.instructorLevel && (
+								<Typography>{t(`Instructor level ${instructor.instructorLevel}`)}</Typography>
+							)}
+							{instructor.instructorAudience && (
+								<Typography>{t(`Audience ${instructor.instructorAudience}`)}</Typography>
+							)}
+							{[
+								instructor.instructorPrice1Week,
+								instructor.instructorPrice2Weeks,
+								instructor.instructorPrice3Weeks,
+								instructor.instructorPrice4Weeks,
+							].map(
+								(price, index) =>
+									price != null && (
+										<Typography key={index}>
+											{t('Weekly profile price', { count: index + 1, price: homePrice(price, i18n.language) })}
+										</Typography>
+									),
+							)}
+							<Typography sx={{ whiteSpace: 'pre-wrap' }}>{instructor.memberDesc}</Typography>
+							{instructor.instructorResortId && <AssociatedResort id={instructor.instructorResortId} />}
+							<Button component={Link} href={`/member?memberId=${encodeURIComponent(instructor._id)}`}>
+								{t('Member profile')}
+							</Button>
+						</Stack>
 					)}
-					<Button component={Link} href={`/member?memberId=${encodeURIComponent(instructor._id)}`}>
-						{t('Member profile')}
-					</Button>
-				</Stack>
-			)}
-			<ResourceComments
-				key={`${domain}-${id}`}
-				id={String(id)}
-				group={domain === 'resort' ? 'RESORT' : domain === 'equipment' ? 'EQUIPMENT' : 'MEMBER'}
-			/>
+					<ResourceComments
+						key={`${domain}-${id}`}
+						id={String(id)}
+						group={domain === 'resort' ? 'RESORT' : domain === 'equipment' ? 'EQUIPMENT' : 'MEMBER'}
+					/>
+				</div>
+				<DemoBookingPanel key={`${domain}-${id}`} resort={resort} equipment={equipment} instructor={instructor} />
+			</div>
 		</Stack>
 	);
 }

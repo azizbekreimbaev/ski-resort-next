@@ -12,7 +12,7 @@ import { EquipmentPreviewInquiry } from '../../types/equipment/equipment.input';
 import HomeSection from './HomeSection';
 import HomeCarousel from './HomeCarousel';
 import HomeCollectionState from './HomeCollectionState';
-import EquipmentCard from './EquipmentCard';
+import { HomeEquipmentCard } from './HomeCatalogCards';
 
 const categories = [
 	EquipmentCategory.SKI,
@@ -56,6 +56,7 @@ const EquipmentSection = () => {
 	return (
 		<HomeSection
 			id="equipment-preview"
+			eyebrow={t('Gear up')}
 			title={t('Equipment for the mountain')}
 			subtitle={t('Explore rental packages for skiing and snowboarding.')}
 			action={
@@ -77,11 +78,17 @@ const EquipmentSection = () => {
 					/>
 				))}
 			</div>
-			<HomeCollectionState loading={loading} error={Boolean(error)} empty={!equipments.length} retry={refetch} />
+			<HomeCollectionState
+				skeleton
+				loading={loading && !equipments.length}
+				error={Boolean(error)}
+				empty={!equipments.length}
+				retry={refetch}
+			/>
 			{!error && equipments.length > 0 && (
 				<HomeCarousel label={t('Equipment for the mountain')}>
 					{equipments.map((equipment) => (
-						<EquipmentCard key={equipment._id} equipment={equipment} />
+						<HomeEquipmentCard key={equipment._id} equipment={equipment} />
 					))}
 				</HomeCarousel>
 			)}

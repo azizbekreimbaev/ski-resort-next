@@ -1,0 +1,10 @@
+const fs = require('fs'), path = require('path');
+const frontend = path.resolve(__dirname, '..'), backend = path.resolve(frontend, '../skiresort');
+const ts = require(path.join(backend,'node_modules/typescript'));
+require.extensions['.ts'] = (m,f) => m._compile(ts.transpileModule(fs.readFileSync(f,'utf8'),{compilerOptions:{module:1,target:7,experimentalDecorators:true,emitDecoratorMetadata:true,esModuleInterop:true}}).outputText,f);
+require(path.join(backend,'node_modules/reflect-metadata'));
+const base = path.join(backend,'apps/skiresort-api/src');
+const names = ['resort','equipment','member','auth','comment','follow','board-article','instructor-application'];
+for(const name of names){const symbol=name.split('-').map(x=>x[0].toUpperCase()+x.slice(1)).join('')+'Service';const f=path.join(base,'components',name,name+'.service.ts');require.cache[f]={id:f,filename:f,loaded:true,exports:{[symbol]:class{}}};}
+const {GraphQLSchemaBuilderModule,GraphQLSchemaFactory}=require(path.join(backend,'node_modules/@nestjs/graphql'));const {Test}=require(path.join(backend,'node_modules/@nestjs/testing'));
+(async()=>{const mod=await Test.createTestingModule({imports:[GraphQLSchemaBuilderModule]}).compile();try{const resolvers=names.filter(n=>n!=='auth').map(n=>Object.values(require(path.join(base,'components',n,n+'.resolver.ts')))[0]);const schema=await mod.get(GraphQLSchemaFactory).create(resolvers);const gql=require(path.join(backend,'node_modules/graphql')),frontGql=require(path.join(frontend,'node_modules/graphql'));let count=0;for(const file of ['user/query','user/mutation','admin/query','admin/mutation'])for(const [name,doc]of Object.entries(require(path.join(frontend,'apollo',file+'.ts')))){if(doc?.kind!=='Document')continue;const errors=gql.validate(schema,gql.parse(frontGql.print(doc)));if(errors.length){console.log(name+': '+errors.map(e=>e.message).join('; '));process.exitCode=1;}else count++;}console.log('Valid documents: '+count);}finally{await mod.close();}})().catch(e=>{console.error(e);process.exitCode=1});

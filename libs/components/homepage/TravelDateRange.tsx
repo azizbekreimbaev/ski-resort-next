@@ -10,12 +10,14 @@ interface TravelDateRangeProps {
 	departure: string;
 	error: boolean;
 	onChange: (arrival: string, departure: string) => void;
+	homepage?: boolean;
+	inputId?: string;
 }
 
 const dateKey = (year: number, month: number, day: number) =>
 	`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
-const TravelDateRange = ({ arrival, departure, error, onChange }: TravelDateRangeProps) => {
+const TravelDateRange = ({ arrival, departure, error, onChange, homepage = false, inputId }: TravelDateRangeProps) => {
 	const { t, i18n } = useTranslation('common');
 	const locale = i18n.language === 'kr' ? 'ko-KR' : i18n.language;
 	const [anchor, setAnchor] = useState<HTMLElement | null>(null);
@@ -61,7 +63,8 @@ const TravelDateRange = ({ arrival, departure, error, onChange }: TravelDateRang
 	return (
 		<>
 			<TextField
-				label={t('Travel dates')}
+				id={inputId}
+				label={homepage ? undefined : t('Travel dates')}
 				placeholder={t('Arrival - Departure')}
 				value={displayValue}
 				fullWidth
@@ -74,13 +77,26 @@ const TravelDateRange = ({ arrival, departure, error, onChange }: TravelDateRang
 				}}
 				InputProps={{
 					readOnly: true,
-					endAdornment: (
+					...(homepage
+						? {
+								startAdornment: (
+									<InputAdornment position="start">
+										<CalendarMonthOutlinedIcon />
+									</InputAdornment>
+								),
+						  }
+						: {}),
+					endAdornment: !homepage ? (
 						<InputAdornment position="end">
 							<CalendarMonthOutlinedIcon />
 						</InputAdornment>
-					),
+					) : undefined,
 				}}
-				inputProps={{ 'aria-haspopup': 'dialog', 'aria-expanded': Boolean(anchor) }}
+				inputProps={{
+					'aria-haspopup': 'dialog',
+					'aria-expanded': Boolean(anchor),
+					...(homepage ? { 'aria-label': t('Trip Dates') } : {}),
+				}}
 				error={error}
 				helperText={error ? t('Choose a departure after arrival.') : undefined}
 			/>

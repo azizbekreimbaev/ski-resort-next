@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { Button, Stack, Typography } from '@mui/material';
@@ -14,7 +14,7 @@ function About() {
 	return (
 		<Stack className="catalog-page skiresort-home" spacing={3}>
 			<Typography component="h1" variant="h3">
-				{t('About SkiResort')}
+				{t('About SNOWKR')}
 			</Typography>
 			<img className="resource-gallery-main" src="/img/hero/winter-2.jpg" alt={t('Winter mountains')} />
 			<Typography>{t('Discover resorts, equipment and instructors for your next winter trip.')}</Typography>

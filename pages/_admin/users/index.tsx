@@ -289,3 +289,5 @@ AdminUsers.defaultProps = {
 };
 
 export default withAdminLayout(AdminUsers);
+
+export { getStaticProps } from '../../../libs/pageTranslations';

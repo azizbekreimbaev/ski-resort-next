@@ -1,132 +1,62 @@
-﻿import React, { useState } from 'react';
-import { NextPage } from 'next';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { Pagination, Stack, Typography } from '@mui/material';
-import CommunityCard from '../common/CommunityCard';
-import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
-import { userVar } from '../../../apollo/store';
-import { T } from '../../types/common';
-import { BoardArticle } from '../../types/board-article/board-article';
-import { LIKE_TARGET_BOARD_ARTICLE } from '../../../apollo/user/mutation';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { useQuery, useMutation } from '@apollo/client';
+import { Alert, Button, Pagination, Stack, Typography } from '@mui/material';
+import { useTranslation } from 'next-i18next';
 import { GET_BOARD_ARTICLES } from '../../../apollo/user/query';
-import { Messages } from '../../config';
-import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
-
-const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
-	const device = useDeviceDetect();
-	const user = useReactiveVar(userVar);
-	const [searchCommunity, setSearchCommunity] = useState({
-		...initialInput,
-		search: { memberId: user._id },
-	});
-	const [boardArticles, setBoardArticles] = useState<BoardArticle[]>([]);
-	const [totalCount, setTotalCount] = useState<number>(0);
-
-	/** APOLLO REQUESTS **/
-
-	const [likeTargetBoardArticle] = useMutation(LIKE_TARGET_BOARD_ARTICLE);
-
-	const {
-		loading: boardArticlesLoading,
-		data: boardArticlesData,
-		error: getBoardArticlesError,
-		refetch: boardArticlesRefetch,
-	} = useQuery(GET_BOARD_ARTICLES, {
+import { UPDATE_BOARD_ARTICLE } from '../../../apollo/user/mutation';
+import { BoardArticles } from '../../types/board-article/board-article';
+import useMemberSession from '../../hooks/useMemberSession';
+import ArticleCard from '../common/ArticleCard';
+import HomeCollectionState from '../homepage/HomeCollectionState';
+export default function MyArticles() {
+	const { user, ready } = useMemberSession();
+	const { t } = useTranslation('common');
+	const [page, setPage] = useState(1);
+	const [failure, setFailure] = useState('');
+	const { data, loading, error, refetch } = useQuery<{ getBoardArticles: BoardArticles }>(GET_BOARD_ARTICLES, {
+		variables: { input: { page, limit: 6, sort: 'createdAt', direction: 'DESC', search: { memberId: user._id } } },
+		skip: !ready || !user._id,
 		fetchPolicy: 'network-only',
-		variables: {
-			input: searchCommunity,
-		},
-		notifyOnNetworkStatusChange: true,
-		onCompleted(data: T) {
-			setBoardArticles(data?.getBoardArticles?.list);
-			setTotalCount(data?.getBoardArticles?.metaCounter[0]?.total);
-		},
 	});
-
-	/** HANDLERS **/
-	const paginationHandler = (e: T, value: number) => {
-		setSearchCommunity({ ...searchCommunity, page: value });
-	};
-
-	const likeBoardArticleHandler = async (e: any, user: any, id: string) => {
+	const [update, state] = useMutation(UPDATE_BOARD_ARTICLE);
+	const articles = data?.getBoardArticles.list ?? [];
+	const total = data?.getBoardArticles.metaCounter?.[0]?.total ?? 0;
+	const remove = async (id: string) => {
+		if (state.loading || !window.confirm(t('Delete this article?'))) return;
 		try {
-			e.stopPropagation();
-			if (!id) return;
-			if (!user?._id) throw new Error(Messages.error2);
-
-			await likeTargetBoardArticle({
-				variables: {
-					input: id,
-				},
-			});
-			await boardArticlesRefetch({ input: searchCommunity });
-
-			await sweetTopSmallSuccessAlert('Success!', 750);
-		} catch (err: any) {
-			console.log('ERROR, likeBoArticleHandler:', err.message);
-			sweetMixinErrorAlert(err.message).then();
+			await update({ variables: { input: { _id: id, articleStatus: 'DELETE' } } });
+			if (articles.length === 1 && page > 1) setPage(page - 1);
+			else await refetch();
+		} catch {
+			setFailure(t('Unable to save article'));
 		}
 	};
-
-	if (device === 'mobile') {
-		return <>ARTICLE PAGE MOBILE</>;
-	} else
-		return (
-			<div id="my-articles-page">
-				<Stack className="main-title-box">
-					<Stack className="right-box">
-						<Typography className="main-title">Article</Typography>
-						<Typography className="sub-title">We are glad to see you again!</Typography>
-					</Stack>
-				</Stack>
-				<Stack className="article-list-box">
-					{boardArticles?.length > 0 ? (
-						boardArticles?.map((boardArticle: BoardArticle) => {
-							return (
-								<CommunityCard
-									boardArticle={boardArticle}
-									key={boardArticle?._id}
-									size={'small'}
-									likeBoardArticleHandler={likeBoardArticleHandler}
-								/>
-							);
-						})
-					) : (
-						<div className={'no-data'}>
-							<img src="/img/icons/icoAlert.svg" alt="" />
-							<p>No Articles found!</p>
-						</div>
-					)}
-				</Stack>
-
-				{boardArticles?.length > 0 && (
-					<Stack className="pagination-conf">
-						<Stack className="pagination-box">
-							<Pagination
-								count={Math.ceil(totalCount / searchCommunity.limit)}
-								page={searchCommunity.page}
-								shape="circular"
-								color="primary"
-								onChange={paginationHandler}
-							/>
-						</Stack>
-						<Stack className="total">
-							<Typography>Total {totalCount ?? 0} article(s) available</Typography>
-						</Stack>
-					</Stack>
-				)}
-			</div>
-		);
-};
-
-MyArticles.defaultProps = {
-	initialInput: {
-		page: 1,
-		limit: 6,
-		sort: 'createdAt',
-		direction: 'DESC',
-		search: {},
-	},
-};
-
-export default MyArticles;
+	return (
+		<Stack spacing={3}>
+			<Typography component="h1" variant="h4">
+				{t('My Articles')}
+			</Typography>
+			<Button component={Link} href="/mypage?category=writeArticle">
+				{t('Write Post')}
+			</Button>
+			<HomeCollectionState loading={loading} error={Boolean(error)} empty={!articles.length} retry={refetch} />
+			{failure && <Alert severity="error">{failure}</Alert>}
+			{!error &&
+				articles.map((article) => (
+					<div key={article._id}>
+						<ArticleCard article={article} />
+						<Button component={Link} href={'/mypage?category=writeArticle&articleId=' + article._id}>
+							{t('Edit')}
+						</Button>
+						<Button disabled={state.loading} onClick={() => void remove(article._id)}>
+							{t('Delete')}
+						</Button>
+					</div>
+				))}
+			{total > 6 && (
+				<Pagination page={page} count={Math.ceil(total / 6)} onChange={(_event, value) => setPage(value)} />
+			)}
+		</Stack>
+	);
+}

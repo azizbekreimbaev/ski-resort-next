@@ -1,345 +1,138 @@
-﻿import React, { useCallback, useEffect, useRef } from 'react';
-import { useState } from 'react';
-import { useRouter, withRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import { getJwtToken, logOut, updateUserInfo } from '../auth';
-import { Stack, Box } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
-import Button from '@mui/material/Button';
-import { alpha, styled } from '@mui/material/styles';
-import Menu, { MenuProps } from '@mui/material/Menu';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import { CaretDown } from 'phosphor-react';
-import useDeviceDetect from '../hooks/useDeviceDetect';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
-import IconButton from '@mui/material/IconButton';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import { useReactiveVar } from '@apollo/client';
+import { Badge, IconButton, Menu, MenuItem, Drawer, Button } from '@mui/material';
+import {
+	FavoriteBorderRounded,
+	ShoppingBagOutlined,
+	AccountCircleOutlined,
+	MenuRounded,
+	CloseRounded,
+	DownhillSkiing,
+} from '@mui/icons-material';
 import { userVar } from '../../apollo/store';
-import { Logout } from '@mui/icons-material';
-import { REACT_APP_API_URL } from '../config';
-
-const Top = () => {
-	const device = useDeviceDetect();
-	const user = useReactiveVar(userVar);
-	const { t, i18n } = useTranslation('common');
+import { logOut } from '../auth';
+import { cartVar } from '../demoCart';
+const navigation = [
+	['/resort', 'Resorts'],
+	['/instructor', 'Instructors'],
+	['/equipment', 'Equipment'],
+	['/community', 'Community'],
+	['/events', 'Events'],
+	['/about', 'About Us'],
+];
+export default function Top() {
 	const router = useRouter();
-	const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null);
-	const [lang, setLang] = useState<string | null>('en');
-	const drop = Boolean(anchorEl2);
-	const [colorChange, setColorChange] = useState(false);
-	const [anchorEl, setAnchorEl] = React.useState<any | HTMLElement>(null);
-	let open = Boolean(anchorEl);
-	const [bgColor, setBgColor] = useState<boolean>(false);
-	const [logoutAnchor, setLogoutAnchor] = React.useState<null | HTMLElement>(null);
-	const logoutOpen = Boolean(logoutAnchor);
-
-	/** LIFECYCLES **/
-	useEffect(() => {
-		if (localStorage.getItem('locale') === null) {
-			localStorage.setItem('locale', 'en');
-			setLang('en');
-		} else {
-			setLang(localStorage.getItem('locale'));
-		}
-	}, [router]);
-
-	useEffect(() => {
-		switch (router.pathname) {
-			case '/resort/detail':
-				setBgColor(true);
-				break;
-			default:
-				break;
-		}
-	}, [router]);
-
-	useEffect(() => {
-		const jwt = getJwtToken();
-		if (jwt) updateUserInfo(jwt);
-	}, []);
-
-	/** HANDLERS **/
-	const langClick = (e: any) => {
-		setAnchorEl2(e.currentTarget);
-	};
-
-	const langClose = () => {
-		setAnchorEl2(null);
-	};
-
-	const langChoice = useCallback(
-		async (e: any) => {
-			setLang(e.target.id);
-			localStorage.setItem('locale', e.target.id);
-			setAnchorEl2(null);
-			await router.push(router.asPath, router.asPath, { locale: e.target.id });
-		},
-		[router],
-	);
-
-	const changeNavbarColor = () => {
-		if (window.scrollY >= 50) {
-			setColorChange(true);
-		} else {
-			setColorChange(false);
-		}
-	};
-
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
-
-	const handleHover = (event: any) => {
-		if (anchorEl !== event.currentTarget) {
-			setAnchorEl(event.currentTarget);
-		} else {
-			setAnchorEl(null);
-		}
-	};
-
-	const StyledMenu = styled((props: MenuProps) => (
-		<Menu
-			elevation={0}
-			anchorOrigin={{
-				vertical: 'bottom',
-				horizontal: 'right',
-			}}
-			transformOrigin={{
-				vertical: 'top',
-				horizontal: 'right',
-			}}
-			{...props}
-		/>
-	))(({ theme }) => ({
-		'& .MuiPaper-root': {
-			top: '109px',
-			borderRadius: 6,
-			marginTop: theme.spacing(1),
-			minWidth: 160,
-			color: theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
-			boxShadow:
-				'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-			'& .MuiMenu-list': {
-				padding: '4px 0',
-			},
-			'& .MuiMenuItem-root': {
-				'& .MuiSvgIcon-root': {
-					fontSize: 18,
-					color: theme.palette.text.secondary,
-					marginRight: theme.spacing(1.5),
-				},
-				'&:active': {
-					backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
-				},
-			},
-		},
-	}));
-
-	useEffect(() => {
-		window.addEventListener('scroll', changeNavbarColor);
-		return () => window.removeEventListener('scroll', changeNavbarColor);
-	}, []);
-
-	if (device == 'mobile') {
-		return (
-			<Stack className={'top'}>
-				<Link href={'/'} aria-label="SkiResort home">
-					<strong className="skiresort-wordmark">SkiResort</strong>
+	const { t } = useTranslation('common');
+	const user = useReactiveVar(userVar);
+	const cart = useReactiveVar(cartVar);
+	const [drawer, setDrawer] = useState(false);
+	const [anchor, setAnchor] = useState<HTMLElement | null>(null);
+	const links = navigation.map(([href, label]) => (
+		<Link
+			key={href}
+			href={href}
+			className={router.pathname.startsWith(href) ? 'active' : ''}
+			onClick={() => setDrawer(false)}
+		>
+			{t(label)}
+		</Link>
+	));
+	return (
+		<header className="snowkr-header">
+			<div className="snowkr-container snowkr-header-inner">
+				<Link href="/" className="snowkr-logo" aria-label="SNOWKR home">
+					<span>
+						<DownhillSkiing />
+					</span>
+					SNOWKR
 				</Link>
-				<Link href={'/'}>
-					<div>{t('Home')}</div>
-				</Link>
-				<Link href={'/resort'}>
-					<div>{t('Resorts')}</div>
-				</Link>
-				<Link href={'/instructor'}>
-					<div> {t('Instructors')} </div>
-				</Link>
-				<Link href={'/equipment'}>
-					<div>{t('Equipments')}</div>
-				</Link>
-				<Link href={'/community?articleCategory=FREE'}>
-					<div> {t('Community')} </div>
-				</Link>
-				{user._id && device === 'mobile' && (
-					<>
-						<IconButton component={Link} href="/mypage?category=myFavorites" aria-label={t('My Favorites')}>
-							<FavoriteBorderRoundedIcon />
-						</IconButton>
-						<Button component={Link} href="/mypage">
-							{t('My Page')}
+				<nav className="snowkr-desktop-nav" aria-label={t('Main navigation')}>
+					{links}
+				</nav>
+				<div className="snowkr-header-actions">
+					<div className="snowkr-language">
+						{[
+							['kr', 'KR'],
+							['en', 'EN'],
+						].map(([locale, label]) => (
+							<button
+								key={locale}
+								className={router.locale === locale ? 'active' : ''}
+								aria-label={label === 'KR' ? '한국어' : 'English'}
+								aria-pressed={router.locale === locale}
+								onClick={() => {
+									try {
+										localStorage.setItem('locale', locale);
+									} catch {
+										/* Navigation works without browser storage. */
+									}
+									void router.push(router.asPath, router.asPath, { locale });
+								}}
+							>
+								{label}
+							</button>
+						))}
+					</div>
+					<IconButton component={Link} href="/mypage?category=myFavorites" aria-label={t('Favorites')}>
+						<FavoriteBorderRounded />
+					</IconButton>
+					<IconButton component={Link} href="/cart" aria-label={t('Cart')}>
+						<Badge badgeContent={cart.reduce((sum, line) => sum + line.quantity, 0)} color="primary">
+							<ShoppingBagOutlined />
+						</Badge>
+					</IconButton>
+					<IconButton
+						aria-label={t('Account')}
+						aria-haspopup="menu"
+						aria-expanded={Boolean(anchor)}
+						onClick={(event) => setAnchor(event.currentTarget)}
+					>
+						<AccountCircleOutlined />
+					</IconButton>
+					<IconButton className="snowkr-menu-toggle" aria-label={t('Open navigation')} onClick={() => setDrawer(true)}>
+						<MenuRounded />
+					</IconButton>
+				</div>
+				<Menu anchorEl={anchor} open={Boolean(anchor)} onClose={() => setAnchor(null)}>
+					{user._id ? (
+						[
+							<MenuItem key="profile" component={Link} href="/mypage" onClick={() => setAnchor(null)}>
+								{t('My Page')}
+							</MenuItem>,
+							user.memberType === 'ADMIN' ? (
+								<MenuItem key="admin" component={Link} href="/_admin/users" onClick={() => setAnchor(null)}>
+									{t('Admin')}
+								</MenuItem>
+							) : null,
+							<MenuItem
+								key="logout"
+								onClick={() => {
+									logOut();
+									setAnchor(null);
+									void router.push('/');
+								}}
+							>
+								{t('Logout')}
+							</MenuItem>,
+						]
+					) : (
+						<MenuItem component={Link} href="/account/join" onClick={() => setAnchor(null)}>
+							{t('Login / Sign up')}
+						</MenuItem>
+					)}
+				</Menu>
+				<Drawer anchor="right" open={drawer} onClose={() => setDrawer(false)}>
+					<div className="snowkr-mobile-nav">
+						<Button onClick={() => setDrawer(false)} startIcon={<CloseRounded />}>
+							{t('Close')}
 						</Button>
-						<Button onClick={() => logOut()}>{t('Logout')}</Button>
-					</>
-				)}
-				{!user._id && device === 'mobile' && (
-					<Button component={Link} href="/account/join">
-						{t('Login')} / {t('Register')}
-					</Button>
-				)}
-				<Link href={'/cs'}>
-					<div> {t('CS')} </div>
-				</Link>
-			</Stack>
-		);
-	} else {
-		return (
-			<Stack className={'navbar'}>
-				<Stack className={`navbar-main ${colorChange ? 'transparent' : ''} ${bgColor ? 'transparent' : ''}`}>
-					<Stack className={'container'}>
-						<Box component={'div'} className={'logo-box'}>
-							<Link href={'/'}>
-								<strong className="skiresort-wordmark skiresort-wordmark-light">SkiResort</strong>
-							</Link>
-						</Box>
-						<Box component={'div'} className={'router-box'}>
-							<Link href={'/'}>
-								<div>{t('Home')}</div>
-							</Link>
-							<Link href={'/resort'}>
-								<div>{t('Resorts')}</div>
-							</Link>
-							<Link href={'/instructor'}>
-								<div> {t('Instructors')} </div>
-							</Link>
-							<Link href={'/equipment'}>
-								<div>{t('Equipments')}</div>
-							</Link>
-							<Link href={'/community?articleCategory=FREE'}>
-								<div> {t('Community')} </div>
-							</Link>
-							{user?._id && (
-								<Link href={'/mypage'}>
-									<div> {t('My Page')} </div>
-								</Link>
-							)}
-							{user._id && device === 'mobile' && (
-								<>
-									<IconButton component={Link} href="/mypage?category=myFavorites" aria-label={t('My Favorites')}>
-										<FavoriteBorderRoundedIcon />
-									</IconButton>
-									<Button component={Link} href="/mypage">
-										{t('My Page')}
-									</Button>
-									<Button onClick={() => logOut()}>{t('Logout')}</Button>
-								</>
-							)}
-							{!user._id && device === 'mobile' && (
-								<Button component={Link} href="/account/join">
-									{t('Login')} / {t('Register')}
-								</Button>
-							)}
-							<Link href={'/cs'}>
-								<div> {t('CS')} </div>
-							</Link>
-						</Box>
-						<Box component={'div'} className={'user-box'}>
-							{user?._id ? (
-								<>
-									<button
-										type="button"
-										aria-label={t('My Page')}
-										className={'login-user'}
-										onClick={(event) => setLogoutAnchor(event.currentTarget)}
-									>
-										<img
-											src={
-												user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'
-											}
-											alt=""
-										/>
-									</button>
-
-									<Menu
-										id="basic-menu"
-										anchorEl={logoutAnchor}
-										open={logoutOpen}
-										onClose={() => {
-											setLogoutAnchor(null);
-										}}
-										sx={{ mt: '5px' }}
-									>
-										<MenuItem component={Link} href="/mypage" onClick={() => setLogoutAnchor(null)}>
-											{t('My Page')}
-										</MenuItem>
-										<MenuItem onClick={() => logOut()}>
-											<Logout fontSize="small" style={{ color: 'blue', marginRight: '10px' }} />
-											Logout
-										</MenuItem>
-									</Menu>
-								</>
-							) : (
-								<Link href={'/account/join'}>
-									<div className={'join-box'}>
-										<AccountCircleOutlinedIcon />
-										<span>
-											{t('Login')} / {t('Register')}
-										</span>
-									</div>
-								</Link>
-							)}
-
-							<div className={'lan-box'}>
-								{user?._id && (
-									<IconButton component={Link} href="/mypage?category=myFavorites" aria-label={t('My Favorites')}>
-										<FavoriteBorderRoundedIcon />
-									</IconButton>
-								)}
-								<Button
-									disableRipple
-									className="btn-lang"
-									onClick={langClick}
-									endIcon={<CaretDown size={14} color="#616161" weight="fill" />}
-								>
-									<Box component={'div'} className={'flag'}>
-										{lang !== null ? (
-											<img src={`/img/flag/lang${lang}.png`} alt={'usaFlag'} />
-										) : (
-											<img src={`/img/flag/langen.png`} alt={'usaFlag'} />
-										)}
-									</Box>
-								</Button>
-
-								<StyledMenu anchorEl={anchorEl2} open={drop} onClose={langClose} sx={{ position: 'absolute' }}>
-									<MenuItem disableRipple onClick={langChoice} id="en">
-										<img
-											className="img-flag"
-											src={'/img/flag/langen.png'}
-											onClick={langChoice}
-											id="en"
-											alt={'usaFlag'}
-										/>
-										{t('English')}
-									</MenuItem>
-									<MenuItem disableRipple onClick={langChoice} id="kr">
-										<img
-											className="img-flag"
-											src={'/img/flag/langkr.png'}
-											onClick={langChoice}
-											id="uz"
-											alt={'koreanFlag'}
-										/>
-										{t('Korean')}
-									</MenuItem>
-									<MenuItem disableRipple onClick={langChoice} id="ru">
-										<img
-											className="img-flag"
-											src={'/img/flag/langru.png'}
-											onClick={langChoice}
-											id="ru"
-											alt={'russiaFlag'}
-										/>
-										{t('Russian')}
-									</MenuItem>
-								</StyledMenu>
-							</div>
-						</Box>
-					</Stack>
-				</Stack>
-			</Stack>
-		);
-	}
-};
-
-export default withRouter(Top);
+						<nav aria-label={t('Main navigation')}>{links}</nav>
+					</div>
+				</Drawer>
+			</div>
+		</header>
+	);
+}

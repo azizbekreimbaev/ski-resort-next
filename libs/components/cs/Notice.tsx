@@ -7,7 +7,9 @@ export default function Notice() {
 		<Stack spacing={2}>
 			<Typography variant="h5">{t('Service information')}</Typography>
 			<Alert severity="info">
-				{t('Explore resorts, equipment packages and instructors. Booking and checkout are not available yet.')}
+				{t(
+					'Explore resorts, equipment packages and instructors. Checkout, events and snow reports are demos; no payment or reservation is confirmed.',
+				)}
 			</Alert>
 		</Stack>
 	);

@@ -1,8 +1,9 @@
 export enum BoardArticleCategory {
-	FREE = 'FREE',
-	RECOMMEND = 'RECOMMEND',
+	GENERAL = 'GENERAL',
 	NEWS = 'NEWS',
-	HUMOR = 'HUMOR',
+	REVIEWS = 'REVIEWS',
+	TIPS_GUIDES = 'TIPS_GUIDES',
+	QUESTIONS = 'QUESTIONS',
 }
 
 export enum BoardArticleStatus {

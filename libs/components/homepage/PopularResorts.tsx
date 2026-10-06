@@ -5,8 +5,8 @@ const PopularResorts = (props: ResortInteractionProps) => (
 	<ResortCollection
 		{...props}
 		id="popular-resorts"
-		title="Popular resorts"
-		subtitle="Resorts most liked by the community."
+		title="Popular Ski Resorts"
+		subtitle="Explore Korea’s premier alpine ski and snowboarding destinations."
 		sort="resortLikes"
 	/>
 );

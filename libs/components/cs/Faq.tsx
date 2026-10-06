@@ -19,7 +19,7 @@ export default function Faq() {
 		],
 		[
 			'How are rental prices displayed?',
-			'Each rental package shows its configured duration and price. Purchase capability does not provide checkout.',
+			'Each rental package shows its configured duration and price. Checkout is a local demo and does not charge or reserve items.',
 		],
 	];
 	return (

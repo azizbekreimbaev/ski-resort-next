@@ -14,6 +14,7 @@ export interface ResortSearchResult {
 	resortFacilities: ResortFacilities[] | null;
 	resortLikes: number;
 	resortViews: number;
+	resortComments: number;
 	meLiked: { myFavorite: boolean }[] | null;
 }
 

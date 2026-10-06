@@ -1,73 +1,52 @@
-﻿import React from 'react';
-import { NextPage } from 'next';
+import React from 'react';
+import Link from 'next/link';
+import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { Box, Stack } from '@mui/material';
-import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
-import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
-import Notice from '../../libs/components/cs/Notice';
-import Faq from '../../libs/components/cs/Faq';
+import { Alert, Button, Stack, Typography } from '@mui/material';
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-
-export const getStaticProps = async ({ locale }: any) => ({
-	props: {
-		...(await serverSideTranslations(locale, ['common'])),
-	},
+import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
+import Faq from '../../libs/components/cs/Faq';
+import Notice from '../../libs/components/cs/Notice';
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+	props: { ...(await serverSideTranslations(locale ?? 'en', ['common'])) },
 });
-
-const CS: NextPage = () => {
-	const device = useDeviceDetect();
+function HelpCenter() {
 	const router = useRouter();
-
-	/** HANDLERS **/
-	const changeTabHandler = (tab: string) => {
-		router.push(
-			{
-				pathname: '/cs',
-				query: { tab: tab },
-			},
-			undefined,
-			{ scroll: false },
-		);
-	};
-	const tab = router.query.tab ?? 'notice';
-	{
-		return (
-			<Stack className={'cs-page'}>
-				<Stack className={'container'}>
-					<Box component={'div'} className={'cs-main-info'}>
-						<Box component={'div'} className={'info'}>
-							<span>Cs center</span>
-							<p>I will answer your questions</p>
-						</Box>
-						<Box component={'div'} className={'btns'}>
-							<div
-								className={tab == 'notice' ? 'active' : ''}
-								onClick={() => {
-									changeTabHandler('notice');
-								}}
-							>
-								Notice
-							</div>
-							<div
-								className={tab == 'faq' ? 'active' : ''}
-								onClick={() => {
-									changeTabHandler('faq');
-								}}
-							>
-								FAQ
-							</div>
-						</Box>
-					</Box>
-
-					<Box component={'div'} className={'cs-content'}>
-						{tab === 'notice' && <Notice />}
-
-						{tab === 'faq' && <Faq />}
-					</Box>
-				</Stack>
+	const { t } = useTranslation('common');
+	const tab = typeof router.query.tab === 'string' ? router.query.tab : 'faq';
+	const unavailable = ['terms', 'privacy', 'lift-passes'].includes(tab);
+	return (
+		<div className="catalog-page">
+			<div className="snowkr-page-heading">
+				<h1>{t('Help Center')}</h1>
+				<p>{t('Find your way around SNOWKR.')}</p>
+			</div>
+			<Stack direction="row" gap={2} mb={3}>
+				<Button component={Link} href="/cs?tab=faq" variant={tab === 'faq' ? 'contained' : 'outlined'}>
+					{t('FAQ')}
+				</Button>
+				<Button component={Link} href="/cs?tab=notice" variant={tab === 'notice' ? 'contained' : 'outlined'}>
+					{t('Notices')}
+				</Button>
 			</Stack>
-		);
-	}
-};
-
-export default withLayoutBasic(CS);
+			<section className="snowkr-panel">
+				{unavailable ? (
+					<>
+						<Typography component="h2" variant="h5">
+							{t(tab === 'terms' ? 'Terms of Service' : tab === 'privacy' ? 'Privacy Policy' : 'Lift Pass Rates')}
+						</Typography>
+						<Alert severity="info" sx={{ mt: 2 }}>
+							{t('This information has not been published yet.')}
+						</Alert>
+					</>
+				) : tab === 'notice' ? (
+					<Notice />
+				) : (
+					<Faq />
+				)}
+			</section>
+		</div>
+	);
+}
+export default withLayoutBasic(HelpCenter);

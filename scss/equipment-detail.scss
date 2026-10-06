@@ -1,0 +1,675 @@
+#pc-wrap.snowkr-app .equipment-detail-page {
+	background: radial-gradient(ellipse at 30% 0, #e4f1ff66, transparent 45%), #faf8ff;
+	color: #131b2e;
+	font-family: Inter, sans-serif;
+	font-size: 14px;
+	h1,
+	h2,
+	h3 {
+		font-family: 'Plus Jakarta Sans', sans-serif;
+	}
+	h2 {
+		font-size: 18px;
+		font-weight: 600;
+		line-height: 26px;
+		margin: 0 0 16px;
+	}
+	p {
+		color: #3f4850;
+		line-height: 1.7;
+		margin: 0;
+	}
+	button,
+	input {
+		font: inherit;
+	}
+	button {
+		cursor: pointer;
+		border: 0;
+	}
+	button:disabled {
+		cursor: default;
+	}
+	button:focus-visible,
+	a:focus-visible,
+	input:focus-visible {
+		outline: 2px solid #007bb9;
+		outline-offset: 3px;
+	}
+	.MuiButton-root {
+		text-transform: none;
+		font-weight: 600;
+		border-radius: 8px;
+	}
+	.MuiButton-contained {
+		color: #fff;
+		background: #006194;
+		&:hover {
+			background: #007bb9;
+		}
+		&.Mui-disabled {
+			color: #707881;
+			background: #eaedff;
+		}
+	}
+	.equipment-detail-container {
+		max-width: 1280px;
+		padding: 22px 32px 64px;
+		margin: 0 auto;
+		width: 100%;
+	}
+	.equipment-detail-loading {
+		min-height: 65vh;
+		padding-top: 48px;
+	}
+	.equipment-detail-breadcrumb {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		color: #707881;
+		font-size: 11px;
+		margin-bottom: 24px;
+		svg {
+			width: 15px;
+			flex-shrink: 0;
+		}
+		a {
+			white-space: nowrap;
+			&:hover {
+				color: #006194;
+			}
+		}
+		span {
+			color: #131b2e;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			font-weight: 600;
+		}
+	}
+	.equipment-detail-layout {
+		display: grid;
+		grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
+		gap: 24px;
+		align-items: start;
+	}
+	.equipment-detail-content {
+		display: contents;
+		> * {
+			grid-column: 1;
+			min-width: 0;
+		}
+	}
+	.equipment-detail-panel {
+		background: #fff;
+		border-radius: 16px;
+		padding: 24px;
+		box-shadow: 0 2px 8px rgba(19, 27, 46, 0.035);
+	}
+	.equipment-photo-stage {
+		height: 460px;
+		position: relative;
+		background: #f2f3ff;
+		border-radius: 12px;
+		overflow: hidden;
+	}
+	.equipment-open-photo {
+		display: block;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		background: transparent;
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.3s;
+		}
+		&:hover img {
+			transform: scale(1.03);
+		}
+	}
+	.equipment-detail-favorite {
+		position: absolute;
+		right: 16px;
+		top: 16px;
+		background: #ffffffed;
+		width: 44px;
+		height: 44px;
+		color: #3f4850;
+		box-shadow: 0 2px 6px #131b2e0d;
+		&.is-saved {
+			color: #ba1a1a;
+		}
+	}
+	.equipment-photo-status {
+		position: absolute;
+		left: 16px;
+		bottom: 16px;
+		padding: 7px 16px;
+		border-radius: 30px;
+		background: #ffffffed;
+		color: #006194;
+		font-size: 10px;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		pointer-events: none;
+		&::before {
+			content: '';
+			display: inline-block;
+			width: 7px;
+			height: 7px;
+			border-radius: 50%;
+			background: #39b8fd;
+			margin-right: 7px;
+		}
+	}
+	.equipment-thumbnails {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 16px;
+		margin-top: 16px;
+		button {
+			aspect-ratio: 16 / 9;
+			background: #f2f3ff;
+			border-radius: 10px;
+			padding: 4px;
+			overflow: hidden;
+			border: 2px solid transparent;
+			&[aria-pressed='true'] {
+				background: #cce5ff;
+				border-color: #006194;
+			}
+		}
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			border-radius: 6px;
+		}
+	}
+	.equipment-identity-top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.equipment-detail-brand {
+		color: #006591;
+		font-size: 11px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+	}
+	.equipment-detail-social {
+		display: flex;
+		gap: 14px;
+		align-items: center;
+		flex-wrap: wrap;
+		color: #707881;
+		span {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+			font-size: 11px;
+		}
+		svg {
+			font-size: 16px;
+		}
+		.MuiIconButton-root {
+			padding: 4px;
+		}
+	}
+	.equipment-identity h1 {
+		margin: 8px 0 16px;
+		font-size: 36px;
+		font-weight: 700;
+		line-height: 1.25;
+		overflow-wrap: anywhere;
+	}
+	.equipment-detail-tags {
+		display: flex;
+		gap: 8px;
+		flex-wrap: wrap;
+		span,
+		a {
+			background: #eaedff;
+			border-radius: 30px;
+			padding: 6px 12px;
+			font-size: 11px;
+		}
+		.equipment-capability {
+			background: #cce5ff;
+			color: #004b73;
+			font-weight: 600;
+		}
+	}
+	.equipment-share-message {
+		font-size: 12px;
+		margin-top: 12px;
+		color: #006194;
+	}
+	.equipment-description {
+		white-space: pre-wrap;
+		overflow-wrap: anywhere;
+		font-size: 16px;
+	}
+	.equipment-specifications {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 12px;
+		margin: 0;
+		> div {
+			background: #f2f3ff;
+			border-radius: 10px;
+			padding: 16px;
+		}
+		dt {
+			color: #707881;
+			font-size: 10px;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+			margin-bottom: 6px;
+		}
+		dd {
+			margin: 0;
+			font-size: 16px;
+			font-weight: 600;
+			overflow-wrap: anywhere;
+		}
+	}
+	.equipment-catalog-note {
+		font-size: 12px;
+		margin-top: 14px;
+	}
+	.equipment-resort-card {
+		background: #f2f3ff;
+		border-radius: 10px;
+		padding: 16px;
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		h3 {
+			font-size: 15px;
+			font-weight: 600;
+			margin: 0 0 4px;
+		}
+		p {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+			font-size: 12px;
+			svg {
+				font-size: 16px;
+				flex-shrink: 0;
+			}
+		}
+		.MuiButton-root {
+			margin-left: auto;
+			flex-shrink: 0;
+			background: #fff;
+			font-size: 12px;
+		}
+	}
+	.equipment-resort-photo {
+		width: 64px;
+		height: 64px;
+		flex-shrink: 0;
+		border-radius: 8px;
+		overflow: hidden;
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+		.equipment-photo-unavailable span {
+			display: none;
+		}
+	}
+	.equipment-comments-intro {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		margin-bottom: 12px;
+		font-size: 12px;
+		color: #707881;
+	}
+	.equipment-comment-count {
+		padding: 4px 10px;
+		background: #e2e7ff;
+		border-radius: 30px;
+		font-weight: 600;
+	}
+	.equipment-detail-comments {
+		.resource-comment {
+			background: #f2f3ff;
+			border-radius: 10px;
+			padding: 16px;
+		}
+		.MuiOutlinedInput-root {
+			background: #f2f3ff;
+			border-radius: 10px;
+		}
+	}
+	.equipment-detail-sidebar {
+		grid-column: 2;
+		grid-row: 1 / span 6;
+		position: sticky;
+		top: 90px;
+	}
+	.equipment-action-desk {
+		box-shadow: 0 12px 36px rgba(19, 27, 46, 0.08);
+		display: flex;
+		flex-direction: column;
+		gap: 18px;
+	}
+	.equipment-desk-heading {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 8px;
+		h2 {
+			margin: 0;
+		}
+		> span {
+			font-size: 10px;
+			font-weight: 600;
+			text-transform: uppercase;
+			color: #006194;
+			background: #cce5ff;
+			padding: 4px 8px;
+			border-radius: 30px;
+		}
+	}
+	.equipment-demo-notice {
+		font-size: 11px;
+		line-height: 1.5;
+		padding: 4px 8px;
+		.MuiAlert-icon {
+			font-size: 16px;
+		}
+	}
+	.equipment-mode-tabs {
+		display: flex;
+		background: #eaedff;
+		padding: 4px;
+		border-radius: 10px;
+		button {
+			flex: 1;
+			padding: 9px 4px;
+			background: transparent;
+			border-radius: 7px;
+			font-size: 12px;
+			font-weight: 600;
+			color: #3f4850;
+			&[aria-pressed='true'] {
+				background: #fff;
+				color: #006194;
+				box-shadow: 0 1px 4px #131b2e0a;
+			}
+			&:disabled {
+				color: #707881;
+				opacity: 0.5;
+			}
+		}
+	}
+	.equipment-rate-selection {
+		padding: 0;
+		border: 0;
+		margin: 0;
+		min-width: 0;
+		legend {
+			font-size: 12px;
+			font-weight: 600;
+			margin-bottom: 8px;
+		}
+	}
+	.equipment-rate-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 8px;
+		button {
+			background: #f2f3ff;
+			padding: 12px;
+			text-align: left;
+			border: 1px solid transparent;
+			border-radius: 9px;
+			&[aria-pressed='true'] {
+				background: #cce5ff;
+				border-color: #93ccff;
+				color: #004b73;
+			}
+		}
+		span {
+			display: block;
+			font-size: 11px;
+			margin-bottom: 4px;
+		}
+		strong {
+			font-size: 14px;
+			font-weight: 700;
+		}
+	}
+	.equipment-desk-label {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		font-size: 12px;
+		font-weight: 600;
+		input {
+			border: 1px solid transparent;
+			background: #f2f3ff;
+			border-radius: 8px;
+			padding: 12px;
+			width: 100%;
+			min-width: 0;
+			color: #131b2e;
+			font-weight: 400;
+		}
+	}
+	.equipment-desk-quantity {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		background: #f2f3ff;
+		border-radius: 8px;
+		padding: 7px 10px;
+		margin-top: -10px;
+		> span {
+			color: #707881;
+			font-size: 12px;
+		}
+		> div {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		button {
+			background: #fff;
+			border-radius: 50%;
+			width: 28px;
+			height: 28px;
+			color: #131b2e;
+			&:disabled {
+				opacity: 0.4;
+			}
+		}
+		input {
+			background: transparent;
+			border: 0;
+			width: 46px;
+			text-align: center;
+			color: #131b2e;
+			font-weight: 600;
+			font-size: 16px;
+			padding: 2px;
+			appearance: textfield;
+			&::-webkit-inner-spin-button {
+				appearance: none;
+			}
+		}
+	}
+	.equipment-retail-price {
+		background: #f2f3ff;
+		border-radius: 10px;
+		padding: 16px;
+		span {
+			display: block;
+			font-size: 11px;
+			color: #707881;
+		}
+		strong {
+			display: block;
+			font-size: 28px;
+			color: #006194;
+			font-weight: 700;
+			margin: 8px 0;
+		}
+		small {
+			font-size: 12px;
+			color: #707881;
+		}
+	}
+	.equipment-price-summary {
+		background: #f2f3ff;
+		padding: 16px;
+		border-radius: 10px;
+		margin: 0;
+		> div {
+			display: flex;
+			justify-content: space-between;
+			gap: 10px;
+			margin-bottom: 9px;
+			font-size: 11px;
+		}
+		dt {
+			color: #707881;
+		}
+		dd {
+			margin: 0;
+			font-weight: 600;
+			text-align: right;
+		}
+		.equipment-summary-total {
+			margin-bottom: 0;
+			padding-top: 8px;
+			align-items: baseline;
+			font-size: 15px;
+			dt {
+				font-weight: 700;
+				color: #131b2e;
+			}
+			dd {
+				font-size: 24px;
+				color: #006194;
+			}
+		}
+	}
+	p.equipment-desk-footnote {
+		text-align: center;
+		font-size: 11px;
+		color: #707881;
+	}
+	@media (max-width: 1100px) {
+		.equipment-detail-layout {
+			grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr);
+		}
+		.equipment-identity h1 {
+			font-size: 30px;
+		}
+		.equipment-resort-card {
+			flex-wrap: wrap;
+			.MuiButton-root {
+				margin-left: 0;
+			}
+		}
+		.equipment-photo-stage {
+			height: 380px;
+		}
+	}
+	@media (max-width: 850px) {
+		.equipment-detail-layout {
+			grid-template-columns: minmax(0, 1fr);
+		}
+		.equipment-detail-content,
+		.equipment-detail-sidebar {
+			width: 100%;
+		}
+		.equipment-detail-sidebar {
+			grid-column: 1;
+			grid-row: 3;
+			position: static;
+		}
+		.equipment-photo-stage {
+			height: 420px;
+		}
+	}
+	@media (max-width: 600px) {
+		.equipment-detail-container {
+			padding: 16px 16px 40px;
+		}
+		.equipment-detail-panel {
+			padding: 18px;
+		}
+		.equipment-detail-layout {
+			gap: 20px;
+		}
+		.equipment-photo-stage {
+			height: 300px;
+		}
+		.equipment-thumbnails {
+			gap: 8px;
+		}
+		.equipment-identity h1 {
+			font-size: 26px;
+		}
+		.equipment-specifications {
+			gap: 8px;
+			> div {
+				padding: 12px;
+			}
+			dd {
+				font-size: 14px;
+			}
+		}
+		.equipment-detail-breadcrumb {
+			font-size: 10px;
+			margin-bottom: 16px;
+		}
+		.equipment-detail-social {
+			gap: 10px;
+		}
+	}
+}
+.equipment-photo-unavailable {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: 12px;
+	color: #707881;
+	background: #f2f3ff;
+	svg {
+		font-size: 38px;
+	}
+	span {
+		font-size: 12px;
+		padding: 10px;
+		text-align: center;
+	}
+}
+.equipment-photo-dialog {
+	img {
+		width: 100%;
+		height: min(65vh, 650px);
+		object-fit: contain;
+	}
+	.equipment-photo-unavailable {
+		min-height: 300px;
+	}
+}

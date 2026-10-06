@@ -35,9 +35,13 @@ function Join() {
 		}
 	};
 	return (
-		<Stack className="catalog-page" alignItems="center">
-			<Stack component="form" onSubmit={submit} spacing={3} sx={{ width: '100%', maxWidth: 440 }}>
-				<Typography variant="h3">SkiResort</Typography>
+		<Stack className="catalog-page auth-page">
+			<div className="auth-visual">
+				<h2>{t('Your next winter escape')}</h2>
+				<p>{t('Discover ski resorts for your next adventure in South Korea.')}</p>
+			</div>
+			<Stack component="form" className="auth-form" onSubmit={submit} spacing={3} sx={{ width: '100%', maxWidth: 440 }}>
+				<Typography variant="h3">SNOWKR</Typography>
 				<Typography component="h1" variant="h5">
 					{t(login ? 'Login' : 'Register')}
 				</Typography>

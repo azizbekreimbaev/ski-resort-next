@@ -11,6 +11,7 @@ export default function MyMenu() {
 		['myProfile', 'My Profile'],
 		['myFavorites', 'My Favorites'],
 		['recentlyVisited', 'Recently Visited'],
+		['demoOrders', 'Demo orders'],
 		['followers', 'My Followers'],
 		['followings', 'My Followings'],
 		['myArticles', 'Articles'],

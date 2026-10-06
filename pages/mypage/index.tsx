@@ -9,6 +9,7 @@ import RecentlyVisited from '../../libs/components/mypage/RecentlyVisited';
 import useMemberSession from '../../libs/hooks/useMemberSession';
 import InstructorWorkflow from '../../libs/components/mypage/InstructorWorkflow';
 import MyProfile from '../../libs/components/mypage/MyProfile';
+import DemoOrders from '../../libs/components/common/DemoOrders';
 import MyArticles from '../../libs/components/mypage/MyArticles';
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { userVar } from '../../apollo/store';
@@ -43,6 +44,7 @@ const MyPage: NextPage = () => {
 			'followers',
 			'followings',
 			'instructor',
+			'demoOrders',
 		].includes(rawCategory)
 			? rawCategory
 			: 'myProfile';
@@ -136,6 +138,7 @@ const MyPage: NextPage = () => {
 									{category === 'myArticles' && <MyArticles />}
 									{category === 'writeArticle' && <WriteArticle />}
 									{category === 'myProfile' && <MyProfile />}
+									{category === 'demoOrders' && <DemoOrders />}
 									{category === 'instructor' && <InstructorWorkflow />}
 									{category === 'followers' && (
 										<MemberFollowers

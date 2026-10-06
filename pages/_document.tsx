@@ -8,10 +8,10 @@ export default function Document() {
 				<link rel="icon" type="image/svg+xml" href="/img/logo/favicon.svg" />
 
 				{/* SEO */}
-				<meta name="keywords" content="SkiResort, ski resorts, skiing, snowboarding, South Korea" />
+				<meta name="keywords" content="SNOWKR, ski resorts, skiing, snowboarding, South Korea" />
 				<meta
 					name="description"
-					content="Discover South Korea's ski resorts, explore ski and snowboard equipment, and meet instructors with SkiResort."
+					content="Discover South Korea's ski resorts, explore ski and snowboard equipment, and meet instructors with SNOWKR."
 				/>
 			</Head>
 			<body>

@@ -1,0 +1,363 @@
+#pc-wrap.snowkr-app .community-create {
+	background: #faf8ff;
+	color: #131b2e;
+	padding: 32px 32px 40px;
+	.create-breadcrumb {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 11px;
+		margin-bottom: 20px;
+	}
+	.create-breadcrumb a {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+	}
+	.create-breadcrumb svg {
+		width: 15px;
+		height: 15px;
+	}
+	.create-breadcrumb > span {
+		color: #006194;
+	}
+	.create-container {
+		max-width: 860px;
+		margin: auto;
+	}
+	.create-heading {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 20px;
+		padding-bottom: 32px;
+	}
+	.create-eyebrow {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		color: #006194;
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+	.create-eyebrow span {
+		display: grid;
+		place-items: center;
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		background: #cce5ff;
+		font-size: 11px;
+	}
+	h1 {
+		margin: 8px 0;
+		font-size: 36px;
+		line-height: 1.22;
+		letter-spacing: -0.02em;
+	}
+	.create-heading p {
+		font-size: 15px;
+		line-height: 24px;
+		margin: 0;
+		color: #3f4850;
+	}
+	.create-author {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		border-radius: 30px;
+		background: #f2f3ff;
+		padding: 8px 14px;
+		flex-shrink: 0;
+		max-width: 210px;
+	}
+	.create-avatar {
+		display: grid;
+		place-items: center;
+		width: 32px;
+		height: 32px;
+		background: #004870;
+		color: white;
+		border-radius: 50%;
+		font-size: 12px;
+		flex-shrink: 0;
+	}
+	.create-author small {
+		display: block;
+		text-transform: uppercase;
+		font-size: 10px;
+		letter-spacing: 0.04em;
+	}
+	.create-author strong {
+		display: block;
+		font-size: 12px;
+		overflow-wrap: anywhere;
+	}
+	.create-form {
+		background: white;
+		border-radius: 20px;
+		padding: 40px;
+		box-shadow: 0 12px 32px -4px rgba(19, 27, 46, 0.06);
+	}
+	fieldset {
+		border: 0;
+		margin: 0;
+		padding: 0;
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 32px;
+	}
+	fieldset:disabled {
+		opacity: 0.7;
+	}
+	.create-field {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+	.create-label {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+	}
+	label {
+		font-size: 14px;
+		font-weight: 600;
+	}
+	label b,
+	.create-error {
+		color: #ba1a1a;
+	}
+	small {
+		color: #3f4850;
+		font-size: 11px;
+		line-height: 17px;
+	}
+	label small {
+		font-weight: 400;
+	}
+	input:not([type='file']),
+	select,
+	textarea {
+		width: 100%;
+		border: 0;
+		border-radius: 8px;
+		background: #f2f3ff;
+		padding: 14px 16px;
+		color: #131b2e;
+		font: inherit;
+		font-size: 15px;
+		box-sizing: border-box;
+	}
+	input::placeholder,
+	textarea::placeholder {
+		color: #707881;
+		opacity: 1;
+	}
+	input:focus,
+	select:focus,
+	textarea:focus,
+	button:focus-visible,
+	a:focus-visible {
+		outline: 2px solid #006194;
+		outline-offset: 2px;
+	}
+	[aria-invalid='true'] {
+		outline: 1px solid #ba1a1a;
+	}
+	.create-select {
+		position: relative;
+	}
+	.create-select > svg {
+		position: absolute;
+		left: 14px;
+		top: 14px;
+		width: 20px;
+		height: 20px;
+		pointer-events: none;
+	}
+	select {
+		padding-left: 44px;
+		cursor: pointer;
+	}
+	.create-editor {
+		border-radius: 8px;
+		background: #f2f3ff;
+	}
+	.create-editor .toastui-editor-defaultUI {
+		border: 0;
+		border-radius: 8px;
+		overflow: hidden;
+	}
+	.create-editor .toastui-editor-defaultUI-toolbar {
+		background: #eaedff;
+	}
+	.create-editor .toastui-editor-ww-container,
+	.create-editor .toastui-editor-md-container {
+		background: #f2f3ff;
+	}
+	.article-content-editor[inert] {
+		pointer-events: none;
+	}
+	.create-preview-toggle {
+		align-self: flex-start;
+	}
+	.create-content-preview {
+		border: 1px solid #dae2fd;
+		border-radius: 8px;
+		padding: 20px;
+		overflow-wrap: anywhere;
+	}
+	.create-file-input {
+		display: none;
+	}
+	.create-dropzone {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 8px;
+		border: 0;
+		border-radius: 12px;
+		background: #f2f3ff;
+		padding: 32px 16px;
+		cursor: pointer;
+		color: #131b2e;
+		font: inherit;
+		font-size: 14px;
+		text-align: center;
+	}
+	.create-dropzone:hover {
+		background: #eaedff;
+	}
+	.create-dropzone > svg {
+		color: #006194;
+		width: 42px;
+		height: 42px;
+		padding: 9px;
+		border-radius: 50%;
+		background: #eaedff;
+		margin-bottom: 8px;
+	}
+	.create-image-preview {
+		position: relative;
+		width: 184px;
+		height: 184px;
+		border-radius: 8px;
+		overflow: hidden;
+		background: #f2f3ff;
+		display: grid;
+		place-items: center;
+	}
+	.create-image-preview img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	.create-image-preview small {
+		position: absolute;
+		bottom: 8px;
+		left: 8px;
+		right: 8px;
+		background: #283044d9;
+		color: white;
+		padding: 3px 6px;
+		border-radius: 4px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+	.create-image-preview button {
+		position: absolute;
+		top: 8px;
+		right: 8px;
+		border: 0;
+		border-radius: 50%;
+		background: #283044;
+		color: white;
+		cursor: pointer;
+		padding: 4px;
+		display: flex;
+	}
+	.create-guidelines {
+		display: flex;
+		gap: 14px;
+		padding: 20px;
+		border-radius: 12px;
+		background: #f2f3ff;
+	}
+	.create-guidelines > svg {
+		color: #006194;
+		background: #dae2fd;
+		border-radius: 8px;
+		padding: 5px;
+		width: 32px;
+		height: 32px;
+		flex-shrink: 0;
+	}
+	.create-guidelines h2 {
+		font-size: 14px;
+		font-weight: 600;
+		margin: 0 0 8px;
+	}
+	.create-guidelines ul {
+		padding-left: 14px;
+		margin: 0;
+		font-size: 12px;
+		line-height: 24px;
+		color: #3f4850;
+	}
+	.create-guidelines li::marker {
+		color: #006194;
+	}
+	.create-actions {
+		display: flex;
+		justify-content: flex-end;
+		gap: 20px;
+		margin-top: 40px;
+	}
+	.create-actions .MuiButton-contained {
+		background: #004870;
+		border-radius: 10px;
+		padding: 10px 24px;
+		box-shadow: none;
+	}
+	.create-actions .MuiButton-contained:hover {
+		background: #006194;
+	}
+	.create-form > .MuiAlert-root {
+		margin-top: 20px;
+	}
+}
+@media (max-width: 767px) {
+	#pc-wrap.snowkr-app .community-create {
+		padding: 24px 16px 32px;
+		.create-heading {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+		h1 {
+			font-size: 28px;
+		}
+		.create-form {
+			padding: 24px 20px;
+			border-radius: 16px;
+		}
+		.create-label {
+			flex-wrap: wrap;
+			gap: 4px;
+		}
+		.create-guidelines {
+			padding: 16px;
+		}
+		.create-actions {
+			gap: 12px;
+		}
+		.create-actions .MuiButton-contained {
+			padding: 10px 16px;
+		}
+	}
+}
