@@ -740,6 +740,20 @@
 	.home-article-preview {
 		padding: 22px;
 		gap: 16px;
+		.home-article-image {
+			display: block;
+			flex-shrink: 0;
+			margin: -22px -22px 0;
+			aspect-ratio: 16 / 9;
+			overflow: hidden;
+			border-radius: 16px 16px 0 0;
+			img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
 		> .MuiChip-root {
 			align-self: flex-start;
 			border-radius: 6px;

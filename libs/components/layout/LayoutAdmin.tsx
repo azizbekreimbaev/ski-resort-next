@@ -5,7 +5,11 @@ import AppLayout from './AppLayout';
 import MenuList from '../admin/AdminMenuList';
 import useMemberSession from '../../hooks/useMemberSession';
 import { useTranslation } from 'next-i18next';
-export default function withAdminLayout<P extends object>(Component: ComponentType<P>) {
+import AdminMembersShell from '../admin/users/AdminMembersShell';
+export default function withAdminLayout<P extends object>(
+	Component: ComponentType<P>,
+	options?: { membersDesign?: boolean },
+) {
 	return function LayoutAdmin(props: P) {
 		const router = useRouter();
 		const { t } = useTranslation('common');
@@ -16,6 +20,12 @@ export default function withAdminLayout<P extends object>(Component: ComponentTy
 			if (ready && user.memberType !== 'ADMIN') void router.replace('/');
 		}, [ready, user.memberType, router]);
 		if (!ready || user.memberType !== 'ADMIN') return null;
+		if (options?.membersDesign)
+			return (
+				<AdminMembersShell>
+					<Component {...props} {...{ setSnackbar, setTitle }} />
+				</AdminMembersShell>
+			);
 		return (
 			<AppLayout>
 				<div className="snowkr-container snowkr-admin">

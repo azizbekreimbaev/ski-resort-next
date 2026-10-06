@@ -11,6 +11,7 @@ import { BoardArticleCategory } from '../../enums/board-article.enum';
 import { Direction } from '../../enums/common.enum';
 import HomeSection from './HomeSection';
 import HomeCollectionState from './HomeCollectionState';
+import { homeImageUrl } from './homeUtils';
 
 interface HomeArticlesInquiry {
 	page: number;
@@ -66,6 +67,21 @@ export default function CommunityBoards({ news = false }: { news?: boolean }) {
 				<div className="home-article-grid">
 					{articles.map((article) => (
 						<article className="home-preview-card home-article-preview" key={article._id}>
+							<Link
+								className="home-article-image"
+								href={`/community/detail?id=${encodeURIComponent(article._id)}&articleCategory=${article.articleCategory}`}
+							>
+								<img
+									key={article.articleImage}
+									src={homeImageUrl(article.articleImage) || '/img/hero/winter-1.jpg'}
+									alt={article.articleTitle}
+									loading="lazy"
+									onError={(event) => {
+										if (!event.currentTarget.src.endsWith('/img/hero/winter-1.jpg'))
+											event.currentTarget.src = '/img/hero/winter-1.jpg';
+									}}
+								/>
+							</Link>
 							<Chip size="small" label={t(article.articleCategory)} />
 							<h3>
 								<Link

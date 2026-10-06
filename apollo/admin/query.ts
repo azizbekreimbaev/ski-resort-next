@@ -144,3 +144,13 @@ export const GET_ALL_RESORTS_BY_ADMIN = gql`query GetAllResortsByAdmin($input: A
 export const GET_ALL_EQUIPMENTS_BY_ADMIN = gql`query GetAllEquipmentsByAdmin($input: AllEquipmentsInquiry!) { getAllEquipmentsByAdmin(input: $input) { list { ${equipmentFields} } metaCounter { total } } }`;
 export const GET_ALL_INSTRUCTOR_APPLICATIONS_BY_ADMIN = gql`query GetAllInstructorApplicationsByAdmin($input: InstructorApplicationsInquiry!) { getAllInstructorApplicationsByAdmin(input: $input) { list { ${applicationFields} } metaCounter { total } } }`;
 export const GET_INSTRUCTOR_APPLICATION_BY_ADMIN = gql`query GetInstructorApplicationByAdmin($applicationId: String!) { getInstructorApplicationByAdmin(applicationId: $applicationId) { ${applicationFields} } }`;
+
+export const MEMBER_SUMMARY = gql`
+	query AdminMemberSummary($all: MembersInquiry!, $active: MembersInquiry!, $instructors: MembersInquiry!, $blocked: MembersInquiry!, $archived: MembersInquiry!) {
+		all: getAllMembersByAdmin(input: $all) { metaCounter { total } }
+		active: getAllMembersByAdmin(input: $active) { metaCounter { total } }
+		instructors: getAllMembersByAdmin(input: $instructors) { metaCounter { total } }
+		blocked: getAllMembersByAdmin(input: $blocked) { metaCounter { total } }
+		archived: getAllMembersByAdmin(input: $archived) { metaCounter { total } }
+	}
+`;

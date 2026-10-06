@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-fixed":"#0c1e26","secondary-container":"#39b8fd","on-tertiary":"#ffffff","secondary-fixed-dim":"#89ceff","on-secondary-fixed":"#001e2f","outline":"#707881","surface":"#faf8ff","surface-container-highest":"#dae2fc","on-surface":"#131b2e","surface-container-lowest":"#ffffff","outline-variant":"#c0c7d0","secondary-fixed":"#c9e6ff","surface-tint":"#076396","inverse-surface":"#283044","surface-container":"#eaedff","on-primary":"#ffffff","on-error":"#ffffff","on-primary-container":"#fdfcff","inverse-primary":"#93ccff","on-tertiary-fixed-variant":"#384953","surface-container-low":"#f2f3ff","on-tertiary-container":"#c6d7e3","on-primary-fixed-variant":"#004b73","secondary":"#006590","surface-dim":"#d2d9f4","on-primary-fixed":"#001d31","tertiary-fixed-dim":"#b7c9d5","primary":"#004870","on-error-container":"#93000a","tertiary-container":"#667781","on-surface-variant":"#3f4850","on-secondary-fixed-variant":"#004c6e","error":"#ba1a1a","tertiary-fixed":"#d3e5f1","primary-fixed":"#cce5ff","tertiary":"#374650","background":"#faf8ff","on-background":"#131b2e","inverse-on-surface":"#eef0ff","surface-bright":"#faf8ff","error-container":"#ffdad6","surface-container-high":"#e2e7ff","primary-fixed-dim":"#93ccff","primary-container":"#007bb9","surface-variant":"#dae2fc","on-secondary-container":"#004666","on-secondary":"#ffffff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-lg":"1.5rem","space-sm":"0.5rem","space-md":"1rem","margin-mobile":"1rem","space-xs":"0.25rem","gutter":"1.5rem","margin":"2rem","gutter-sm":"1rem","space-xl":"2.5rem"},fontFamily:{"label-sm":["Inter"],"body-sm":["Inter"],"body-lg":["Inter"],"body-md":["Inter"],"headline-md":["Plus Jakarta Sans"],"label-md":["Inter"],"headline-xl":["Plus Jakarta Sans"],"label-lg":["Inter"],"headline-xl-mobile":["Plus Jakarta Sans"],"display-hero-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"display-hero":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"]},fontSize:{"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.03em","fontWeight":"500"}],"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"headline-md":["22px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-xl":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"headline-xl-mobile":["26px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"700"}],"display-hero-mobile":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}],"display-hero":["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"26px","fontWeight":"600"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-[230px] bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col flex-1 overflow-y-auto"><div class="h-16 px-space-md flex items-center gap-space-xs"><div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[20px]">downhill_skiing</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight leading-none">SNOWKR</span><span class="font-label-sm text-label-sm text-on-surface-variant font-medium tracking-wide uppercase mt-0.5">Admin Panel</span></div></div><div class="px-space-md py-space-sm"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold px-space-xs">Navigation</span></div><nav class="flex flex-col gap-space-xs px-space-sm flex-1" data-active-classes="bg-primary-container text-on-primary-container font-semibold shadow-sm"><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="overview" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="font-label-lg text-label-lg">Overview</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="members" href="#"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-label-lg text-label-lg">Members</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg transition-colors bg-primary-container text-on-primary-container font-semibold shadow-sm" data-path="resorts" href="#"><span class="material-symbols-outlined text-[20px]">downhill_skiing</span><span class="font-label-lg text-label-lg">Resorts</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="equipment" href="#"><span class="material-symbols-outlined text-[20px]">snowboarding</span><span class="font-label-lg text-label-lg">Equipment</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="instructor-applications" href="#"><span class="material-symbols-outlined text-[20px]">school</span><span class="font-label-lg text-label-lg">Instructor Applications</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="community" href="#"><span class="material-symbols-outlined text-[20px]">forum</span><span class="font-label-lg text-label-lg">Community</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-label-lg text-label-lg">Settings</span></a></nav></div><div class="p-space-sm bg-surface-container-low"><div class="flex items-center gap-space-xs px-space-xs py-space-xs"><span class="w-2 h-2 rounded-full bg-secondary"></span><span class="font-label-sm text-label-sm text-on-surface-variant font-medium">v2.4.0 Production Cloud</span></div></div></aside><div class="pl-[230px]"><header class="fixed top-0 left-[230px] right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-8"><div class="flex items-center gap-space-md flex-1 max-w-md"><div class="relative w-full flex items-center bg-surface-container-low rounded-lg px-space-sm py-1.5 focus-within:ring-2 focus-within:ring-primary/20"><span class="material-symbols-outlined text-outline text-[20px] mr-2">search</span><input class="bg-transparent w-full text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm outline-none" placeholder="Search or jump to... (Press ⌘K)" type="text"/><kbd class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-highest px-1.5 py-0.5 rounded">⌘K</kbd></div></div><div class="flex items-center gap-space-md"><a class="flex items-center gap-1.5 px-space-sm py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container text-body-sm font-body-sm font-medium transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">open_in_new</span><span>View Public Site</span></a><button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span></button><div class="flex items-center gap-space-sm pl-space-sm"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col text-left hidden sm:flex"><span class="font-label-lg text-label-lg text-on-surface font-semibold leading-tight">Super Admin</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">admin@snowkr.io</span></div><span class="material-symbols-outlined text-on-surface-variant text-[18px]">keyboard_arrow_down</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="w-full max-w-[1440px] mx-auto px-8 py-6"><div class="flex flex-col w-full">
+<!-- Top Breadcrumb & Action Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md mb-space-lg">
+<div class="flex flex-col gap-space-xs">
+<nav class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md">
+<a class="hover:text-primary transition-colors flex items-center gap-1" data-path="overview" href="#">
+<span class="material-symbols-outlined text-[16px]">home</span>
+<span>Admin</span>
+</a>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<a class="hover:text-primary transition-colors" data-path="resorts" href="#">Resorts</a>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<span class="text-primary font-semibold">Add Resort</span>
+</nav>
+<h1 class="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight">Add Resort</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Create a new ski resort listing for the SNOWKR platform.</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<a class="px-space-md py-2 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-lg text-label-lg transition-colors flex items-center gap-1.5 shadow-sm" data-path="resorts" href="#">
+<span class="material-symbols-outlined text-[18px]">close</span>
+<span>Cancel</span>
+</a>
+<button class="px-space-lg py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-semibold transition-all shadow-sm flex items-center gap-2" form="add-resort-form" type="submit">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span>Publish Resort</span>
+</button>
+</div>
+</div>
+<!-- Main Grid: Form Left, Sticky Live Preview Right -->
+<div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1.7fr)_minmax(340px,0.85fr)] gap-space-lg items-start">
+<!-- LEFT COLUMN - Form Sections -->
+<form class="flex flex-col gap-space-lg" id="add-resort-form" onsubmit="event.preventDefault();">
+<!-- Section 1: Basic Information -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-5 bg-primary rounded-full"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Basic Information</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full uppercase tracking-wider font-semibold">Step 01</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Resort Title -->
+<div class="flex flex-col gap-1.5 md:col-span-2">
+<label class="font-label-lg text-label-lg text-on-surface font-medium flex items-center gap-1" for="resortTitle">
+              Resort Title <span class="text-error font-bold">*</span>
+</label>
+<input class="w-full bg-surface-container-low px-space-md py-2.5 rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary outline-none transition-all" id="resortTitle" name="resortTitle" placeholder="Enter resort name (e.g. Mona Yongpyong)" required="" type="text" value="Mona Yongpyong Resort"/>
+</div>
+<!-- Location Enum Dropdown -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-on-surface font-medium flex items-center gap-1" for="resortLocation">
+              Location <span class="text-error font-bold">*</span>
+</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-low px-space-md py-2.5 rounded-lg text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary outline-none transition-all cursor-pointer pr-10" id="resortLocation" name="resortLocation" required="">
+<option selected="" value="PYEONGCHANG">PYEONGCHANG (평창)</option>
+<option value="JEONGSEON">JEONGSEON (정선)</option>
+<option value="HONGCHEON">HONGCHEON (홍천)</option>
+<option value="CHUNCHEON">CHUNCHEON (춘천)</option>
+<option value="ICHEON">ICHEON (이천)</option>
+<option value="POCHEON">POCHEON (포천)</option>
+<option value="MUJU">MUJU (무주)</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">expand_more</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Standardized geographic cluster for Korean ski zones.</p>
+</div>
+<!-- Skill Level Enum Dropdown -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-on-surface font-medium flex items-center gap-1" for="resortLevel">
+              Primary Skill Level <span class="text-error font-bold">*</span>
+</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-low px-space-md py-2.5 rounded-lg text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary outline-none transition-all cursor-pointer pr-10" id="resortLevel" name="resortLevel" required="">
+<option value="BEGINNER">BEGINNER (초급 중심)</option>
+<option value="INTERMEDIATE">INTERMEDIATE (중급 중심)</option>
+<option selected="" value="ADVANCED">ADVANCED (상급/익스트림)</option>
+<option value="MIXED">MIXED (전 레벨 복합)</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">expand_more</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Recommended classification for rider profile matching.</p>
+</div>
+<!-- Address Input -->
+<div class="flex flex-col gap-1.5 md:col-span-2">
+<label class="font-label-lg text-label-lg text-on-surface font-medium flex items-center gap-1" for="resortAddress">
+              Full Street Address <span class="text-error font-bold">*</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[20px]">location_on</span>
+<input class="w-full bg-surface-container-low pl-10 pr-space-md py-2.5 rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary outline-none transition-all" id="resortAddress" name="resortAddress" placeholder="Enter full Korean street address" required="" type="text" value="715 Olympic-ro, Daegwallyeong-myeon, Pyeongchang-gun, Gangwon-do"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Pricing & Duration -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-5 bg-primary rounded-full"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Pricing &amp; Duration Policy</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full uppercase tracking-wider font-semibold">Step 02</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Daily Price -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-on-surface font-medium flex items-center gap-1" for="resortPricePerDay">
+              Daily Pass Price (KRW) <span class="text-error font-bold">*</span>
+</label>
+<div class="relative flex items-center">
+<span class="absolute left-3.5 text-on-surface-variant font-bold font-body-md">₩</span>
+<input class="w-full bg-surface-container-low pl-9 pr-space-md py-2.5 rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary outline-none transition-all" id="resortPricePerDay" min="1000" name="resortPricePerDay" placeholder="75,000" required="" step="500" type="number" value="79000"/>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Day pass rate per adult in KRW. Must be greater than 0.</span>
+</div>
+<!-- Minimum Days Counter -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-on-surface font-medium" for="resortMinDays">
+              Minimum Booking Days
+            </label>
+<div class="flex items-center bg-surface-container-low rounded-lg p-1 w-full max-w-[200px]">
+<button class="w-9 h-9 flex items-center justify-center rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-colors shadow-sm" id="decrease-days" type="button">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<input class="w-full text-center bg-transparent text-on-surface font-headline-sm text-headline-sm font-semibold outline-none" id="resortMinDays" max="7" min="1" name="resortMinDays" readonly="" type="number" value="1"/>
+<button class="w-9 h-9 flex items-center justify-center rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-colors shadow-sm" id="increase-days" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Minimum booking duration required by resort policy (1–7 days).</span>
+</div>
+</div>
+</section>
+<!-- Section 3: Description -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-5 bg-primary rounded-full"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Resort Description</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full uppercase tracking-wider font-semibold">Step 03</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-on-surface font-medium flex items-center gap-1" for="resortDesc">
+            Resort Overview &amp; Details <span class="text-error font-bold">*</span>
+</label>
+<textarea class="w-full bg-surface-container-low p-space-md rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary outline-none transition-all resize-y" id="resortDesc" name="resortDesc" placeholder="Describe this ski resort, terrain highlights, mountain characteristics, and guest amenities..." required="" rows="5">Mona Yongpyong, nestled in the scenic Balwangsan mountain in Pyeongchang, is Korea's premiere ski destination boasting 28 diverse slopes and world-class gondola infrastructure. Known as the cradle of Korean winter sports, it offers powdery conditions, comprehensive equipment hubs, and expansive night skiing under crisp alpine starlight.</textarea>
+<div class="flex justify-between items-center text-on-surface-variant font-label-sm text-label-sm pt-1">
+<span>Markdown formatting supported.</span>
+<span id="desc-char-count">338 / 2000 chars</span>
+</div>
+</div>
+</section>
+<!-- Section 4: Facilities -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-5 bg-primary rounded-full"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Verified Facilities</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full uppercase tracking-wider font-semibold">Step 04</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant -mt-2">
+          Select all verified amenities available at this resort facility. These map directly to rider filtering options.
+        </p>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-space-sm" id="facility-grid">
+<!-- PARKING -->
+<label class="facility-checkbox flex items-center gap-3 p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors relative select-none">
+<input checked="" class="sr-only peer" name="resortFacilities" type="checkbox" value="PARKING"/>
+<div class="w-5 h-5 rounded flex items-center justify-center bg-surface-container-lowest peer-checked:bg-primary text-transparent peer-checked:text-on-primary transition-all shadow-sm">
+<span class="material-symbols-outlined text-[16px] font-bold">check</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[20px] text-secondary">local_parking</span>
+<span class="font-label-md text-label-md font-semibold">PARKING</span>
+</div>
+</label>
+<!-- RESTAURANT -->
+<label class="facility-checkbox flex items-center gap-3 p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors relative select-none">
+<input checked="" class="sr-only peer" name="resortFacilities" type="checkbox" value="RESTAURANT"/>
+<div class="w-5 h-5 rounded flex items-center justify-center bg-surface-container-lowest peer-checked:bg-primary text-transparent peer-checked:text-on-primary transition-all shadow-sm">
+<span class="material-symbols-outlined text-[16px] font-bold">check</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[20px] text-secondary">restaurant</span>
+<span class="font-label-md text-label-md font-semibold">RESTAURANT</span>
+</div>
+</label>
+<!-- SKI_LIFT -->
+<label class="facility-checkbox flex items-center gap-3 p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors relative select-none">
+<input checked="" class="sr-only peer" name="resortFacilities" type="checkbox" value="SKI_LIFT"/>
+<div class="w-5 h-5 rounded flex items-center justify-center bg-surface-container-lowest peer-checked:bg-primary text-transparent peer-checked:text-on-primary transition-all shadow-sm">
+<span class="material-symbols-outlined text-[16px] font-bold">check</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[20px] text-secondary">downhill_skiing</span>
+<span class="font-label-md text-label-md font-semibold">SKI_LIFT</span>
+</div>
+</label>
+<!-- EQUIPMENT_RENTAL -->
+<label class="facility-checkbox flex items-center gap-3 p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors relative select-none">
+<input checked="" class="sr-only peer" name="resortFacilities" type="checkbox" value="EQUIPMENT_RENTAL"/>
+<div class="w-5 h-5 rounded flex items-center justify-center bg-surface-container-lowest peer-checked:bg-primary text-transparent peer-checked:text-on-primary transition-all shadow-sm">
+<span class="material-symbols-outlined text-[16px] font-bold">check</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[20px] text-secondary">snowboarding</span>
+<span class="font-label-md text-label-md font-semibold">RENTAL</span>
+</div>
+</label>
+<!-- SKI_SCHOOL -->
+<label class="facility-checkbox flex items-center gap-3 p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors relative select-none">
+<input class="sr-only peer" name="resortFacilities" type="checkbox" value="SKI_SCHOOL"/>
+<div class="w-5 h-5 rounded flex items-center justify-center bg-surface-container-lowest peer-checked:bg-primary text-transparent peer-checked:text-on-primary transition-all shadow-sm">
+<span class="material-symbols-outlined text-[16px] font-bold">check</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[20px] text-secondary">school</span>
+<span class="font-label-md text-label-md font-semibold">SKI_SCHOOL</span>
+</div>
+</label>
+<!-- LOCKER_ROOM -->
+<label class="facility-checkbox flex items-center gap-3 p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors relative select-none">
+<input checked="" class="sr-only peer" name="resortFacilities" type="checkbox" value="LOCKER_ROOM"/>
+<div class="w-5 h-5 rounded flex items-center justify-center bg-surface-container-lowest peer-checked:bg-primary text-transparent peer-checked:text-on-primary transition-all shadow-sm">
+<span class="material-symbols-outlined text-[16px] font-bold">check</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[20px] text-secondary">lock</span>
+<span class="font-label-md text-label-md font-semibold">LOCKERS</span>
+</div>
+</label>
+<!-- NIGHT_SKIING -->
+<label class="facility-checkbox flex items-center gap-3 p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors relative select-none">
+<input checked="" class="sr-only peer" name="resortFacilities" type="checkbox" value="NIGHT_SKIING"/>
+<div class="w-5 h-5 rounded flex items-center justify-center bg-surface-container-lowest peer-checked:bg-primary text-transparent peer-checked:text-on-primary transition-all shadow-sm">
+<span class="material-symbols-outlined text-[16px] font-bold">check</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[20px] text-secondary">bedtime</span>
+<span class="font-label-md text-label-md font-semibold">NIGHT_SKI</span>
+</div>
+</label>
+<!-- SAUNA_SPA -->
+<label class="facility-checkbox flex items-center gap-3 p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors relative select-none">
+<input class="sr-only peer" name="resortFacilities" type="checkbox" value="SAUNA_SPA"/>
+<div class="w-5 h-5 rounded flex items-center justify-center bg-surface-container-lowest peer-checked:bg-primary text-transparent peer-checked:text-on-primary transition-all shadow-sm">
+<span class="material-symbols-outlined text-[16px] font-bold">check</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[20px] text-secondary">hot_tub</span>
+<span class="font-label-md text-label-md font-semibold">SAUNA_SPA</span>
+</div>
+</label>
+<!-- CAFE -->
+<label class="facility-checkbox flex items-center gap-3 p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors relative select-none">
+<input checked="" class="sr-only peer" name="resortFacilities" type="checkbox" value="CAFE"/>
+<div class="w-5 h-5 rounded flex items-center justify-center bg-surface-container-lowest peer-checked:bg-primary text-transparent peer-checked:text-on-primary transition-all shadow-sm">
+<span class="material-symbols-outlined text-[16px] font-bold">check</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[20px] text-secondary">local_cafe</span>
+<span class="font-label-md text-label-md font-semibold">CAFE</span>
+</div>
+</label>
+</div>
+</section>
+<!-- Section 5: Resort Images -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-5 bg-primary rounded-full"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Resort Imagery</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full uppercase tracking-wider font-semibold">Step 05</span>
+</div>
+<!-- Drag & Drop Zone -->
+<div class="bg-surface-container-low hover:bg-surface-container rounded-xl p-space-lg flex flex-col items-center justify-center text-center cursor-pointer transition-all group">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center mb-space-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-primary-fixed text-[26px]">cloud_upload</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+            Drop high-resolution resort photos here, or <span class="text-primary hover:underline">Browse Files</span>
+</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+            PNG, JPG, or WebP up to 10MB per image. First photo acts as the primary mountain cover.
+          </p>
+</div>
+<!-- Preview Grid of Uploaded Images -->
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-space-sm pt-space-xs">
+<!-- Image 1 (Cover) -->
+<div class="relative group rounded-lg overflow-hidden bg-surface-container-high aspect-[4/3] shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Epic panoramic view of Mona Yongpyong ski resort in South Korea under brilliant blue winter morning sky with pristine white groomed ski runs descending from alpine ridge line and modern ski lifts in motion" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYkuF81BrvtvER9D_qLzLdj7BtOkv00fNJR6o0h9hjISkwLs9aITmx2lw-XcCa6OutNlYV6DayywOfu6tGvf11rx5OmZRiDSXxob69FDhcy_-RPanQQULh-9BTlj7w3iL4otwBsGSbU66FinpisxsiDiCv9fjkbUwPczUOrQa1MsDjUTNYkUGDOAwc1BKI5S4QEa5qQh7ZZJJ7UsT3rfEvdgAwZj9eIdS7r2Ej4g"/>
+<div class="absolute top-2 left-2 bg-primary text-on-primary font-label-sm text-label-sm px-2 py-0.5 rounded-full font-semibold shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">star</span>
+<span>Cover Photo</span>
+</div>
+<div class="absolute inset-0 bg-on-surface/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest text-error flex items-center justify-center shadow-md hover:scale-110 transition-transform" title="Remove photo" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+<div class="absolute bottom-1.5 right-2 bg-inverse-surface/75 text-inverse-on-surface font-label-sm text-label-sm px-1.5 py-0.5 rounded backdrop-blur-sm">
+              3.4 MB
+            </div>
+</div>
+<!-- Image 2 -->
+<div class="relative group rounded-lg overflow-hidden bg-surface-container-high aspect-[4/3] shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Modern alpine resort lodge base area at snow resort in Gangwon-do showing ski rack storage, skiers resting under warm sunny conditions, and vibrant contemporary architecture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8yLlh3DW7kmbk7UVJS2t_hHMzEwJCTFMmDjAO2gtke2zbRZ1wMMMzefqgwdC760tsDZNwup2Ltua3iYB7jyOiaDPVxn-7tkz0sgSfaOiKqiWIPbcAiPhnjiev99GlUGOMoC8mRFh4H1UNbgn3OCWR8WuRNH23qY50mfeHzwY75S0l7EllsCTa9MMYYkJJGPOXAMcmyi4o0knz0r7YF2V877_kj0fosenMYE60cw"/>
+<div class="absolute inset-0 bg-on-surface/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest text-error flex items-center justify-center shadow-md hover:scale-110 transition-transform" title="Remove photo" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+<div class="absolute bottom-1.5 right-2 bg-inverse-surface/75 text-inverse-on-surface font-label-sm text-label-sm px-1.5 py-0.5 rounded backdrop-blur-sm">
+              2.1 MB
+            </div>
+</div>
+<!-- Image 3 -->
+<div class="relative group rounded-lg overflow-hidden bg-surface-container-high aspect-[4/3] shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Night skiing slope illuminated by bright stadium floodlights at a South Korean ski resort, showing snow groomers and carving snowboarders with deep blue night sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA41wmy66A1wDM-CaenBMT8Wu0WWI24AMXijkW_Nr7MfrdLvL3ENq6fXbMKwEVS_eRq7hTNxtu-hq5FivBYJ-yA6eIHb1wtl7qSQQ6su6pXTPbYicVM7hkQRLm3dTH2dZzQnD_BBwi0kYMfd2IffOQGvY4xQfq72jwuRZwATk_DeE0JcKoaT6SfZJ6S6c1WP464xN6Tc8WNoAZWaNp4tBYWCfspHB2rJd1GZ5I35Q"/>
+<div class="absolute inset-0 bg-on-surface/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest text-error flex items-center justify-center shadow-md hover:scale-110 transition-transform" title="Remove photo" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+<div class="absolute bottom-1.5 right-2 bg-inverse-surface/75 text-inverse-on-surface font-label-sm text-label-sm px-1.5 py-0.5 rounded backdrop-blur-sm">
+              4.8 MB
+            </div>
+</div>
+<!-- Add Photo Placeholder Card -->
+<div class="flex flex-col items-center justify-center gap-1 rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer aspect-[4/3] transition-colors text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-[24px]">add_photo_alternate</span>
+<span class="font-label-sm text-label-sm font-semibold">+ Add Media</span>
+</div>
+</div>
+</section>
+<!-- Section 6: Listing Status -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-5 bg-primary rounded-full"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Listing Status</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full uppercase tracking-wider font-semibold">Step 06</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<!-- Active Status Option -->
+<label class="flex items-start gap-space-sm p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input checked="" class="mt-1 accent-primary" name="resortStatus" type="radio" value="ACTIVE"/>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Active (Published)</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                Listing will be immediately searchable, visible on public maps, and open to booking requests.
+              </span>
+</div>
+</label>
+<!-- Draft Status Option -->
+<label class="flex items-start gap-space-sm p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors opacity-75">
+<input class="mt-1 accent-primary" name="resortStatus" type="radio" value="DRAFT"/>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Draft / Internal</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                Hidden from public catalog. Only platform admins can view or edit this resort record.
+              </span>
+</div>
+</label>
+</div>
+</section>
+<!-- Form Bottom Actions -->
+<div class="flex items-center justify-end gap-space-md pt-space-xs pb-space-xl">
+<a class="px-space-lg py-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-lg text-label-lg font-medium transition-colors" data-path="resorts" href="#">
+          Discard Draft
+        </a>
+<button class="px-space-xl py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-semibold transition-all shadow-md flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined text-[20px]">check</span>
+<span>Create Resort Listing</span>
+</button>
+</div>
+</form>
+<!-- RIGHT COLUMN - Sticky Live Resort Preview -->
+<div class="sticky top-20 flex flex-col gap-space-md">
+<!-- Preview Header Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">visibility</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold">Public Card Preview</span>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+<span>Live Form Sync</span>
+</div>
+</div>
+<!-- Public Card Mockup -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-md group transition-all">
+<!-- Media / Cover Image -->
+<div class="relative h-48 w-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Scenic snowy mountain slope at Mona Yongpyong resort overlooking winter landscape in South Korea with clear bright morning atmosphere" id="preview-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlMHs20ibdRswqPTwHC9G_vwlOPOwCM6C31na1mN9nAW-zfKzjQMzkKPm7YqAU-E8fEtCEUoVBRdn-VLPt0qFjZOOf94XSrogQ-EeIo0F0xYV7AGljYnooK0lAIsuhrD7wOpEgZY3oGI3DJYHHm1c4ivdPcH6aTdAY6aeuy6iv34j2m4drKxYZj73ImnyyGo8Axra8Pcl0qWHfJI80KEjFsh_9gABPnCdMJMZ8Ng"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<!-- Location Pill Badge -->
+<div class="absolute top-3 left-3 bg-inverse-surface/80 backdrop-blur-md text-inverse-on-surface px-2.5 py-1 rounded-full font-label-sm text-label-sm font-semibold tracking-wide flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary-fixed-dim">location_on</span>
+<span id="preview-location-badge">PYEONGCHANG</span>
+</div>
+<!-- Status Indicator Pill -->
+<div class="absolute top-3 right-3 bg-secondary text-on-secondary px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-semibold uppercase tracking-wider flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+<span id="preview-status-badge">ACTIVE</span>
+</div>
+<!-- Bottom Title Overlay in Card -->
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between text-white">
+<div class="min-w-0 pr-2">
+<span class="inline-block px-2 py-0.5 rounded bg-white/20 backdrop-blur-sm text-white font-label-sm text-label-sm font-bold uppercase mb-1" id="preview-level-badge">
+                ADVANCED
+              </span>
+<h3 class="font-headline-md text-headline-md font-bold leading-tight truncate drop-shadow-sm" id="preview-resort-title">
+                Mona Yongpyong Resort
+              </h3>
+</div>
+</div>
+</div>
+<!-- Card Content Body -->
+<div class="p-space-md flex flex-col gap-space-sm bg-surface-container-lowest">
+<!-- Address & Pricing Line -->
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Pricing / Day</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-md text-headline-md text-primary font-bold" id="preview-price">₩79,000</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/ day</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Min Booking</span>
+<div class="flex items-center gap-1 font-label-lg text-label-lg font-bold text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-secondary">date_range</span>
+<span id="preview-min-days">1 Day</span>
+</div>
+</div>
+</div>
+<!-- Description Snippet -->
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2" id="preview-desc">
+            Mona Yongpyong, nestled in the scenic Balwangsan mountain in Pyeongchang, is Korea's premiere ski destination boasting 28 diverse slopes...
+          </p>
+<!-- Facilities Summary Row -->
+<div class="pt-space-xs flex flex-col gap-1 bg-surface-container-low p-space-sm rounded-lg">
+<div class="flex items-center justify-between text-on-surface">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-on-surface-variant">Selected Amenities</span>
+<span class="font-label-sm text-label-sm font-bold text-primary" id="preview-facility-count">6 Selected</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface truncate" id="preview-facility-list">
+              PARKING, RESTAURANT, SKI_LIFT, RENTAL, LOCKERS, NIGHT_SKI
+            </p>
+</div>
+<!-- Public Action CTA Mock -->
+<button class="w-full mt-1 py-2 bg-surface-container text-on-surface-variant font-label-lg text-label-lg font-medium rounded-lg text-center cursor-not-allowed" disabled="" type="button">
+            Public Card Preview (Disabled)
+          </button>
+</div>
+</div>
+<!-- System Metadata Card -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col gap-space-xs text-on-surface-variant">
+<div class="flex items-center gap-1.5 text-on-surface font-label-lg text-label-lg font-semibold">
+<span class="material-symbols-outlined text-secondary text-[18px]">info</span>
+<span>System Initialization Metadata</span>
+</div>
+<p class="font-body-sm text-body-sm leading-relaxed">
+          System fields such as <code class="font-label-sm bg-surface-container-high px-1 py-0.5 rounded text-primary">resortViews</code>, <code class="font-label-sm bg-surface-container-high px-1 py-0.5 rounded text-primary">resortLikes</code>, and <code class="font-label-sm bg-surface-container-high px-1 py-0.5 rounded text-primary">resortComments</code> will be initialized to <strong>0</strong> upon creation. Internal IDs and timestamps are managed automatically by the database sequence.
+        </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Reactive Preview Micro-interaction Script -->
+<script>
+  (function() {
+    const titleInput = document.getElementById('resortTitle');
+    const locationInput = document.getElementById('resortLocation');
+    const levelInput = document.getElementById('resortLevel');
+    const priceInput = document.getElementById('resortPricePerDay');
+    const minDaysInput = document.getElementById('resortMinDays');
+    const descInput = document.getElementById('resortDesc');
+    const charCount = document.getElementById('desc-char-count');
+    const statusInputs = document.querySelectorAll('input[name="resortStatus"]');
+    const facilityInputs = document.querySelectorAll('input[name="resortFacilities"]');
+
+    const previewTitle = document.getElementById('preview-resort-title');
+    const previewLocation = document.getElementById('preview-location-badge');
+    const previewLevel = document.getElementById('preview-level-badge');
+    const previewPrice = document.getElementById('preview-price');
+    const previewMinDays = document.getElementById('preview-min-days');
+    const previewDesc = document.getElementById('preview-desc');
+    const previewStatus = document.getElementById('preview-status-badge');
+    const previewFacilityCount = document.getElementById('preview-facility-count');
+    const previewFacilityList = document.getElementById('preview-facility-list');
+
+    // Title Sync
+    if (titleInput && previewTitle) {
+      titleInput.addEventListener('input', (e) => {
+        previewTitle.textContent = e.target.value.trim() || 'Untitled Resort';
+      });
+    }
+
+    // Location Sync
+    if (locationInput && previewLocation) {
+      locationInput.addEventListener('change', (e) => {
+        previewLocation.textContent = e.target.value;
+      });
+    }
+
+    // Skill Level Sync
+    if (levelInput && previewLevel) {
+      levelInput.addEventListener('change', (e) => {
+        previewLevel.textContent = e.target.value;
+      });
+    }
+
+    // Price Sync
+    if (priceInput && previewPrice) {
+      priceInput.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        previewPrice.textContent = isNaN(val) ? '₩0' : '₩' + val.toLocaleString();
+      });
+    }
+
+    // Counter Days
+    const decBtn = document.getElementById('decrease-days');
+    const incBtn = document.getElementById('increase-days');
+    if (decBtn && incBtn && minDaysInput) {
+      decBtn.addEventListener('click', () => {
+        let val = parseInt(minDaysInput.value, 10) || 1;
+        if (val > 1) {
+          minDaysInput.value = val - 1;
+          previewMinDays.textContent = `${val - 1} Day${val - 1 > 1 ? 's' : ''}`;
+        }
+      });
+      incBtn.addEventListener('click', () => {
+        let val = parseInt(minDaysInput.value, 10) || 1;
+        if (val < 7) {
+          minDaysInput.value = val + 1;
+          previewMinDays.textContent = `${val + 1} Days`;
+        }
+      });
+    }
+
+    // Description Sync & Counter
+    if (descInput && previewDesc && charCount) {
+      descInput.addEventListener('input', (e) => {
+        const len = e.target.value.length;
+        charCount.textContent = `${len} / 2000 chars`;
+        previewDesc.textContent = e.target.value.trim() || 'No description provided yet.';
+      });
+    }
+
+    // Status Radio Sync
+    statusInputs.forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        if (e.target.checked && previewStatus) {
+          previewStatus.textContent = e.target.value;
+        }
+      });
+    });
+
+    // Facilities Sync
+    function updateFacilities() {
+      const selected = Array.from(facilityInputs)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+
+      if (previewFacilityCount) {
+        previewFacilityCount.textContent = `${selected.length} Selected`;
+      }
+      if (previewFacilityList) {
+        previewFacilityList.textContent = selected.length > 0 ? selected.join(', ') : 'None selected';
+      }
+    }
+
+    facilityInputs.forEach(cb => {
+      cb.addEventListener('change', updateFacilities);
+    });
+  })();
+</script></div></main></div></body></html>
