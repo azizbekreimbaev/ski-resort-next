@@ -17,7 +17,7 @@ function HelpCenter() {
 	const tab = typeof router.query.tab === 'string' ? router.query.tab : 'faq';
 	const unavailable = ['terms', 'privacy', 'lift-passes'].includes(tab);
 	return (
-		<div className="catalog-page">
+		<div className="catalog-page faq-public-page">
 			<div className="snowkr-page-heading">
 				<h1>{t('Help Center')}</h1>
 				<p>{t('Find your way around SNOWKR.')}</p>

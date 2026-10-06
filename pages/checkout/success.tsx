@@ -26,6 +26,9 @@ function Page() {
 			<Button component={Link} href="/mypage?category=demoOrders">
 				{t('Demo orders')}
 			</Button>
+			<Button component={Link} href="/resort" variant="contained" sx={{ ml: 2 }}>
+				{t('Resorts')}
+			</Button>
 		</div>
 	);
 }

@@ -621,3 +621,41 @@
 		}
 	}
 }
+
+#pc-wrap.snowkr-app .public-member-dashboard {
+	.follow-member-bio {
+		display: -webkit-box !important;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		overflow-wrap: anywhere;
+	}
+	.account-stats {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+	.public-member-actions {
+		display: flex;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+	.account-meta a:hover {
+		color: #0284c7;
+		text-decoration: underline;
+	}
+	.account-identity-copy p {
+		white-space: pre-line;
+		overflow-wrap: anywhere;
+	}
+	@media (max-width: 700px) {
+		.account-stats {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 8px;
+		}
+		.account-stat {
+			padding: 12px;
+		}
+		.public-member-actions {
+			width: 100%;
+		}
+	}
+}

@@ -86,8 +86,8 @@ export default function MemberFollows({
 	};
 	return (
 		<Stack id="member-follows-page" spacing={3}>
-			<Typography component="h1" variant="h4">
-				{t(following ? 'Followings' : 'Followers')}
+			<Typography component="h2" variant="h4">
+				{t(following ? 'Following' : 'Followers')}
 			</Typography>
 			<HomeCollectionState
 				loading={loading}
@@ -96,54 +96,65 @@ export default function MemberFollows({
 				retry={refetch}
 			/>
 			<Stack className="follows-list-box" spacing={2}>
-				{rows?.map((row) => {
-					const member = row.member;
-					if (!member) return null;
-					const followed = row.followed?.some((value) => value.myFollowing);
-					const liked = row.liked?.some((value) => value.myFavorite);
-					return (
-						<Stack className="follows-card-box" key={row.id}>
-							<div className="info">
-								<img
-									className="profile-avatar"
-									src={homeImageUrl(member.memberImage) || '/img/profile/defaultUser.svg'}
-									alt=""
-									onError={(event) => {
-										event.currentTarget.src = '/img/profile/defaultUser.svg';
-									}}
-								/>
-								<div>
-									<Button onClick={() => void redirectToMemberPageHandler(member._id)}>
-										{member.memberFullName || member.memberNick}
-									</Button>
-									<Typography variant="caption">{t(member.memberType)}</Typography>
+				{!error &&
+					!loading &&
+					rows?.map((row) => {
+						const member = row.member;
+						if (!member) return null;
+						const followed = row.followed?.some((value) => value.myFollowing);
+						const liked = row.liked?.some((value) => value.myFavorite);
+						return (
+							<Stack className="follows-card-box" key={row.id}>
+								<div className="info">
+									<img
+										className="profile-avatar"
+										src={homeImageUrl(member.memberImage) || '/img/profile/defaultUser.svg'}
+										alt=""
+										onError={(event) => {
+											event.currentTarget.onerror = null;
+											event.currentTarget.src = '/img/profile/defaultUser.svg';
+										}}
+									/>
+									<div>
+										<Button onClick={() => void redirectToMemberPageHandler(member._id)}>
+											{member.memberFullName || member.memberNick}
+										</Button>
+										<Typography variant="caption">{t(member.memberType)}</Typography>
+										<Typography variant="body2" color="text.secondary">
+											@{member.memberNick}
+										</Typography>
+										{member.memberDesc && (
+											<Typography className="follow-member-bio" variant="body2" color="text.secondary">
+												{member.memberDesc}
+											</Typography>
+										)}
+									</div>
 								</div>
-							</div>
-							<div className="details-box">
-								<Button
-									aria-pressed={Boolean(liked)}
-									disabled={Boolean(pending)}
-									onClick={() => void interact(member._id, likeMemberHandler)}
-								>
-									{t(liked ? 'Unlike' : 'Like')} ({member.memberLikes})
-								</Button>
-							</div>
-							{user._id !== member._id && (
-								<div className="action-box">
+								<div className="details-box">
 									<Button
+										aria-pressed={Boolean(liked)}
 										disabled={Boolean(pending)}
-										variant={followed ? 'outlined' : 'contained'}
-										onClick={() => void interact(member._id, followed ? unsubscribeHandler : subscribeHandler)}
+										onClick={() => void interact(member._id, likeMemberHandler)}
 									>
-										{t(followed ? 'Unfollow' : 'Follow')}
+										{t(liked ? 'Unlike' : 'Like')} ({member.memberLikes})
 									</Button>
 								</div>
-							)}
-						</Stack>
-					);
-				})}
+								{user._id !== member._id && (
+									<div className="action-box">
+										<Button
+											disabled={Boolean(pending)}
+											variant={followed ? 'outlined' : 'contained'}
+											onClick={() => void interact(member._id, followed ? unsubscribeHandler : subscribeHandler)}
+										>
+											{t(followed ? 'Unfollow' : 'Follow')}
+										</Button>
+									</div>
+								)}
+							</Stack>
+						);
+					})}
 			</Stack>
-			{total > limit && (
+			{!error && total > limit && (
 				<Pagination page={page} count={Math.ceil(total / limit)} onChange={(_, value) => setPage(value)} />
 			)}
 		</Stack>

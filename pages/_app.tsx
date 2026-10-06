@@ -13,12 +13,14 @@ import '../scss/home-discovery.scss';
 import '../scss/snowkr.scss';
 import '../scss/instructor-directory.scss';
 import '../scss/instructor-detail.scss';
-
+import '../scss/events.scss';
+import '../scss/faq.scss';
+import '../scss/admin-overview.scss';
+import '../scss/cart-checkout.scss';
 const App = ({ Component, pageProps }: AppProps) => {
 	// @ts-ignore
 	const [theme, setTheme] = useState(createTheme(light));
 	const client = useApollo(pageProps.initialApolloState);
-
 	return (
 		<ApolloProvider client={client}>
 			<ThemeProvider theme={theme}>
@@ -28,5 +30,4 @@ const App = ({ Component, pageProps }: AppProps) => {
 		</ApolloProvider>
 	);
 };
-
 export default appWithTranslation(App);

@@ -15,6 +15,7 @@ import {
 import { userVar } from '../../apollo/store';
 import { logOut } from '../auth';
 import { cartVar } from '../demoCart';
+import CartDrawer from './common/CartDrawer';
 const navigation = [
 	['/resort', 'Resorts'],
 	['/instructor', 'Instructors'],
@@ -22,6 +23,7 @@ const navigation = [
 	['/community', 'Community'],
 	['/events', 'Events'],
 	['/about', 'About Us'],
+	['/cs?tab=faq', 'FAQ'],
 ];
 export default function Top() {
 	const router = useRouter();
@@ -29,12 +31,21 @@ export default function Top() {
 	const user = useReactiveVar(userVar);
 	const cart = useReactiveVar(cartVar);
 	const [drawer, setDrawer] = useState(false);
+	const [cartOpen, setCartOpen] = useState(false);
 	const [anchor, setAnchor] = useState<HTMLElement | null>(null);
 	const links = navigation.map(([href, label]) => (
 		<Link
 			key={href}
 			href={href}
-			className={router.pathname.startsWith(href) ? 'active' : ''}
+			className={
+				(
+					href === '/cs?tab=faq'
+						? router.pathname.startsWith('/cs') && (!router.query.tab || router.query.tab === 'faq')
+						: router.pathname.startsWith(href)
+				)
+					? 'active'
+					: ''
+			}
 			onClick={() => setDrawer(false)}
 		>
 			{t(label)}
@@ -79,7 +90,7 @@ export default function Top() {
 					<IconButton component={Link} href="/mypage?category=myFavorites" aria-label={t('Favorites')}>
 						<FavoriteBorderRounded />
 					</IconButton>
-					<IconButton component={Link} href="/cart" aria-label={t('Cart')}>
+					<IconButton onClick={() => setCartOpen(true)} aria-label={t('Cart')} aria-haspopup="dialog" aria-expanded={cartOpen}>
 						<Badge badgeContent={cart.reduce((sum, line) => sum + line.quantity, 0)} color="primary">
 							<ShoppingBagOutlined />
 						</Badge>
@@ -124,6 +135,7 @@ export default function Top() {
 						</MenuItem>
 					)}
 				</Menu>
+				<CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
 				<Drawer anchor="right" open={drawer} onClose={() => setDrawer(false)}>
 					<div className="snowkr-mobile-nav">
 						<Button onClick={() => setDrawer(false)} startIcon={<CloseRounded />}>

@@ -21,6 +21,7 @@ export interface DemoReceipt {
 	lines: CartLine[];
 	total: number;
 	status: 'DEMO_COMPLETED';
+	paymentMethod?: 'visa' | 'mastercard';
 }
 export const cartVar = makeVar<CartLine[]>([]);
 export const cartStorageError = makeVar(false);

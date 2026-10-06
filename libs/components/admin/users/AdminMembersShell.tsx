@@ -10,6 +10,8 @@ import TerrainOutlinedIcon from '@mui/icons-material/TerrainOutlined';
 import SnowboardingOutlinedIcon from '@mui/icons-material/SnowboardingOutlined';
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -28,11 +30,17 @@ export default function AdminMembersShell({ children }: { children: ReactNode })
 	const [jump, setJump] = useState('');
 	const routes = [
 		{ href: '/_admin', label: 'Overview', Icon: DashboardOutlinedIcon },
-		{ href: '/_admin/users', label: 'Members', Icon: GroupsOutlinedIcon },
+		{
+			href: '/_admin/users',
+			label: 'Members',
+			Icon: GroupsOutlinedIcon,
+		},
 		{ href: '/_admin/resort', label: 'Resorts', Icon: TerrainOutlinedIcon },
 		{ href: '/_admin/equipment', label: 'Equipment', Icon: SnowboardingOutlinedIcon },
 		{ href: '/_admin/instructor-applications', label: 'Instructor applications', Icon: BadgeOutlinedIcon },
 		{ href: '/_admin/community', label: 'Community', Icon: ForumOutlinedIcon },
+		{ href: '/_admin/events', label: 'Events', Icon: EventOutlinedIcon },
+		{ href: '/_admin/faq', label: 'FAQ', Icon: HelpOutlineIcon },
 	];
 	const avatar =
 		user.memberImage && user.memberImage !== '/img/profile/defaultUser.svg'
@@ -45,13 +53,19 @@ export default function AdminMembersShell({ children }: { children: ReactNode })
 			<Head>
 				<title>
 					{t(
-						router.pathname.startsWith('/_admin/equipment')
+						router.pathname === '/_admin'
+							? 'Overview'
+							: router.pathname.startsWith('/_admin/equipment')
 							? 'Equipment'
-						: router.pathname.startsWith('/_admin/resort')
-						? 'Resorts'
-						: router.pathname.startsWith('/_admin/community')
-						? 'Community'
-						: 'Members',
+							: router.pathname.startsWith('/_admin/resort')
+							? 'Resorts'
+							: router.pathname.startsWith('/_admin/community')
+							? 'Community'
+							: router.pathname.startsWith('/_admin/events')
+							? 'Events'
+							: router.pathname.startsWith('/_admin/faq')
+							? 'FAQ'
+							: 'Members',
 					)}{' '}
 					| SNOWKR Admin
 				</title>

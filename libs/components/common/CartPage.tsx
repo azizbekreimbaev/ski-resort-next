@@ -9,6 +9,7 @@ import { revalidateCart, checkoutBusy } from '../../demoCheckout';
 import { userVar } from '../../../apollo/store';
 import useMemberSession from '../../hooks/useMemberSession';
 import { homePrice } from '../homepage/homeUtils';
+import { CreditCardRounded, ShoppingBagOutlined, CheckCircleRounded } from '@mui/icons-material';
 export default function CartPage({ checkout = false }: { checkout?: boolean }) {
 	const { t, i18n } = useTranslation('common');
 	const router = useRouter();
@@ -19,6 +20,7 @@ export default function CartPage({ checkout = false }: { checkout?: boolean }) {
 	const busy = useReactiveVar(checkoutBusy);
 	const [failure, setFailure] = useState('');
 	const [outcome, setOutcome] = useState('success');
+	const [paymentCard, setPaymentCard] = useState<'visa' | 'mastercard'>('visa');
 	const [mounted, setMounted] = useState(false);
 	const mountedRef = useRef(true);
 	useEffect(() => {
@@ -57,6 +59,7 @@ export default function CartPage({ checkout = false }: { checkout?: boolean }) {
 				lines: result.lines,
 				total: cartTotal(result.lines),
 				status: 'DEMO_COMPLETED' as const,
+				paymentMethod: paymentCard,
 			};
 			saveReceipt(receipt);
 			saveCart([]);
@@ -74,7 +77,18 @@ export default function CartPage({ checkout = false }: { checkout?: boolean }) {
 			</div>
 		);
 	return (
-		<div className="catalog-page">
+		<div className="catalog-page snowkr-checkout-page">
+			<nav className="snowkr-checkout-steps" aria-label={t('Checkout')}>
+				<Link href="/cart" className={!checkout ? 'active' : ''}>
+					01 · {t('Cart')}
+				</Link>
+				<span>→</span>
+				<Link href="/checkout" className={checkout ? 'active' : ''}>
+					02 · {t('Checkout')}
+				</Link>
+				<span>→</span>
+				<span>03 · {t('Success')}</span>
+			</nav>
 			<div className="snowkr-page-heading">
 				<h1>{t(checkout ? 'Checkout' : 'Cart')}</h1>
 				<p>{t('Your winter plans, together in one place.')}</p>
@@ -91,7 +105,8 @@ export default function CartPage({ checkout = false }: { checkout?: boolean }) {
 				</Alert>
 			)}
 			{!lines.length ? (
-				<Stack spacing={2}>
+				<Stack spacing={2} className="snowkr-cart-empty" alignItems="center">
+					<ShoppingBagOutlined sx={{ fontSize: 64, color: '#94a3b8' }} />
 					<Typography>{t('Your cart is empty')}</Typography>
 					<Button component={Link} href="/equipment">
 						{t('Explore equipment')}
@@ -100,6 +115,37 @@ export default function CartPage({ checkout = false }: { checkout?: boolean }) {
 			) : (
 				<div className="snowkr-cart-layout">
 					<Stack spacing={2}>
+						{checkout && (
+							<section className="snowkr-payment-panel">
+								<h2>
+									<CreditCardRounded /> {t('Payment method')}
+								</h2>
+								<p>{t('Choose a demo card. No card details are required or stored.')}</p>
+								<div className="snowkr-payment-cards" role="group" aria-label={t('Payment method')}>
+									{(['visa', 'mastercard'] as const).map((card) => (
+										<button
+											type="button"
+											key={card}
+											className={'snowkr-payment-card ' + (paymentCard === card ? 'selected' : '')}
+											aria-pressed={paymentCard === card}
+											disabled={busy}
+											onClick={() => setPaymentCard(card)}
+										>
+											<span className="snowkr-card-brand">
+												{card === 'visa' ? 'VISA' : 'Mastercard'}
+												{paymentCard === card && <CheckCircleRounded />}
+											</span>
+											<span className="snowkr-card-number">
+												•••• &nbsp; •••• &nbsp; •••• &nbsp; {card === 'visa' ? '4242' : '5555'}
+											</span>
+											<span>
+												{t('Demo card')} · {t('No charge')}
+											</span>
+										</button>
+									))}
+								</div>
+							</section>
+						)}
 						{lines.map((line) => (
 							<article className="snowkr-cart-line" key={line.key}>
 								{line.image && (
@@ -166,6 +212,9 @@ export default function CartPage({ checkout = false }: { checkout?: boolean }) {
 							{t('Order summary')}
 						</Typography>
 						<Typography>
+							{t('Quantity')}: {lines.reduce((sum, line) => sum + line.quantity, 0)}
+						</Typography>
+						<Typography>
 							{t('Total')}: <strong>{homePrice(cartTotal(lines), i18n.language)}</strong>
 						</Typography>
 						{checkout ? (
@@ -184,7 +233,8 @@ export default function CartPage({ checkout = false }: { checkout?: boolean }) {
 									<MenuItem value="failure">{t('Failure / retry')}</MenuItem>
 								</TextField>
 								<Button variant="contained" disabled={busy} onClick={() => void process()}>
-									{t(busy ? 'Processing demo payment' : 'Confirm demo payment')}
+									{t(busy ? 'Processing demo payment' : 'Confirm demo payment')} ·{' '}
+									{homePrice(cartTotal(lines), i18n.language)}
 								</Button>
 								<Button component={Link} href="/cart" disabled={busy}>
 									{t('Back to cart')}

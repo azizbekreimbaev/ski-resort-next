@@ -1,12 +1,11 @@
 import React from 'react';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import withLayoutFull from '../libs/components/layout/LayoutFull';
-import EventPage from '../libs/components/events/EventPage';
+import withAdminLayout from '../../../libs/components/layout/LayoutAdmin';
+import EventPage from '../../../libs/components/events/EventPage';
+
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
 	props: { ...(await serverSideTranslations(locale ?? 'en', ['common'])) },
 });
-function Page() {
-	return <EventPage />;
-}
-export default withLayoutFull(Page);
+const Page = () => <EventPage adminPage />;
+export default withAdminLayout(Page, { membersDesign: true });

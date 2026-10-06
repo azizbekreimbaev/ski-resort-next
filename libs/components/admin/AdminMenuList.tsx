@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { Button, Stack } from '@mui/material';
 import { useTranslation } from 'next-i18next';
@@ -12,6 +12,8 @@ export default function AdminMenuList() {
 				['/_admin/equipment', 'Equipments'],
 				['/_admin/instructor-applications', 'Instructor applications'],
 				['/_admin/community', 'Community'],
+				['/_admin/events', 'Events'],
+				['/_admin/faq', 'FAQ'],
 				['/', 'Home'],
 			].map(([href, label]) => (
 				<Button component={Link} href={href} key={href}>
