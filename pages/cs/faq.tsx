@@ -8,7 +8,7 @@ function Page() {
 	return (
 		<div className="catalog-page faq-public-page">
 			<Head>
-				<title>{t('FAQ')} | SNOWKR</title>
+				<title>{t('FAQ')} | SNOWAY</title>
 			</Head>
 			<div className="snowkr-page-heading">
 				<h1>{t('Frequently asked questions')}</h1>

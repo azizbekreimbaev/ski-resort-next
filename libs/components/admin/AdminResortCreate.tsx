@@ -159,8 +159,8 @@ function ResortForm({ selected }: { selected?: ResortSearchResult }) {
 					<p>
 						{t(
 							selected
-								? 'Update the resort details for the SNOWKR platform.'
-								: 'Create a new ski resort listing for the SNOWKR platform.',
+								? 'Update the resort details for the SNOWAY platform.'
+								: 'Create a new ski resort listing for the SNOWAY platform.',
 						)}
 					</p>
 				</div>

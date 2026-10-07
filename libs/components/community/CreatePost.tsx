@@ -168,7 +168,7 @@ export default function CreatePost() {
 	return (
 		<div className="community-create">
 			<Head>
-				<title>{t('Create a Post')} | SNOWKR</title>
+				<title>{t('Create a Post')} | SNOWAY</title>
 			</Head>
 			<nav className="create-breadcrumb" aria-label={t('Breadcrumb')}>
 				<Link href="/">
@@ -184,10 +184,10 @@ export default function CreatePost() {
 				<header className="create-heading">
 					<div>
 						<div className="create-eyebrow">
-							<span>01</span> SNOWKR {t('Board')}
+							<span>01</span> SNOWAY {t('Board')}
 						</div>
 						<h1>{t('Create a Post')}</h1>
-						<p>{t('Share your experience, question, news, review, or useful tips with the SNOWKR community.')}</p>
+						<p>{t('Share your experience, question, news, review, or useful tips with the SNOWAY community.')}</p>
 					</div>
 					<div className="create-author">
 						<span className="create-avatar">{user.memberNick.slice(0, 2).toUpperCase()}</span>
@@ -351,7 +351,7 @@ export default function CreatePost() {
 						<aside className="create-guidelines">
 							<VerifiedOutlined />
 							<div>
-								<h2>{t('SNOWKR Community Posting Guidelines')}</h2>
+								<h2>{t('SNOWAY Community Posting Guidelines')}</h2>
 								<ul>
 									<li>{t('Respect fellow riders, instructors, and community members with polite etiquette.')}</li>
 									<li>{t('Include specific dates, snow quality, or lift status when publishing reviews.')}</li>

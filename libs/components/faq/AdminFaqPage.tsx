@@ -15,7 +15,7 @@ export default function AdminFaqPage({ mode = 'list' }: { mode?: 'list' | 'creat
 	return (
 		<div className="faq-admin-page">
 			<Head>
-				<title>{t('FAQ')} | SNOWKR Admin</title>
+				<title>{t('FAQ')} | SNOWAY Admin</title>
 			</Head>
 			<header className="faq-admin-heading">
 				<div>

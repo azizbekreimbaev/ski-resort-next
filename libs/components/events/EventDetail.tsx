@@ -177,7 +177,7 @@ export default function EventDetail() {
 	return (
 		<div className="event-detail-page">
 			<Head>
-				<title>{event.eventTitle} | SNOWKR</title>
+				<title>{event.eventTitle} | SNOWAY</title>
 				<meta name="description" content={event.eventDesc.slice(0, 160)} />
 			</Head>
 			<div className="event-detail-breadcrumb">

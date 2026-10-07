@@ -71,7 +71,7 @@ function AdminHome() {
 	return (
 		<div className="admin-overview">
 			<Head>
-				<title>{t('Overview')} | SNOWKR Admin</title>
+				<title>{t('Overview')} | SNOWAY Admin</title>
 			</Head>
 			<header className="admin-overview-heading">
 				<div>
@@ -79,7 +79,7 @@ function AdminHome() {
 						{t('Administration')} / {t('Overview')}
 					</span>
 					<h1>{t('Overview')}</h1>
-					<p>{t('Your workspace for managing SNOWKR.')}</p>
+					<p>{t('Your workspace for managing SNOWAY.')}</p>
 				</div>
 				<Button component={Link} href="/" variant="outlined" endIcon={<OpenInNew />}>
 					{t('View Public Site')}
@@ -87,7 +87,7 @@ function AdminHome() {
 			</header>
 			<section className="admin-overview-welcome">
 				<div>
-					<span>SNOWKR / {t('Admin Panel')}</span>
+					<span>SNOWAY / {t('Admin Panel')}</span>
 					<h2>{t('Welcome back, {{name}}', { name: user.memberFullName || user.memberNick })}</h2>
 					<p>
 						{t(

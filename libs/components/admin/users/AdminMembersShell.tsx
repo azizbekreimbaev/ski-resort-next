@@ -21,6 +21,7 @@ import { useTranslation } from 'next-i18next';
 import { userVar } from '../../../../apollo/store';
 import { logOut } from '../../../auth';
 import { REACT_APP_API_URL } from '../../../config';
+import BrandLogo from '../../common/BrandLogo';
 
 export default function AdminMembersShell({ children }: { children: ReactNode }) {
 	const { t } = useTranslation('common');
@@ -67,7 +68,7 @@ export default function AdminMembersShell({ children }: { children: ReactNode })
 							? 'FAQ'
 							: 'Members',
 					)}{' '}
-					| SNOWKR Admin
+					| SNOWAY Admin
 				</title>
 			</Head>
 			<a className="admin-shell-skip" href="#admin-members-main">
@@ -83,9 +84,8 @@ export default function AdminMembersShell({ children }: { children: ReactNode })
 					>
 						{mobileOpen ? <CloseOutlinedIcon /> : <MenuOutlinedIcon />}
 					</IconButton>
-					<Link href="/_admin">
-						<span className="admin-shell-mark">S</span>
-						<strong>SNOWKR</strong>
+					<Link href="/_admin" aria-label="SNOWAY admin home">
+						<BrandLogo />
 					</Link>
 					<span className="admin-shell-label">{t('Admin Panel')}</span>
 				</div>

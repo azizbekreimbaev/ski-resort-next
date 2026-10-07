@@ -238,7 +238,7 @@ export default function EquipmentDetail() {
 	return (
 		<div className="equipment-detail-page">
 			<Head>
-				<title>{equipment.equipmentName} | SNOWKR</title>
+				<title>{equipment.equipmentName} | SNOWAY</title>
 				<meta name="description" content={equipment.equipmentDesc || equipment.equipmentName} />
 			</Head>
 			<div className="equipment-detail-container">

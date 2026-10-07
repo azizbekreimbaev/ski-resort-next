@@ -20,7 +20,7 @@ function HelpCenter() {
 		<div className="catalog-page faq-public-page">
 			<div className="snowkr-page-heading">
 				<h1>{t('Help Center')}</h1>
-				<p>{t('Find your way around SNOWKR.')}</p>
+				<p>{t('Find your way around SNOWAY.')}</p>
 			</div>
 			<Stack direction="row" gap={2} mb={3}>
 				<Button component={Link} href="/cs?tab=faq" variant={tab === 'faq' ? 'contained' : 'outlined'}>

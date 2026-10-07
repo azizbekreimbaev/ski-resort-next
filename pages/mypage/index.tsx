@@ -1,4 +1,4 @@
-﻿import React, { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
@@ -260,7 +260,7 @@ const MyPage: NextPage = () => {
 								<div className="account-instructor-banner">
 									<div>
 										<small>{t('SHARE YOUR PASSION FOR WINTER')}</small>
-										<h2>{t('Become an Accredited SNOWKR Instructor')}</h2>
+										<h2>{t('Become an Accredited SNOWAY Instructor')}</h2>
 										<p>{t('Guide fellow riders across Korea’s slopes. Apply to join our instructor community.')}</p>
 									</div>
 									<Button component={Link} href={href('instructor')} variant="contained" startIcon={<SchoolOutlined />}>

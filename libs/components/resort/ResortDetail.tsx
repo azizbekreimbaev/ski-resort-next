@@ -218,7 +218,7 @@ export default function ResortDetail() {
 	return (
 		<div className="resort-detail-page">
 			<Head>
-				<title>{resort.resortTitle} | SNOWKR</title>
+				<title>{resort.resortTitle} | SNOWAY</title>
 			</Head>
 			<div className="resort-detail-container">
 				<div className="resort-detail-topbar">

@@ -7,6 +7,7 @@ import { onError } from '@apollo/client/link/error';
 import { getJwtToken } from '../libs/auth';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import { sweetErrorAlert } from '../libs/sweetAlert';
+import { createApolloCache } from './cache';
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 function getHeaders() {
@@ -37,7 +38,6 @@ function createIsomorphicLink() {
 					...getHeaders(),
 				},
 			}));
-			console.warn('requesting.. ', operation);
 			return forward(operation);
 		});
 
@@ -80,6 +80,8 @@ function createIsomorphicLink() {
 		const wsLink = new WebSocketLink({
 			uri: process.env.REACT_APP_API_WS ?? 'ws://127.0.0.1:3007',
 			options: {
+				// Queries/mutations use HTTP; do not open an unused socket in the shared chat gateway.
+				lazy: true,
 				reconnect: false,
 				timeout: 30000,
 				connectionParams: () => {
@@ -120,7 +122,7 @@ function createApolloClient() {
 	return new ApolloClient({
 		ssrMode: typeof window === 'undefined',
 		link: createIsomorphicLink(),
-		cache: new InMemoryCache(),
+		cache: createApolloCache(),
 		resolvers: {},
 	});
 }

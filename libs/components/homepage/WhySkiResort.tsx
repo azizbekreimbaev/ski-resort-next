@@ -38,7 +38,7 @@ const benefits = [
 const WhySkiResort = () => {
 	const { t } = useTranslation('common');
 	return (
-		<HomeSection id="why-skiresort" title={t('Why SNOWKR')} subtitle={t('Start your winter adventure in one place.')}>
+		<HomeSection id="why-skiresort" title={t('Why SNOWAY')} subtitle={t('Start your winter adventure in one place.')}>
 			<div className="home-benefits-grid">
 				{benefits.map(({ title, text, href, Icon }) => (
 					<Link key={title} href={href}>

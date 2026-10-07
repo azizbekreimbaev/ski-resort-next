@@ -214,7 +214,7 @@ export default function AdminResorts() {
 			<header className="ar-heading">
 				<div>
 					<h1>{t('Resorts')}</h1>
-					<p>{t('Manage ski resorts, pricing, facilities, images, and availability across SNOWKR.')}</p>
+					<p>{t('Manage ski resorts, pricing, facilities, images, and availability across SNOWAY.')}</p>
 				</div>
 				<div>
 					<Button disabled={!items.length || loading || !!queryError} onClick={exportCsv}>

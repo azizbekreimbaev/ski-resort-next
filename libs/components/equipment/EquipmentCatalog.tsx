@@ -398,7 +398,7 @@ export default function EquipmentCatalog() {
 	return (
 		<div className="equipment-directory">
 			<Head>
-				<title>{t('Ski & Snowboard Equipment')} | SNOWKR</title>
+				<title>{t('Ski & Snowboard Equipment')} | SNOWAY</title>
 			</Head>
 			<section className="equipment-banner">
 				<div className="equipment-container">

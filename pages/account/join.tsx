@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { Alert, Button, Stack, TextField, Typography } from '@mui/material';
@@ -6,6 +6,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { logIn, signUp } from '../../libs/auth';
+import BrandLogo from '../../libs/components/common/BrandLogo';
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
 	props: { ...(await serverSideTranslations(locale ?? 'en', ['common'])) },
 });
@@ -40,13 +41,16 @@ function Join() {
 				<h2>{t('Your next winter escape')}</h2>
 				<p>{t('Discover ski resorts for your next adventure in South Korea.')}</p>
 			</div>
-			<Stack component="form" className="auth-form" onSubmit={submit} spacing={3} sx={{ width: '100%', maxWidth: 440 }}>
-				<Typography variant="h3">SNOWKR</Typography>
-				<Typography component="h1" variant="h5">
-					{t(login ? 'Login' : 'Register')}
-				</Typography>
+			<Stack component="form" className="auth-form" onSubmit={submit} sx={{ width: '100%', maxWidth: 440 }}>
+				<Stack className="auth-heading">
+					<BrandLogo />
+					<Typography component="h1" variant="h5">
+						{t(login ? 'Login' : 'Register')}
+					</Typography>
+				</Stack>
 				<TextField
 					label={t('Nickname')}
+					InputLabelProps={{ shrink: true }}
 					required
 					inputProps={{ minLength: 3, maxLength: 12 }}
 					autoComplete="username"
@@ -56,6 +60,7 @@ function Join() {
 				<TextField
 					type="password"
 					label={t('Password')}
+					InputLabelProps={{ shrink: true }}
 					required
 					inputProps={{ minLength: 3, maxLength: 12 }}
 					autoComplete={login ? 'current-password' : 'new-password'}
@@ -66,6 +71,7 @@ function Join() {
 					<TextField
 						required
 						label={t('Phone')}
+						InputLabelProps={{ shrink: true }}
 						autoComplete="tel"
 						value={input.phone}
 						onChange={(event) => setInput({ ...input, phone: event.target.value })}

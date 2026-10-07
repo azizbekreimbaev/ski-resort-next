@@ -71,21 +71,13 @@
 	}
 	.snowkr-logo {
 		display: flex;
+		flex-shrink: 0;
 		align-items: center;
 		gap: 10px;
 		font-size: 20px;
 		font-weight: 800;
 		letter-spacing: -0.7px;
 		white-space: nowrap;
-	}
-	.snowkr-logo > span {
-		background: #075985;
-		color: #fff;
-		width: 32px;
-		height: 32px;
-		border-radius: 7px;
-		display: grid;
-		place-items: center;
 	}
 	.snowkr-desktop-nav {
 		display: flex;
@@ -602,11 +594,12 @@
 	}
 	.auth-page {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 		max-width: 1100px;
 		gap: 48px;
 		align-items: center;
 		padding-top: 64px;
+		padding-bottom: 64px;
 	}
 	.auth-visual {
 		height: 540px;
@@ -620,9 +613,33 @@
 	}
 	.auth-form {
 		background: white;
-		padding: 36px;
+		padding: 32px;
+		gap: 20px;
+		min-width: 0;
+		margin: 0 auto;
 		border: 1px solid #e2e8f0;
 		border-radius: 20px;
+		.auth-heading {
+			gap: 12px;
+			margin-bottom: 8px;
+		}
+		.MuiOutlinedInput-root {
+			min-height: 56px;
+			border-radius: 12px;
+		}
+		.MuiOutlinedInput-root input.MuiInputBase-input {
+			height: auto;
+			padding: 16.5px 14px;
+			box-sizing: content-box;
+			line-height: 23px;
+		}
+		.MuiInputLabel-root {
+			line-height: 23px;
+		}
+		.MuiButton-root {
+			min-height: 48px;
+			padding: 12px 20px;
+		}
 	}
 	.snowkr-admin {
 		display: grid;
@@ -735,9 +752,9 @@
 			font-size: 17px;
 			gap: 5px;
 		}
-		.snowkr-logo > span {
-			width: 25px;
-			height: 25px;
+		.snowkr-logo .snoway-brand-logo {
+			width: 132px;
+			height: 30px;
 		}
 		.snowkr-header-actions {
 			gap: 0;
@@ -821,12 +838,14 @@
 		}
 		.auth-page {
 			display: block;
+			padding-top: 32px;
+			padding-bottom: 32px;
 		}
 		.auth-visual {
 			display: none;
 		}
 		.auth-form {
-			padding: 24px;
+			padding: 28px 20px;
 		}
 		.snowkr-cart-line {
 			flex-wrap: wrap;

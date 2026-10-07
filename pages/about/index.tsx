@@ -14,7 +14,7 @@ function About() {
 	return (
 		<Stack className="catalog-page skiresort-home" spacing={3}>
 			<Typography component="h1" variant="h3">
-				{t('About SNOWKR')}
+				{t('About SNOWAY')}
 			</Typography>
 			<img className="resource-gallery-main" src="/img/hero/winter-2.jpg" alt={t('Winter mountains')} />
 			<Typography>{t('Discover resorts, equipment and instructors for your next winter trip.')}</Typography>

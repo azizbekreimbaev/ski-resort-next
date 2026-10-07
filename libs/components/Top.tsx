@@ -3,19 +3,20 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useReactiveVar } from '@apollo/client';
-import { Badge, IconButton, Menu, MenuItem, Drawer, Button } from '@mui/material';
+import { Avatar, Badge, IconButton, Menu, MenuItem, Drawer, Button } from '@mui/material';
 import {
 	FavoriteBorderRounded,
 	ShoppingBagOutlined,
 	AccountCircleOutlined,
 	MenuRounded,
 	CloseRounded,
-	DownhillSkiing,
 } from '@mui/icons-material';
 import { userVar } from '../../apollo/store';
 import { logOut } from '../auth';
 import { cartVar } from '../demoCart';
 import CartDrawer from './common/CartDrawer';
+import BrandLogo from './common/BrandLogo';
+import { homeImageUrl } from './homepage/homeUtils';
 const navigation = [
 	['/resort', 'Resorts'],
 	['/instructor', 'Instructors'],
@@ -33,6 +34,10 @@ export default function Top() {
 	const [drawer, setDrawer] = useState(false);
 	const [cartOpen, setCartOpen] = useState(false);
 	const [anchor, setAnchor] = useState<HTMLElement | null>(null);
+	const profileImage =
+		user._id && user.memberImage && user.memberImage !== '/img/profile/defaultUser.svg'
+			? homeImageUrl(user.memberImage)
+			: '';
 	const links = navigation.map(([href, label]) => (
 		<Link
 			key={href}
@@ -54,11 +59,8 @@ export default function Top() {
 	return (
 		<header className="snowkr-header">
 			<div className="snowkr-container snowkr-header-inner">
-				<Link href="/" className="snowkr-logo" aria-label="SNOWKR home">
-					<span>
-						<DownhillSkiing />
-					</span>
-					SNOWKR
+				<Link href="/" className="snowkr-logo" aria-label="SNOWAY home">
+					<BrandLogo />
 				</Link>
 				<nav className="snowkr-desktop-nav" aria-label={t('Main navigation')}>
 					{links}
@@ -90,7 +92,12 @@ export default function Top() {
 					<IconButton component={Link} href="/mypage?category=myFavorites" aria-label={t('Favorites')}>
 						<FavoriteBorderRounded />
 					</IconButton>
-					<IconButton onClick={() => setCartOpen(true)} aria-label={t('Cart')} aria-haspopup="dialog" aria-expanded={cartOpen}>
+					<IconButton
+						onClick={() => setCartOpen(true)}
+						aria-label={t('Cart')}
+						aria-haspopup="dialog"
+						aria-expanded={cartOpen}
+					>
 						<Badge badgeContent={cart.reduce((sum, line) => sum + line.quantity, 0)} color="primary">
 							<ShoppingBagOutlined />
 						</Badge>
@@ -101,7 +108,13 @@ export default function Top() {
 						aria-expanded={Boolean(anchor)}
 						onClick={(event) => setAnchor(event.currentTarget)}
 					>
-						<AccountCircleOutlined />
+						{profileImage ? (
+							<Avatar src={profileImage} alt={user.memberNick} sx={{ width: 28, height: 28 }}>
+								<AccountCircleOutlined />
+							</Avatar>
+						) : (
+							<AccountCircleOutlined />
+						)}
 					</IconButton>
 					<IconButton className="snowkr-menu-toggle" aria-label={t('Open navigation')} onClick={() => setDrawer(true)}>
 						<MenuRounded />

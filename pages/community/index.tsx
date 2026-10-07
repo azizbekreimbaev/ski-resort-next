@@ -86,7 +86,7 @@ function Community() {
 	return (
 		<div className="community-directory">
 			<Head>
-				<title>{t('SNOWKR Community')} | SNOWKR</title>
+				<title>{t('SNOWAY Community')} | SNOWAY</title>
 			</Head>
 			<section className="community-hero">
 				<div>
@@ -94,7 +94,7 @@ function Community() {
 						<ForumOutlinedIcon />
 						{t('Alpine Forum & Snow Community')}
 					</span>
-					<h1>{t('SNOWKR Community')}</h1>
+					<h1>{t('SNOWAY Community')}</h1>
 					<p>{t('Share experiences, ask questions, and connect with skiers and snowboarders across Korea.')}</p>
 				</div>
 				<Button component={Link} href="/community/create" startIcon={<AddRoundedIcon />}>

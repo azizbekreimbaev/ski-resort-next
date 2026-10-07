@@ -17,6 +17,8 @@ import '../scss/events.scss';
 import '../scss/faq.scss';
 import '../scss/admin-overview.scss';
 import '../scss/cart-checkout.scss';
+import '../scss/chat.scss';
+import Chat from '../libs/components/Chat';
 const App = ({ Component, pageProps }: AppProps) => {
 	// @ts-ignore
 	const [theme, setTheme] = useState(createTheme(light));
@@ -26,6 +28,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<Component {...pageProps} />
+				<Chat />
 			</ThemeProvider>
 		</ApolloProvider>
 	);

@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import BrandLogo from './common/BrandLogo';
 const groups = [
 	{
 		title: 'Explore',
@@ -40,8 +41,8 @@ export default function Footer() {
 			<div className="snowkr-container">
 				<div className="snowkr-footer-grid">
 					<div>
-						<Link href="/" className="snowkr-logo">
-							SNOWKR
+						<Link href="/" className="snowkr-logo" aria-label="SNOWAY home">
+							<BrandLogo light />
 						</Link>
 						<p>
 							{t(
@@ -49,7 +50,7 @@ export default function Footer() {
 							)}
 						</p>
 						<small>
-							© {new Date().getFullYear()} SNOWKR Inc. {t('All rights reserved.')}
+							© {new Date().getFullYear()} SNOWAY Inc. {t('All rights reserved.')}
 						</small>
 					</div>
 					{groups.map((group) => (

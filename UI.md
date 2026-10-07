@@ -1,3 +1,5 @@
+Current product branding is **SNOWAY** (renamed from SNOWKR on 2026-10-07). Use the shared BrandLogo component and SNOWAY asset URLs for new UI. Legacy snowkr CSS identifiers remain internal implementation names.
+
 # SNOWKR Global UI / Layout Rules
 
 These rules are GLOBAL and MUST be applied consistently to every page and every new screen.

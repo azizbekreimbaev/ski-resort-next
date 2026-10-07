@@ -160,7 +160,7 @@ export default function EventPage({ adminPage = false }: { adminPage?: boolean }
 		<div className={`events-page${adminPage ? ' admin-events-page' : ''}`}>
 			<Head>
 				<title>
-					{t('Events')} | SNOWKR{adminPage ? ' Admin' : ''}
+					{t('Events')} | SNOWAY{adminPage ? ' Admin' : ''}
 				</title>
 			</Head>
 			{adminPage ? (

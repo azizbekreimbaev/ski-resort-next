@@ -145,7 +145,7 @@ export default function InstructorDetail() {
 	return (
 		<div className="instructor-detail">
 			<Head>
-				<title>{name} | SNOWKR</title>
+				<title>{name} | SNOWAY</title>
 			</Head>
 			<nav className="instructor-breadcrumb" aria-label={t('Breadcrumb')}>
 				<Link href="/">{t('Home')}</Link>
@@ -169,7 +169,7 @@ export default function InstructorDetail() {
 					</button>
 					<span className="instructor-portrait-label">
 						<DownhillSkiing />
-						{t('Registered SNOWKR Coach')}
+						{t('Registered SNOWAY Coach')}
 					</span>
 				</div>
 				<div className="instructor-detail-intro">
@@ -214,7 +214,7 @@ export default function InstructorDetail() {
 						</span>
 						<small>
 							<VerifiedUser />
-							{t('Registered SNOWKR Coach')}
+							{t('Registered SNOWAY Coach')}
 						</small>
 					</div>
 				</div>

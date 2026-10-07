@@ -19,10 +19,10 @@ export default function AppLayout({ children }: { children: ReactNode }) {
 	return (
 		<div id="pc-wrap" className="snowkr-app">
 			<Head>
-				<title>SNOWKR | Winter in South Korea</title>
+				<title>SNOWAY | Winter in South Korea</title>
 				<meta
 					name="description"
-					content="Discover Korean ski resorts, instructors and winter sports equipment with SNOWKR."
+					content="Discover Korean ski resorts, instructors and winter sports equipment with SNOWAY."
 				/>
 			</Head>
 			<a className="skip-link" href="#main">
