@@ -16,6 +16,7 @@ import { logOut } from '../auth';
 import { cartVar } from '../demoCart';
 import CartDrawer from './common/CartDrawer';
 import BrandLogo from './common/BrandLogo';
+import ThemeControl from './common/ThemeControl';
 import { homeImageUrl } from './homepage/homeUtils';
 const navigation = [
 	['/resort', 'Resorts'],
@@ -66,6 +67,7 @@ export default function Top() {
 					{links}
 				</nav>
 				<div className="snowkr-header-actions">
+					<ThemeControl />
 					<div className="snowkr-language">
 						{[
 							['kr', 'KR'],

@@ -1113,5 +1113,9 @@
 		"send": "Send message",
 		"sendFailed": "Could not send. Your draft is saved; reconnect and try again.",
 		"limit": "{{count}} / {{limit}} characters (composer limit)"
-	}
+	},
+	"Appearance": "Appearance",
+	"Light mode": "Light mode",
+	"Dark mode": "Dark mode",
+	"Use device theme": "Use device theme"
 }

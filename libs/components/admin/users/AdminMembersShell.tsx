@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { Avatar, IconButton } from '@mui/material';
+import ThemeControl from '../../common/ThemeControl';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import TerrainOutlinedIcon from '@mui/icons-material/TerrainOutlined';
@@ -116,6 +117,7 @@ export default function AdminMembersShell({ children }: { children: ReactNode })
 						<OpenInNewOutlinedIcon />
 						{t('View Public Site')}
 					</Link>
+					<ThemeControl />
 					<Link href="/mypage" className="admin-shell-profile" aria-label={t('My Page')}>
 						<Avatar src={avatar} alt={user.memberNick} />
 						<div>

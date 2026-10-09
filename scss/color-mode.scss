@@ -1,0 +1,34 @@
+:root {
+	color-scheme: light;
+}
+html[data-theme='dark'] {
+	color-scheme: dark;
+	--snowkr-border: #36485f;
+	--snowkr-navy: #e2eaf3;
+	--snowkr-primary: #0284c7;
+	background: #182435;
+	body {
+		background: #182435;
+		color: #e2eaf3;
+	}
+	#pc-wrap.snowkr-app .snowkr-header {
+		background: rgba(32, 46, 66, 0.97);
+	}
+	.snoway-brand-logo {
+		content: url('/img/logo/snoway-logo-light.svg');
+	}
+	input,
+	select,
+	textarea {
+		color-scheme: dark;
+	}
+	:focus-visible {
+		outline-color: #7dd3fc;
+	}
+	body::-webkit-scrollbar-track {
+		background: #182435;
+	}
+	body::-webkit-scrollbar-thumb {
+		background: #526780;
+	}
+}

@@ -34,3 +34,22 @@ export const light: ThemeOptions = {
 		},
 	},
 };
+
+export const dark: ThemeOptions = {
+	...light,
+	palette: {
+		mode: 'dark',
+		primary: { main: '#7dd3fc', contrastText: '#182435' },
+		secondary: { main: '#a5b4fc' },
+		background: { default: '#182435', paper: '#202e42' },
+		text: { primary: '#e2eaf3', secondary: '#a8b9ce' },
+		divider: '#36485f',
+	},
+	components: {
+		...light.components,
+		MuiOutlinedInput: { styleOverrides: { root: { background: '#202e42' } } },
+		MuiPaper: { styleOverrides: { root: { backgroundImage: 'none' } } },
+		MuiCard: { styleOverrides: { root: { border: '1px solid #36485f', boxShadow: '0 4px 16px rgba(10,20,35,.16)' } } },
+		MuiChip: { styleOverrides: { root: { background: '#253f54', color: '#a5ddf7', border: 'none' } } },
+	},
+};

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import Head from 'next/head';
+import Seo from '../common/Seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useQuery, useReactiveVar } from '@apollo/client';
@@ -237,10 +237,10 @@ export default function EquipmentDetail() {
 	})}`;
 	return (
 		<div className="equipment-detail-page">
-			<Head>
-				<title>{equipment.equipmentName} | SNOWAY</title>
-				<meta name="description" content={equipment.equipmentDesc || equipment.equipmentName} />
-			</Head>
+			<Seo
+				title={equipment.equipmentName + ' | SNOWAY'}
+				summary={equipment.equipmentDesc?.slice(0, 200) || undefined}
+			/>
 			<div className="equipment-detail-container">
 				<nav className="equipment-detail-breadcrumb" aria-label={t('Breadcrumb')}>
 					<Link href="/">{t('Home')}</Link>

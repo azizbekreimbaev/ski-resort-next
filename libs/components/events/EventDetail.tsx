@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Head from 'next/head';
+import Seo from '../common/Seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -176,10 +176,7 @@ export default function EventDetail() {
 			: 'Upcoming';
 	return (
 		<div className="event-detail-page">
-			<Head>
-				<title>{event.eventTitle} | SNOWAY</title>
-				<meta name="description" content={event.eventDesc.slice(0, 160)} />
-			</Head>
+			<Seo title={event.eventTitle + ' | SNOWAY'} summary={event.eventDesc.slice(0, 200) || undefined} />
 			<div className="event-detail-breadcrumb">
 				<nav aria-label={t('Breadcrumb')}>
 					<Link href="/">{t('Home')}</Link>

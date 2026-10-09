@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import Head from 'next/head';
+import Seo from '../common/Seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useQuery, useReactiveVar } from '@apollo/client';
@@ -217,9 +217,7 @@ export default function ResortDetail() {
 		new Intl.NumberFormat(i18n.language === 'kr' ? 'ko-KR' : i18n.language).format(value);
 	return (
 		<div className="resort-detail-page">
-			<Head>
-				<title>{resort.resortTitle} | SNOWAY</title>
-			</Head>
+			<Seo title={resort.resortTitle + ' | SNOWAY'} summary={resort.resortDesc?.slice(0, 200) || undefined} />
 			<div className="resort-detail-container">
 				<div className="resort-detail-topbar">
 					<nav aria-label={t('Resort breadcrumb')}>

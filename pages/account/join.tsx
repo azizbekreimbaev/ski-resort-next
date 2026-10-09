@@ -7,6 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { logIn, signUp } from '../../libs/auth';
 import BrandLogo from '../../libs/components/common/BrandLogo';
+import ThemeControl from '../../libs/components/common/ThemeControl';
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
 	props: { ...(await serverSideTranslations(locale ?? 'en', ['common'])) },
 });
@@ -44,6 +45,7 @@ function Join() {
 			<Stack component="form" className="auth-form" onSubmit={submit} sx={{ width: '100%', maxWidth: 440 }}>
 				<Stack className="auth-heading">
 					<BrandLogo />
+					<ThemeControl />
 					<Typography component="h1" variant="h5">
 						{t(login ? 'Login' : 'Register')}
 					</Typography>

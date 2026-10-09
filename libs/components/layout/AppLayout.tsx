@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import Head from 'next/head';
 import Top from '../Top';
 import Footer from '../Footer';
 import useMemberSession from '../../hooks/useMemberSession';
@@ -18,13 +17,6 @@ export default function AppLayout({ children }: { children: ReactNode }) {
 	}, []);
 	return (
 		<div id="pc-wrap" className="snowkr-app">
-			<Head>
-				<title>SNOWAY | Winter in South Korea</title>
-				<meta
-					name="description"
-					content="Discover Korean ski resorts, instructors and winter sports equipment with SNOWAY."
-				/>
-			</Head>
 			<a className="skip-link" href="#main">
 				{t('Skip to content')}
 			</a>

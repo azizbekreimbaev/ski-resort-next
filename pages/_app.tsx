@@ -1,8 +1,8 @@
 import type { AppProps } from 'next/app';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
-import React, { useState } from 'react';
-import { light } from '../scss/MaterialTheme';
+import React from 'react';
+import ColorModeProvider from '../libs/context/ColorMode';
+import Seo from '../libs/components/common/Seo';
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from '../apollo/client';
 import { appWithTranslation } from 'next-i18next';
@@ -18,18 +18,19 @@ import '../scss/faq.scss';
 import '../scss/admin-overview.scss';
 import '../scss/cart-checkout.scss';
 import '../scss/chat.scss';
+import '../scss/dark-palette.css';
+import '../scss/color-mode.scss';
 import Chat from '../libs/components/Chat';
 const App = ({ Component, pageProps }: AppProps) => {
-	// @ts-ignore
-	const [theme, setTheme] = useState(createTheme(light));
 	const client = useApollo(pageProps.initialApolloState);
 	return (
 		<ApolloProvider client={client}>
-			<ThemeProvider theme={theme}>
+			<ColorModeProvider>
+				<Seo />
 				<CssBaseline />
 				<Component {...pageProps} />
 				<Chat />
-			</ThemeProvider>
+			</ColorModeProvider>
 		</ApolloProvider>
 	);
 };

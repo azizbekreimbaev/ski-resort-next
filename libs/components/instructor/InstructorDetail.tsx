@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Head from 'next/head';
+import Seo from '../common/Seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -144,9 +144,7 @@ export default function InstructorDetail() {
 	const languages = instructor.instructorLanguages?.join(' · ') || t('Not specified');
 	return (
 		<div className="instructor-detail">
-			<Head>
-				<title>{name} | SNOWAY</title>
-			</Head>
+			<Seo title={name + ' | SNOWAY'} summary={undefined} />
 			<nav className="instructor-breadcrumb" aria-label={t('Breadcrumb')}>
 				<Link href="/">{t('Home')}</Link>
 				<ChevronRight />
