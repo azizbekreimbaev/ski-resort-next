@@ -250,6 +250,82 @@
 		outline-offset: 4px;
 	}
 }
+html[data-theme='dark'] #pc-wrap.snowkr-app .community-detail {
+	background: #182435;
+	color: #e2eaf3;
+
+	.detail-breadcrumb,
+	.detail-author-row,
+	.toastui-editor-contents,
+	.toastui-editor-contents p,
+	.toastui-editor-contents li,
+	.toastui-editor-contents td,
+	.resource-comment > p {
+		color: #c5d1df;
+	}
+
+	.detail-breadcrumb a,
+	.detail-author {
+		color: #e2eaf3;
+	}
+
+	.detail-back {
+		color: #7dd3fc;
+	}
+
+	.detail-category {
+		background: #26364b;
+		color: #bae6fd;
+	}
+
+	.detail-article-header,
+	.detail-comments,
+	.resource-comment {
+		border-color: #36485f;
+	}
+
+	.toastui-editor-contents h1,
+	.toastui-editor-contents h2,
+	.toastui-editor-contents h3,
+	.toastui-editor-contents th {
+		color: #e2eaf3;
+	}
+
+	.toastui-editor-contents a {
+		color: #7dd3fc;
+	}
+
+	.toastui-editor-contents blockquote {
+		background: #202e42;
+	}
+
+	.toastui-editor-contents pre,
+	.toastui-editor-contents code {
+		background: #202e42;
+		color: #e2eaf3;
+	}
+
+	.detail-like,
+	.detail-like.Mui-disabled {
+		background: #26364b;
+		color: #e2eaf3;
+	}
+
+	.detail-like:hover,
+	.detail-like[aria-pressed='true'] {
+		background: #164e63;
+		color: #e0f2fe;
+	}
+
+	.detail-like .detail-like-count {
+		background: #182435;
+		color: #e2eaf3;
+	}
+
+	.detail-comment-composer {
+		background: #202e42;
+	}
+}
 #pc-wrap.snowkr-app .community-detail-state {
 	min-height: 420px;
 }
