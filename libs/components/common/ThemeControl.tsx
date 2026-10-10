@@ -1,39 +1,32 @@
-import React, { useState } from 'react';
-import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
-import { Brightness6Rounded } from '@mui/icons-material';
+import React from 'react';
+import { IconButton, Tooltip, useTheme } from '@mui/material';
+import { DarkModeOutlined, LightModeOutlined } from '@mui/icons-material';
 import { useTranslation } from 'next-i18next';
 import { useColorMode } from '../../context/ColorMode';
 
 export default function ThemeControl() {
 	const { t } = useTranslation('common');
-	const { preference, setPreference } = useColorMode();
-	const [anchor, setAnchor] = useState<HTMLElement | null>(null);
+	const { palette } = useTheme();
+	const { setPreference } = useColorMode();
+	const isDark = palette.mode === 'dark';
+	const nextMode = isDark ? 'light' : 'dark';
+	const label = t(isDark ? 'Light mode' : 'Dark mode');
+
 	return (
-		<>
-			<Tooltip title={t('Appearance')}>
-				<IconButton
-					aria-label={t('Appearance')}
-					aria-haspopup="menu"
-					aria-expanded={Boolean(anchor)}
-					onClick={(event) => setAnchor(event.currentTarget)}
-				>
-					<Brightness6Rounded />
-				</IconButton>
-			</Tooltip>
-			<Menu anchorEl={anchor} open={Boolean(anchor)} onClose={() => setAnchor(null)}>
-				{(['light', 'dark', 'system'] as const).map((value) => (
-					<MenuItem
-						key={value}
-						selected={preference === value}
-						onClick={() => {
-							setPreference(value);
-							setAnchor(null);
-						}}
-					>
-						{t({ light: 'Light mode', dark: 'Dark mode', system: 'Use device theme' }[value])}
-					</MenuItem>
-				))}
-			</Menu>
-		</>
+		<Tooltip title={label} arrow>
+			<IconButton
+				aria-label={label}
+				onClick={() => setPreference(nextMode)}
+				sx={{
+					transition: (theme) =>
+						theme.transitions.create(['background-color', 'color', 'transform'], {
+							duration: theme.transitions.duration.shorter,
+						}),
+					'&:hover': { transform: 'rotate(8deg)' },
+				}}
+			>
+				{isDark ? <LightModeOutlined /> : <DarkModeOutlined />}
+			</IconButton>
+		</Tooltip>
 	);
 }
