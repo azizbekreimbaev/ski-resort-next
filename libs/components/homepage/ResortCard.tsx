@@ -70,7 +70,6 @@ const ResortCard = ({ resort, pending, onFavorite }: ResortCardProps) => {
 				<Typography className="home-card-price">
 					{homePrice(resort.resortPricePerDay, i18n.language)} / {t('day')}
 				</Typography>
-				<Typography variant="body2">{t('Minimum stay', { count: resort.resortMinDays })}</Typography>
 				<div className="home-card-footer">
 					<span aria-label={t('Likes')}>
 						<FavoriteBorderRoundedIcon fontSize="small" /> {resort.resortLikes}

@@ -14,7 +14,8 @@ export default function EquipmentActionDesk({ equipment }: { equipment: Equipmen
 	const [mode, setMode] = useState<'rent' | 'purchase'>('rent');
 	const [duration, setDuration] = useState(rates[0]?.durationHours ?? 0);
 	const [date, setDate] = useState('');
-	const [quantity, setQuantity] = useState(1);
+	const [quantityInput, setQuantityInput] = useState('1');
+	const quantity = Number(quantityInput);
 	const [message, setMessage] = useState('');
 	const purchasable = equipment.equipmentPurchasable && validPrice(equipment.equipmentPurchasePrice);
 	const buy = mode === 'purchase' && purchasable;
@@ -129,7 +130,7 @@ export default function EquipmentActionDesk({ equipment }: { equipment: Equipmen
 						aria-label={t('Decrease quantity')}
 						disabled={quantity <= 1}
 						onClick={() => {
-							setQuantity((value) => value - 1);
+							setQuantityInput(String(quantity - 1));
 							setMessage('');
 						}}
 					>
@@ -141,9 +142,10 @@ export default function EquipmentActionDesk({ equipment }: { equipment: Equipmen
 						min="1"
 						max="99"
 						step="1"
-						value={quantity}
+						value={quantityInput}
 						onChange={(event) => {
-							setQuantity(Number(event.target.value));
+							const value = event.target.value;
+							setQuantityInput(value === '' ? '' : String(Number(value)));
 							setMessage('');
 						}}
 					/>
@@ -152,7 +154,7 @@ export default function EquipmentActionDesk({ equipment }: { equipment: Equipmen
 						aria-label={t('Increase quantity')}
 						disabled={quantity >= 99}
 						onClick={() => {
-							setQuantity((value) => value + 1);
+							setQuantityInput(String(quantity + 1));
 							setMessage('');
 						}}
 					>

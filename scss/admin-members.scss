@@ -46,14 +46,19 @@
 			border-color: #e9ecf9;
 		}
 		.MuiInputBase-root {
-			font-size: 12px;
+			font-size: 14px;
+			min-height: 44px;
 			border-radius: 8px;
 		}
 		.MuiSvgIcon-root {
 			color: #707881;
 			width: 20px;
 		}
-		.MuiTextField-root:first-child input {
+		.MuiTextField-root:first-child input.MuiInputBase-input {
+			height: auto;
+			padding-top: 12px;
+			padding-bottom: 12px;
+			line-height: 20px;
 			padding-right: 38px;
 		}
 	}

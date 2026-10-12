@@ -21,7 +21,8 @@ export default function DemoBookingPanel({
 	const { t, i18n } = useTranslation('common');
 	const [start, setStart] = useState(initialDates?.arrival ?? '');
 	const [end, setEnd] = useState(initialDates?.departure ?? '');
-	const [quantity, setQuantity] = useState(1);
+	const [quantityInput, setQuantityInput] = useState('1');
+	const quantity = Number(quantityInput);
 	const [selection, setSelection] = useState('');
 	const [message, setMessage] = useState('');
 	const weeks = Number(selection);
@@ -49,7 +50,7 @@ export default function DemoBookingPanel({
 		quantity >= 1 &&
 		quantity <= 99 &&
 		(resort
-			? datesValid && days >= resort.resortMinDays && days <= 365 && resort.resortStatus !== 'SOLD_OUT'
+			? datesValid && days >= 1 && days <= 365 && resort.resortStatus !== 'SOLD_OUT'
 			: instructor
 			? datesValid && [1, 2, 3, 4].includes(weeks)
 			: selection === 'purchase'
@@ -157,16 +158,16 @@ export default function DemoBookingPanel({
 							setMessage('');
 						}}
 					/>
-					<Typography variant="body2">{t('Minimum stay', { count: resort.resortMinDays })}</Typography>
 				</>
 			)}
 			<TextField
 				label={t('Quantity')}
 				type="number"
 				inputProps={{ min: 1, max: 99 }}
-				value={quantity}
+				value={quantityInput}
 				onChange={(event) => {
-					setQuantity(Number(event.target.value));
+					const value = event.target.value;
+					setQuantityInput(value === '' ? '' : String(Number(value)));
 					setMessage('');
 				}}
 			/>

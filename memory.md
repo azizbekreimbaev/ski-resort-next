@@ -927,3 +927,18 @@ This inventory includes preserved edits from earlier branding/homepage/runtime t
 - Scoped palette generation script preserves selectors, images, layout and responsive rules. Regenerate dark-palette.css after source style changes. Added optional SNOWAY_BUILD_DIR for isolated verification builds; default output remains .next.
 - Validation: TypeScript and lint passed; final isolated production build passed (122 localized static pages). Existing About img, Browserslist, i18next initialization and large locale-page-data warnings remain. Browser verified dark homepage, equipment filters, saved preference, light-mode restoration and 390px mobile navigation. Share card visually inspected. Git whitespace check passed.
 - An initial inline build launcher propagated its eval arguments into workers and repeated; those verification processes were stopped. A script launcher then revealed workers need a shared output setting; final verification used the explicit environment-based output directory successfully. Temporary launcher removed.
+
+## 2026-10-12 - Dark contrast, quantities and community avatars
+- Fixed dark calendar text and missing blue ink mappings; regenerated dark-palette.css using its generator. Admin header now has a dark translucent background and border.
+- Booking/equipment quantities allow clearing and normalize leading zeros. Cart quantity drafts persist valid integers immediately and restore the saved quantity on blur when invalid or empty.
+- Community listing uses backend memberImage through homeImageUrl and MUI Avatar with initials fallback.
+- Removed public resort minimum-stay text and local demo selection/checkout minimum-days restrictions; positive durations remain required. Backend contracts unchanged.
+- Deployed public FAQ API returned empty list/metaCounter without errors for the frontend-selected fields. Fetching works; published content must be supplied through admin. Local API offline; no live content changed.
+- Checks passed: TypeScript, lint, isolated production build (122 pages), FAQ, community avatars, resort/equipment details, cart quantity UI and demo checkout validation. Existing About image, Browserslist, i18next and large page-data warnings remain. Corrected stale test fixtures for SEO router values, image loading and checkout button labels.
+- No dependencies, auth/Apollo configuration, backend source or commits changed.
+
+## 2026-10-12 - Admin filter height and resort metric contrast
+- Members filter controls now use 14px text and a 44px minimum height; the nickname search input has explicit vertical padding and line-height so it cannot collapse into a thin strip.
+- Added the missing #f7f7ff surface mapping to the existing dark palette generator and regenerated CSS. Resort card price/views/likes strip now uses a dark surface with readable inherited text.
+- Scope: scss/admin-members.scss, scripts/generate-dark-palette.cjs, scss/dark-palette.css and this memory entry. No API/domain/auth changes.
+- Validation: production build passed (122 pages), including TypeScript and lint; git diff --check passed. Existing About image, Browserslist, i18next and page-data warnings remain. No commit or deployment.

@@ -19,6 +19,7 @@ export default function CartPage({ checkout = false }: { checkout?: boolean }) {
 	const storageError = useReactiveVar(cartStorageError);
 	const busy = useReactiveVar(checkoutBusy);
 	const [failure, setFailure] = useState('');
+	const [quantityDrafts, setQuantityDrafts] = useState<Record<string, string>>({});
 	const [outcome, setOutcome] = useState('success');
 	const [paymentCard, setPaymentCard] = useState<'visa' | 'mastercard'>('visa');
 	const [mounted, setMounted] = useState(false);
@@ -186,9 +187,16 @@ export default function CartPage({ checkout = false }: { checkout?: boolean }) {
 									type="number"
 									sx={{ width: 90 }}
 									inputProps={{ min: 1, max: 99 }}
-									value={line.quantity}
+									value={quantityDrafts[line.key] ?? String(line.quantity)}
 									disabled={busy}
+									onBlur={() => setQuantityDrafts((previous) => {
+										const next = { ...previous };
+										delete next[line.key];
+										return next;
+									})}
 									onChange={(event) => {
+										const value = event.target.value;
+										setQuantityDrafts((previous) => ({ ...previous, [line.key]: value === '' ? '' : String(Number(value)) }));
 										const quantity = Number(event.target.value);
 										if (Number.isInteger(quantity) && quantity > 0 && quantity <= 99)
 											saveCart(lines.map((item) => (item.key === line.key ? { ...item, quantity } : item)));

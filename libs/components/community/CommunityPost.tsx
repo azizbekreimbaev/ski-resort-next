@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { Avatar } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 import { BoardArticle } from '../../types/board-article/board-article';
 import ArticleCard from '../common/ArticleCard';
@@ -24,7 +25,9 @@ export default function CommunityPost({ article }: { article: BoardArticle }) {
 		<div className="community-post">
 			<div className="community-post-author">
 				<Link href={'/member?memberId=' + article.memberId} className="community-avatar" aria-label={name}>
-					{name.slice(0, 2).toUpperCase()}
+					<Avatar src={homeImageUrl(article.memberData?.memberImage)} alt={name}>
+						{name.slice(0, 2).toUpperCase()}
+					</Avatar>
 				</Link>
 				<div>
 					<Link href={'/member?memberId=' + article.memberId}>{name}</Link>

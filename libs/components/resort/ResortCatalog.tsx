@@ -116,7 +116,6 @@ function ResortCatalogCard({
 							{homePrice(resort.resortPricePerDay, i18n.language)}
 							<small> / {t('day')}</small>
 						</strong>
-						<span className="resort-minimum">{t('Minimum stay', { count: resort.resortMinDays })}</span>
 					</div>
 					<Button
 						component={Link}

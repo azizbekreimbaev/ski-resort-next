@@ -37,7 +37,7 @@ function stub(file, exports) {
 	const full = path.join(root, file);
 	require.cache[full] = { id: full, filename: full, loaded: true, exports: { __esModule: true, ...exports } };
 }
-const router = { isReady: true, query: { id: '000000000000000000000001' } };
+const router = { pathname: '/equipment/detail', asPath: '/equipment/detail', isReady: true, query: { id: '000000000000000000000001' } };
 stub('node_modules/next/router.js', { useRouter: () => router });
 stub('node_modules/next/head.js', { default: () => null });
 stub('node_modules/next/link.js', {

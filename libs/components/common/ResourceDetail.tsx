@@ -136,7 +136,6 @@ export default function ResourceDetail({ domain }: { domain: CatalogDomain }) {
 							<Typography variant="h5">
 								{homePrice(resort.resortPricePerDay, i18n.language)} / {t('day')}
 							</Typography>
-							<Typography>{t('Minimum stay', { count: resort.resortMinDays })}</Typography>
 							<Stack direction="row" gap={1} flexWrap="wrap">
 								{resort.resortFacilities?.map((facility) => (
 									<Chip key={facility} label={t(facility)} />

@@ -17,6 +17,44 @@ html[data-theme='dark'] {
 	.snoway-brand-logo {
 		content: url('/img/logo/snoway-logo-light.svg');
 	}
+	.admin-members-shell .admin-shell-header {
+		background: rgba(32, 46, 66, 0.97);
+		border-bottom: 1px solid #36485f;
+		color: #e2eaf3;
+	}
+	.travel-range-calendar {
+		.calendar-instruction,
+		.calendar-weekday {
+			color: #afc1d5;
+		}
+		.calendar-day {
+			color: #e2eaf3;
+		}
+		.calendar-day.in-range {
+			background: #263e52;
+		}
+		.calendar-day.range-endpoint {
+			background: #0284c7;
+			color: #fff;
+		}
+		.calendar-day:hover {
+			background: #36485f;
+			color: #fff;
+		}
+		.calendar-actions {
+			border-color: #36485f;
+		}
+	}
+	#pc-wrap.snowkr-app .community-directory {
+		.community-hero .MuiButton-root {
+			background: #263e52;
+			color: #a5ddf7;
+		}
+		.community-search button,
+		.community-post .community-avatar {
+			color: #a5ddf7;
+		}
+	}
 	input,
 	select,
 	textarea {

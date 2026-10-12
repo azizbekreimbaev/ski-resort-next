@@ -96,7 +96,8 @@ const client = {
 	instructorResource.instructorPrice1Week = null;
 	assert.equal((await revalidateCart(client, [instructor])).issues.length, 1);
 	resortResource.resortMinDays = 3;
-	assert.equal((await revalidateCart(client, [resort])).issues.length, 1);
+	assert.equal((await revalidateCart(client, [resort])).issues.length, 0);
+	assert.equal((await revalidateCart(client, [{ ...resort, end: '2099-01-02', days: 1 }])).issues.length, 0);
 	resortResource.resortMinDays = 2;
 	resortResource.resortStatus = 'SOLD_OUT';
 	assert.equal((await revalidateCart(client, [resort])).issues.length, 1);

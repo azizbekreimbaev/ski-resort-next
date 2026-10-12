@@ -36,6 +36,8 @@ function stub(file, exports) {
 	require.cache[f] = { id: f, filename: f, loaded: true, exports: { __esModule: true, ...exports } };
 }
 const router = {
+	pathname: '/resort/detail',
+	asPath: '/resort/detail',
 	isReady: true,
 	query: { id: '000000000000000000000001', arrival: '2026-12-20', departure: '2026-12-23' },
 };

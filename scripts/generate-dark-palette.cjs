@@ -4,6 +4,7 @@ const postcss = require('postcss');
 const path = require('path');
 // Keep existing selectors, imagery, spacing and responsive rules. Only map known UI palette colors.
 const surfaces = {
+	'#f7f7ff': '#26364b',
 	'#f2f3ff': '#26364b',
 	'#eaedff': '#26364b',
 	'#eef0ff': '#26364b',
@@ -46,6 +47,9 @@ const surfaces = {
 	'#fef3c7': '#443c2b',
 };
 const ink = {
+	'#004870': '#a5ddf7',
+	'#12354b': '#e2eaf3',
+	'#647580': '#afc1d5',
 	'#131b2e': '#e2eaf3',
 	'#3f4850': '#c5d2e1',
 	'#707881': '#a8b9ce',

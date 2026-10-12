@@ -19,6 +19,9 @@ Object.assign(global, {
 	document: dom.window.document,
 	navigator: dom.window.navigator,
 	HTMLElement: dom.window.HTMLElement,
+	Image: class {
+		set src(_value) { setTimeout(() => this.onload?.(), 0); }
+	},
 	Element: dom.window.Element,
 	self: dom.window,
 	IS_REACT_ACT_ENVIRONMENT: true,
@@ -74,7 +77,13 @@ const fixture = (index) => ({
 	memberId: 'a'.repeat(24),
 	createdAt: '2026-10-05T01:00:00.000Z',
 	updatedAt: '2026-10-05T01:00:00.000Z',
-	memberData: null,
+	memberData: index === 1 ? {
+		_id: 'a'.repeat(24), memberNick: 'Snow Rider', memberImage: 'https://example.com/avatar.jpg',
+		memberType: 'USER', memberStatus: 'ACTIVE', memberAuthType: 'PHONE', memberPhone: '01000000000',
+		memberFullName: null, memberAddress: null, memberDesc: null, memberWarnings: 0, memberBlocks: 0,
+		memberProperties: 0, memberRank: 0, memberPoints: 0, memberLikes: 0, memberViews: 0,
+		deletedAt: null, createdAt: '2026-10-05T01:00:00.000Z', updatedAt: '2026-10-05T01:00:00.000Z',
+	} : null,
 	meLiked: [{ memberId: 'a'.repeat(24), likeRefId: String(index).padStart(24, '0'), myFavorite: liked }],
 });
 const client = new apollo.ApolloClient({
@@ -143,6 +152,8 @@ const navigate = async (query) => {
 	await act(async () => redraw());
 	await flush();
 	assert.equal(document.querySelectorAll('.community-post').length, 6);
+	assert.equal(document.querySelector('.community-avatar img').getAttribute('src'), 'https://example.com/avatar.jpg');
+	assert(document.querySelectorAll('.community-avatar .MuiAvatar-root').length === 6);
 	assert(document.body.textContent.includes('Showing 1–6 of 13 posts'));
 	assert(requests.some((r) => r.variables.input.limit === 4 && r.variables.input.sort === 'articleViews'));
 	assert.equal(document.querySelector('.community-hero a').getAttribute('href'), '/community/create');
@@ -190,6 +201,8 @@ const navigate = async (query) => {
 	window.dispatchEvent(new window.KeyboardEvent('keydown', { key: 'k', ctrlKey: true, cancelable: true }));
 	assert.equal(document.activeElement.getAttribute('aria-label'), 'Search post titles');
 	await act(async () => mounted.unmount());
+	client.stop();
+	dom.window.close();
 	console.log(
 		'PASS Community: backend inquiries, popular posts, pagination, categories, topics, invalid URL fallbacks, likes/auth/duplicate lock, empty/retry, editor/detail routes, keyboard search.',
 	);

@@ -131,7 +131,9 @@ async function render() {
 	);
 	await settle();
 }
-const button = (label) => Array.from(document.querySelectorAll('button')).find((node) => node.textContent === label);
+const button = (label) => Array.from(document.querySelectorAll('button')).find((node) =>
+	node.textContent === label || (label === 'Confirm demo payment' && node.textContent.startsWith(label + ' · ')),
+);
 const line = {
 	key: 'purchase',
 	resourceId: id,
@@ -144,6 +146,22 @@ const line = {
 (async () => {
 	await act(async () => cart.saveCart([line]));
 	await render();
+	const quantityInput = document.querySelector('input[type="number"]');
+	const setInputValue = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+	async function changeQuantity(value) {
+		await act(async () => {
+			setInputValue.call(quantityInput, value);
+			quantityInput.dispatchEvent(new window.Event('input', { bubbles: true }));
+		});
+	}
+	await changeQuantity('');
+	assert.equal(quantityInput.value, '');
+	assert.equal(cart.cartVar()[0].quantity, 1);
+	await changeQuantity('02');
+	assert.equal(quantityInput.value, '2');
+	assert.equal(cart.cartVar()[0].quantity, 2);
+	assert.ok(document.body.textContent.includes('Quantity: 2'));
+	await changeQuantity('1');
 	price = 120;
 	await act(async () => button('Confirm demo payment').click());
 	await settle(100);

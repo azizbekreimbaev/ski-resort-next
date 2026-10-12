@@ -84,7 +84,6 @@ export function HomeResortCard({
 			</div>
 			<div className="home-preview-body">
 				<div className="home-preview-facts">
-					<span>{t('Minimum stay', { count: resort.resortMinDays })}</span>
 				</div>
 				<div className="home-resort-social">
 					<HomeViews count={resort.resortViews} suffix />

@@ -33,7 +33,7 @@ export async function revalidateCart(
 					if (
 						resource.resortStatus === 'SOLD_OUT' ||
 						resource.resortStatus === 'DELETE' ||
-						line.days < resource.resortMinDays ||
+						line.days < 1 ||
 						line.days > 365
 					)
 						throw new Error('Unavailable selection');
