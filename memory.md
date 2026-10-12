@@ -942,3 +942,22 @@ This inventory includes preserved edits from earlier branding/homepage/runtime t
 - Added the missing #f7f7ff surface mapping to the existing dark palette generator and regenerated CSS. Resort card price/views/likes strip now uses a dark surface with readable inherited text.
 - Scope: scss/admin-members.scss, scripts/generate-dark-palette.cjs, scss/dark-palette.css and this memory entry. No API/domain/auth changes.
 - Validation: production build passed (122 pages), including TypeScript and lint; git diff --check passed. Existing About image, Browserslist, i18next and page-data warnings remain. No commit or deployment.
+
+## 2026-10-12 - Authenticated AI assistant chat
+- Read backend docs/backend-refactor/AI_ASSISTANT.md, actual assistant DTOs/resolver and docs/ai context. Project-listed frontend-migration skill is absent; followed existing Next.js/Apollo/MUI/auth conventions. No dependencies, backend changes or commit.
+- Added apollo/assistant.ts, libs/types/assistant.ts, libs/components/AssistantChat.tsx and scss/assistant.scss. Registered globally in pages/_app.tsx. Assistant only appears for signed-in users on public pages, with animated welcome after five seconds once per member/tab session; active forms/dialogs and community chat are respected.
+- Added suggested resort/equipment/event/beginner questions, message bubbles, thinking indicator, inline error/retry/edit controls, new chat, bounded history (10 entries, 2000 characters each, 12000 total), no-cache responses and typed source links to existing detail screens. Chat stays in memory and clears on account change/logout; late responses are discarded. English/Korean/Russian translations include Google processing and accuracy notice.
+- Minimal shared integration: Chat.tsx coordinates open panels through browser events; apollo/client.ts lets AskAssistant failures render inline instead of triggering global error alerts. Existing auth/header/cache behavior preserved. No legacy terminology introduced in assistant scope.
+- Added scripts/check-assistant.cjs: PASS on history bounds, source routes, translation keys, delayed/one-time welcome, mutation/pending guard, safe text rendering, retry without duplicated history, panel coordination and account/late-response isolation.
+- TypeScript noEmit, full lint and isolated production build passed (122 localized pages); diff whitespace check passed. Existing About image, Browserslist, i18next and page-data-size notices remain.
+- Existing check-chat.cjs passed chat cases then failed at the unrelated navbar ThemeControl fixture (incomplete MUI stub). Assistant suite passes cleanly; no unrelated fixture repair performed.
+- Browser visually inspected actual rendered component fixture on desktop, full-height 390x844 mobile and dark appearance. Local website on port 3000 was not running; no authenticated live Gemini/backend request tested. Fixture preview helper was stopped afterward. Remaining verification: run frontend/backend, sign in and ask a real question using configured backend GEMINI_API_KEY.
+
+## 2026-10-12 - Cart item count
+- Updated Top.tsx basket badge and CartDrawer.tsx heading to count cart entries instead of summing quantities. Existing addCartLine merges repeated selections by key, so quantity 5 of one selection counts as 1; another selection counts as 2. Item quantities and totals unchanged.
+- Validation: reviewed existing cart merge behavior and scoped diff; git diff --check passed. Typecheck/lint/build could not run because Node.js/npm are unavailable in this execution environment. No backend contracts, dependencies or commits changed.
+
+## 2026-10-12 - Cart controls and button contrast
+- CartDrawer View cart and admin overview Create FAQ use palette primary.contrastText with sufficient selector priority, yielding dark text on light-blue dark-mode buttons and white text in light mode.
+- CartPage adds outlined minus/plus controls around the editable quantity field. Uses current cart state, clamps to 1-99, disables at bounds/during checkout, clears drafts/errors and persists totals. Removed native number spinners; mobile wrapping retained. Updated cart-checkout.scss; no backend changes or dependencies.
+- Validation: isolated production build passed (122 pages), including TypeScript and lint; git diff --check passed. Existing About img, Browserslist, i18next and page-data warnings remain. Installed Node runtime required approved sandbox escalation. No live browser verification or commit.

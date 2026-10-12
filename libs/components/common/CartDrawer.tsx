@@ -16,7 +16,7 @@ export default function CartDrawer({ open, onClose }: { open: boolean; onClose: 
 		<Drawer anchor="right" open={open} onClose={onClose} PaperProps={{ sx: { width: { xs: '100%', sm: 440 }, p: 3 } }}>
 			<Stack direction="row" justifyContent="space-between" alignItems="center">
 				<Typography variant="h5" component="h2">
-					{t('Cart')} ({lines.reduce((sum, line) => sum + line.quantity, 0)})
+					{t('Cart')} ({lines.length})
 				</Typography>
 				<IconButton aria-label={t('Close')} onClick={onClose}>
 					<CloseRounded />
@@ -57,7 +57,13 @@ export default function CartDrawer({ open, onClose }: { open: boolean; onClose: 
 					<Typography>{t('Total')}</Typography>
 					<Typography fontWeight={700}>{homePrice(cartTotal(lines), i18n.language)}</Typography>
 				</Stack>
-				<Button component={Link} href="/cart" variant="contained" onClick={onClose}>
+				<Button
+					component={Link}
+					href="/cart"
+					variant="contained"
+					onClick={onClose}
+					sx={{ '&&': { color: 'primary.contrastText' } }}
+				>
 					{t('View cart')}
 				</Button>
 				<Button component={Link} href="/checkout" variant="outlined" disabled={!lines.length || busy} onClick={onClose}>

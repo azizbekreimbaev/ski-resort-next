@@ -9,7 +9,13 @@ import { revalidateCart, checkoutBusy } from '../../demoCheckout';
 import { userVar } from '../../../apollo/store';
 import useMemberSession from '../../hooks/useMemberSession';
 import { homePrice } from '../homepage/homeUtils';
-import { CreditCardRounded, ShoppingBagOutlined, CheckCircleRounded } from '@mui/icons-material';
+import {
+	AddRounded,
+	RemoveRounded,
+	CreditCardRounded,
+	ShoppingBagOutlined,
+	CheckCircleRounded,
+} from '@mui/icons-material';
 export default function CartPage({ checkout = false }: { checkout?: boolean }) {
 	const { t, i18n } = useTranslation('common');
 	const router = useRouter();
@@ -24,6 +30,20 @@ export default function CartPage({ checkout = false }: { checkout?: boolean }) {
 	const [paymentCard, setPaymentCard] = useState<'visa' | 'mastercard'>('visa');
 	const [mounted, setMounted] = useState(false);
 	const mountedRef = useRef(true);
+	const adjustQuantity = (key: string, delta: number) => {
+		if (checkoutBusy()) return;
+		saveCart(
+			cartVar().map((item) =>
+				item.key === key ? { ...item, quantity: Math.max(1, Math.min(99, item.quantity + delta)) } : item,
+			),
+		);
+		setQuantityDrafts((previous) => {
+			const next = { ...previous };
+			delete next[key];
+			return next;
+		});
+		setFailure('');
+	};
 	useEffect(() => {
 		setMounted(true);
 		mountedRef.current = true;
@@ -182,27 +202,50 @@ export default function CartPage({ checkout = false }: { checkout?: boolean }) {
 									</p>
 									<strong>{homePrice(lineTotal(line), i18n.language)}</strong>
 								</div>
-								<TextField
-									label={t('Quantity')}
-									type="number"
-									sx={{ width: 90 }}
-									inputProps={{ min: 1, max: 99 }}
-									value={quantityDrafts[line.key] ?? String(line.quantity)}
-									disabled={busy}
-									onBlur={() => setQuantityDrafts((previous) => {
-										const next = { ...previous };
-										delete next[line.key];
-										return next;
-									})}
-									onChange={(event) => {
-										const value = event.target.value;
-										setQuantityDrafts((previous) => ({ ...previous, [line.key]: value === '' ? '' : String(Number(value)) }));
-										const quantity = Number(event.target.value);
-										if (Number.isInteger(quantity) && quantity > 0 && quantity <= 99)
-											saveCart(lines.map((item) => (item.key === line.key ? { ...item, quantity } : item)));
-										setFailure('');
-									}}
-								/>
+								<Stack direction="row" spacing={1} alignItems="center" className="snowkr-cart-quantity">
+									<Button
+										variant="outlined"
+										aria-label={`${t('Quantity')} −: ${line.title}`}
+										disabled={busy || line.quantity <= 1}
+										onClick={() => adjustQuantity(line.key, -1)}
+									>
+										<RemoveRounded fontSize="small" />
+									</Button>
+									<TextField
+										label={t('Quantity')}
+										type="number"
+										sx={{ width: 90 }}
+										inputProps={{ min: 1, max: 99 }}
+										value={quantityDrafts[line.key] ?? String(line.quantity)}
+										disabled={busy}
+										onBlur={() =>
+											setQuantityDrafts((previous) => {
+												const next = { ...previous };
+												delete next[line.key];
+												return next;
+											})
+										}
+										onChange={(event) => {
+											const value = event.target.value;
+											setQuantityDrafts((previous) => ({
+												...previous,
+												[line.key]: value === '' ? '' : String(Number(value)),
+											}));
+											const quantity = Number(event.target.value);
+											if (Number.isInteger(quantity) && quantity > 0 && quantity <= 99)
+												saveCart(lines.map((item) => (item.key === line.key ? { ...item, quantity } : item)));
+											setFailure('');
+										}}
+									/>
+									<Button
+										variant="outlined"
+										aria-label={`${t('Quantity')} +: ${line.title}`}
+										disabled={busy || line.quantity >= 99}
+										onClick={() => adjustQuantity(line.key, 1)}
+									>
+										<AddRounded fontSize="small" />
+									</Button>
+								</Stack>
 								<Button
 									disabled={busy}
 									onClick={() => {

@@ -109,7 +109,13 @@ function AdminHome() {
 					<Button component={Link} href="/_admin/equipment/create" startIcon={<Add />} variant="outlined">
 						{t('Add equipment')}
 					</Button>
-					<Button component={Link} href="/_admin/faq/create" startIcon={<Add />} variant="contained">
+					<Button
+						component={Link}
+						href="/_admin/faq/create"
+						startIcon={<Add />}
+						variant="contained"
+						sx={{ '&&': { color: 'primary.contrastText' } }}
+					>
 						{t('Create FAQ')}
 					</Button>
 				</div>

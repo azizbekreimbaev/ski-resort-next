@@ -1,6 +1,20 @@
 #pc-wrap.snowkr-app .snowkr-checkout-page {
-	.snowkr-cart-line > .MuiTextField-root {
-		flex: 0 0 90px;
+	.snowkr-cart-line > .snowkr-cart-quantity {
+		flex: 0 0 auto;
+		.MuiButton-root {
+			min-width: 36px;
+			width: 36px;
+			height: 36px;
+			padding: 0;
+		}
+		input[type='number'] {
+			-moz-appearance: textfield;
+		}
+		input::-webkit-inner-spin-button,
+		input::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
 	}
 	.snowkr-checkout-steps {
 		display: flex;

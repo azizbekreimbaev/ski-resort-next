@@ -21,6 +21,8 @@ import '../scss/chat.scss';
 import '../scss/dark-palette.css';
 import '../scss/color-mode.scss';
 import Chat from '../libs/components/Chat';
+import AssistantChat from '../libs/components/AssistantChat';
+import '../scss/assistant.scss';
 const App = ({ Component, pageProps }: AppProps) => {
 	const client = useApollo(pageProps.initialApolloState);
 	return (
@@ -30,6 +32,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 				<CssBaseline />
 				<Component {...pageProps} />
 				<Chat />
+				<AssistantChat />
 			</ColorModeProvider>
 		</ApolloProvider>
 	);

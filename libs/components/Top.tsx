@@ -100,7 +100,7 @@ export default function Top() {
 						aria-haspopup="dialog"
 						aria-expanded={cartOpen}
 					>
-						<Badge badgeContent={cart.reduce((sum, line) => sum + line.quantity, 0)} color="primary">
+						<Badge badgeContent={cart.length} color="primary">
 							<ShoppingBagOutlined />
 						</Badge>
 					</IconButton>

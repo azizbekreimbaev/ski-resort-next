@@ -24,6 +24,14 @@ const Chat = () => {
 	const revealOwn = useRef(false);
 	const previousHistory = useRef(historyVersion);
 	const connected = connection === 'connected';
+	useEffect(() => {
+		const hide = () => setOpen(false);
+		window.addEventListener('snoway:assistant-open', hide);
+		return () => window.removeEventListener('snoway:assistant-open', hide);
+	}, []);
+	useEffect(() => {
+		if (open) window.dispatchEvent(new window.Event('snoway:community-open'));
+	}, [open]);
 	const name = selfMember?.memberNick ?? t('chat.guest');
 	const invalid = draft.trim().length > CHAT_TEXT_LIMIT;
 	const scrollDown = () => {
