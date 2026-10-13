@@ -1,49 +1,80 @@
-﻿import { useMemo } from 'react';
-import { ApolloClient, ApolloLink, InMemoryCache, split, from, NormalizedCacheObject } from '@apollo/client';
+import { useMemo } from 'react';
+import {
+	ApolloClient,
+	ApolloLink,
+	InMemoryCache,
+	split,
+	from,
+	NormalizedCacheObject,
+	Observable,
+} from '@apollo/client';
 import createUploadLink from 'apollo-upload-client/public/createUploadLink.js';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { onError } from '@apollo/client/link/error';
-import { getJwtToken } from '../libs/auth';
-import { TokenRefreshLink } from 'apollo-link-token-refresh';
+import { getJwtToken, setupSession } from '../libs/auth';
+import {
+	clearSession,
+	getSessionGeneration,
+	getSessionRevision,
+	refreshSession,
+	restoreSession,
+	sessionStopped,
+} from '../libs/auth/session';
 import { sweetErrorAlert } from '../libs/sweetAlert';
 import { createApolloCache } from './cache';
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
-function getHeaders() {
-	const headers = {} as HeadersInit;
+function getHeaders(): Record<string, string> {
 	const token = getJwtToken();
-	// @ts-ignore
-	if (token) headers['Authorization'] = `Bearer ${token}`;
-	return headers;
+	return { 'X-CSRF-Protection': '1', ...(token ? { Authorization: `Bearer ${token}` } : {}) };
 }
-
-const tokenRefreshLink = new TokenRefreshLink({
-	accessTokenField: 'accessToken',
-	isTokenValidOrUndefined: () => {
-		return true;
-	}, // @ts-ignore
-	fetchAccessToken: () => {
-		// execute refresh token
-		return null;
-	},
-});
-
 function createIsomorphicLink() {
 	if (typeof window !== 'undefined') {
-		const authLink = new ApolloLink((operation, forward) => {
-			operation.setContext(({ headers = {} }) => ({
-				headers: {
-					...headers,
-					...getHeaders(),
-				},
-			}));
-			return forward(operation);
-		});
+		const authLink = new ApolloLink(
+			(operation, forward) =>
+				new Observable((observer) => {
+					let subscription: { unsubscribe(): void } | undefined;
+					let cancelled = false;
+					const authOperation = ['Login', 'Signup', 'GoogleLogin'].includes(operation.operationName);
+					setupSession();
+					void (authOperation ? Promise.resolve() : restoreSession())
+						.then(() => {
+							if (cancelled) return;
+							const epoch = getSessionGeneration();
+							operation.setContext(({ headers = {} }) => {
+								const next: Record<string, string> = { ...headers };
+								delete next.Authorization;
+								delete next.authorization;
+								return {
+									headers: { ...next, ...getHeaders() },
+									sessionToken: getJwtToken(),
+									sessionRevision: getSessionRevision(),
+								};
+							});
+							subscription = forward(operation).subscribe({
+								next: (value) => {
+									if (!authOperation && epoch !== getSessionGeneration())
+										observer.error(new Error('SESSION_CANCELLED'));
+									else observer.next(value);
+								},
+								error: (error) => observer.error(error),
+								complete: () => observer.complete(),
+							});
+						})
+						.catch((error: unknown) => observer.error(error));
+					return () => {
+						cancelled = true;
+						subscription?.unsubscribe();
+					};
+				}),
+		);
 
 		// @ts-ignore
 		const link = new createUploadLink({
 			uri: process.env.REACT_APP_API_GRAPHQL_URL,
+			credentials: 'include',
+			headers: { 'Apollo-Require-Preflight': 'true', 'X-CSRF-Protection': '1' },
 		});
 
 		//CUSTOM WEB SOCKET client
@@ -59,7 +90,7 @@ function createIsomorphicLink() {
 				};
 
 				this.socket.onmessage = (msg) => {
-					console.log('WebSocket message:', msg.data);
+					// Authenticated payloads must not be logged.
 				};
 
 				this.socket.onerror = (error) => {
@@ -92,7 +123,26 @@ function createIsomorphicLink() {
 			webSocketImpl: LoggingWebSocket,
 		});
 
-		const errorLink = onError(({ graphQLErrors, networkError, response, operation }) => {
+		const errorLink = onError(({ graphQLErrors, networkError, response, operation, forward }) => {
+			const codes = graphQLErrors?.map((error) => error.extensions?.code);
+			if (codes?.includes('ACCESS_TOKEN_INVALID') || codes?.includes('MEMBER_BLOCKED')) clearSession();
+			if (codes?.includes('ACCESS_TOKEN_EXPIRED') && !operation.getContext().sessionRetried && !sessionStopped()) {
+				operation.setContext({ sessionRetried: true });
+				return new Observable((observer) => {
+					let subscription: { unsubscribe(): void } | undefined;
+					let cancelled = false;
+					void refreshSession(operation.getContext().sessionToken, operation.getContext().sessionRevision)
+						.then(() => {
+							if (!cancelled && !sessionStopped()) subscription = forward(operation).subscribe(observer);
+							else observer.error(new Error('SESSION_CANCELLED'));
+						})
+						.catch((error: unknown) => observer.error(error));
+					return () => {
+						cancelled = true;
+						subscription?.unsubscribe();
+					};
+				});
+			}
 			// Assistant failures are shown inline, with retry controls, in its conversation.
 			if (operation.operationName === 'AskAssistant' || operation.operationName === 'GoogleLogin') return;
 			if (graphQLErrors) {
@@ -116,7 +166,7 @@ function createIsomorphicLink() {
 			authLink.concat(link),
 		);
 
-		return from([errorLink, tokenRefreshLink, splitLink]);
+		return from([errorLink, splitLink]);
 	}
 }
 

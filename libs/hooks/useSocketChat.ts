@@ -23,13 +23,13 @@ export default function useSocketChat() {
 		if (!ready) return;
 		const sync = () => setToken(getJwtToken() ?? '');
 		sync();
-		// Existing auth updates localStorage and Apollo separately; detect token-only replacement too.
+		// Keep the socket synchronized with in-memory session changes.
 		const timer = window.setInterval(sync, 1000);
-		window.addEventListener('storage', sync);
+		window.addEventListener('skiresort-auth', sync);
 		window.addEventListener('focus', sync);
 		return () => {
 			window.clearInterval(timer);
-			window.removeEventListener('storage', sync);
+			window.removeEventListener('skiresort-auth', sync);
 			window.removeEventListener('focus', sync);
 		};
 	}, [ready, user]);

@@ -9,7 +9,12 @@ const stub = (file, exports) => {
 	require.cache[id] = { id, filename: id, loaded: true, exports };
 };
 let stored = {}, user, calls = [], response, clears = 0;
-global.window = { localStorage: { setItem: (key, value) => { stored[key] = value; } } };
+global.window = { dispatchEvent() {}, localStorage: {
+	setItem: (key, value) => { stored[key] = value; },
+	removeItem: (key) => { delete stored[key]; },
+} };
+global.navigator = { locks: { request: async (_name, action) => action() } };
+global.BroadcastChannel = class { postMessage() {} };
 global.localStorage = window.localStorage;
 stub('../apollo/client.ts', { initializeApollo: () => ({
 	mutate: async (request) => { calls.push(request); if (response instanceof Error) throw response; return response; },
@@ -17,7 +22,7 @@ stub('../apollo/client.ts', { initializeApollo: () => ({
 }) });
 stub('../apollo/store.ts', { userVar: (value) => { user = value; } });
 stub('../libs/sweetAlert.ts', {});
-const { googleLogIn } = require('../libs/auth/index.ts');
+const { googleLogIn, getJwtToken } = require('../libs/auth/index.ts');
 let popupFailure, signedOut = 0, persistence;
 process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED = 'true';
 process.env.NEXT_PUBLIC_FIREBASE_API_KEY = 'fixture-key';
@@ -51,7 +56,8 @@ const { getGoogleIdToken } = require('../libs/auth/firebase.ts');
 	const token = `e30.${Buffer.from(JSON.stringify(claims)).toString('base64url')}.signature`;
 	response = { data: { googleLogin: { accessToken: token } } };
 	await googleLogIn({ idToken: 'firebase-token' });
-	assert.equal(stored.accessToken, token);
+	assert.equal(getJwtToken(), token);
+	assert.deepEqual(stored, {}, 'access token must not be persisted');
 	assert.equal(user._id, 'member');
 	assert.equal(clears, 1);
 	assert.equal(calls.at(-1).fetchPolicy, 'no-cache');

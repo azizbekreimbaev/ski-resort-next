@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import { CssBaseline } from '@mui/material';
 import React from 'react';
+import useMemberSession from '../libs/hooks/useMemberSession';
 import ColorModeProvider from '../libs/context/ColorMode';
 import Seo from '../libs/components/common/Seo';
 import { ApolloProvider } from '@apollo/client';
@@ -23,10 +24,15 @@ import '../scss/color-mode.scss';
 import Chat from '../libs/components/Chat';
 import AssistantChat from '../libs/components/AssistantChat';
 import '../scss/assistant.scss';
+const SessionStartup = () => {
+	useMemberSession();
+	return null;
+};
 const App = ({ Component, pageProps }: AppProps) => {
 	const client = useApollo(pageProps.initialApolloState);
 	return (
 		<ApolloProvider client={client}>
+			<SessionStartup />
 			<ColorModeProvider>
 				<Seo />
 				<CssBaseline />
