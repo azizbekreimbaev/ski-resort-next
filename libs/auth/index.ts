@@ -3,7 +3,25 @@ import { initializeApollo } from '../../apollo/client';
 import { userVar } from '../../apollo/store';
 import { CustomJwtPayload } from '../types/customJwtPayload';
 import { sweetMixinErrorAlert } from '../sweetAlert';
-import { LOGIN, SIGN_UP } from '../../apollo/user/mutation';
+import { GOOGLE_LOGIN, LOGIN, SIGN_UP } from '../../apollo/user/mutation';
+
+export const googleLogIn = async (input: {
+	idToken: string;
+	memberNick?: string;
+	memberPhone?: string;
+}): Promise<void> => {
+	const client = initializeApollo();
+	const result = await client.mutate<{ googleLogin: { accessToken: string } }>({
+		mutation: GOOGLE_LOGIN,
+		variables: { input },
+		fetchPolicy: 'no-cache',
+	});
+	const token = result.data?.googleLogin?.accessToken;
+	if (!token) throw new Error('Authentication failed');
+	updateUserInfo(token);
+	updateStorage({ jwtToken: token });
+	await client.clearStore();
+};
 
 export function getJwtToken(): string | undefined {
 	if (typeof window !== 'undefined') {

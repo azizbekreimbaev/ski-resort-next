@@ -841,7 +841,7 @@ This inventory includes preserved edits from earlier branding/homepage/runtime t
 - Stopped only confirmed skiresort-next dev processes, preserved generated .next cache at C:/Users/Aziz/AppData/Local/Temp/snowkr-next-render-cache-20261007, and started a fresh dev server on port 3000. No app source, auth, cart data, dependencies or backend changed.
 - Browser verification passed: homepage visibly renders, shared cart drawer opens, drawer checkout link navigates, and checkout renders with cards and summary. New dev logs show successful compilation/HTTP 200 without the runtime crash. Checkout left visible for user.
 
-## 2026-10-07 — Public member profile
+## 2026-10-07 ï¿½ Public member profile
 - Rebuilt `/member` with the existing My Page dashboard classes: public identity header, bio, role, joined date, instructor link, public navigation and three clickable social/article counters.
 - Retained verified backend `getMember`, follower/following queries and subscribe/unsubscribe contracts. Follow actions require login, prevent duplicate profile requests and refresh profile counts and active follow collections. Own profile links to My Page.
 - Shared follow cards show nicknames and bios; following label is consistent; failed/loading requests hide stale rows. Preserved pagination, member likes and profile navigation.
@@ -962,7 +962,27 @@ This inventory includes preserved edits from earlier branding/homepage/runtime t
 - CartPage adds outlined minus/plus controls around the editable quantity field. Uses current cart state, clamps to 1-99, disables at bounds/during checkout, clears drafts/errors and persists totals. Removed native number spinners; mobile wrapping retained. Updated cart-checkout.scss; no backend changes or dependencies.
 - Validation: isolated production build passed (122 pages), including TypeScript and lint; git diff --check passed. Existing About img, Browserslist, i18next and page-data warnings remain. Installed Node runtime required approved sandbox escalation. No live browser verification or commit.
 
+## 2026-10-13 - Firebase Google authentication
+- Read GOOGLE_AUTH.md, firebasesdk.md, backend GoogleLoginInput/resolver/service and relevant docs/ai auth context. Listed member-instructor-ui skill absent. User approved the required Firebase dependency; added Firebase 12 (Node 20 compatible) and Yarn lock entries.
+- Added libs/auth/firebase.ts with supplied public web configuration, popup Google identity, memory-only Firebase persistence and Firebase sign-out after token retrieval. Added GOOGLE_LOGIN and googleLogIn using existing SkiResort JWT/userVar/storage/cache conventions; no backend contracts changed.
+- Join page supports Google login, returning-user redirects and GOOGLE_PROFILE_REQUIRED nickname/phone completion without password. Cancellation discards pending identity; backend failures do not establish a session. GoogleLogin errors render inline through a narrow Apollo error-link exception. Added English/Korean/Russian strings.
+- .env.example and docs/google-auth.md describe NEXT_PUBLIC_GOOGLE_AUTH_ENABLED readiness gate (default disabled), Firebase Google provider/authorized domains, backend external credentials, sparse unique firebaseUid index and live acceptance steps. No Admin credentials committed. User-supplied firebasesdk.md preserved.
+- Added scripts/check-google-auth.cjs: passes token cleanup, popup cancellation, backend failure isolation, missing JWT, profile payload and JWT session assertions. Backend schema validation passes all 76 GraphQL documents. Final TypeScript noEmit and lint pass; lint retains existing About image warning. Isolated production build passed (122 localized pages); existing Browserslist, i18next and page-data-size notices remain.
+- Live OAuth/database acceptance not performed; enable only after backend credentials/index and Firebase console setup are confirmed. No commit, deployment, unrelated domain migration or legacy references introduced.
+
+## 2026-10-13 - Auth loading feedback and Google button
+- Updated pages/account/join.tsx with a multicolor Google SVG icon and outlined theme-aware button styling. No new dependencies or contract changes.
+- Login/signup/Google profile completion show a spinner and stage-specific status while pending; fields are disabled and the form exposes aria-busy. Successful authentication opens a blurred backdrop with a spinner and signed-in/redirect message until router navigation completes. Errors/cancellation clear loading state. Added English/Korean/Russian loading labels.
+- Checks: TypeScript noEmit, lint, existing Google auth checks, isolated production build (122 pages) and git diff --check passed. Existing About image/i18next/large page-data warnings remain. No live browser/OAuth verification, commit or deployment.
+
 ## 2026-10-13 - Immediate like feedback
 - Added useOptimisticLike using existing Apollo normalized cache and verified backend toggle contracts. Resort, equipment, member/instructor and board article hearts/counts update before the response, reconcile server counts and roll back on mutation failure. Existing auth guards, pending controls and query refetches remain.
 - Instructor directory updates its local list immediately and reconciles the returned count instead of clearing/reloading every instructor after a like. Updated the instructor-detail test router fixture for existing SEO fields. No backend, dependency or authentication changes.
 - Checks passed: TypeScript noEmit, lint (existing About image warning), 16 real-Apollo optimistic like/unlike success/failure scenarios, homepage interaction regression, instructor detail regression and isolated production build (122 pages). Existing Browserslist/i18next/page-data warnings remain. Live production latency was not measured.
+
+## 2026-10-13 - Commit remaining authentication work
+- User requested committing and pushing the remaining Google authentication and loading-feedback changes to develop and master. Google auth regression and TypeScript checks passed again; prior lint and isolated production build passed with these changes present. Firebase configuration contains public web identifiers; no backend Admin credentials are included.
+
+## 2026-10-13 - Replace exposed Firebase configuration commit
+- User explicitly authorized replacing the latest commit and rewriting develop/master. Removed the deleted firebasesdk.md from the replacement commit; moved all Firebase web configuration to NEXT_PUBLIC_FIREBASE environment variables with empty examples and a missing-configuration guard. Updated docs/tests. Provider key rotation remains required externally; Git history rewriting does not revoke credentials.
+- Validation passed: Google auth tests (including missing configuration), TypeScript, lint, isolated production build (122 pages), whitespace check and exact-key scan of all 15 earlier commits.

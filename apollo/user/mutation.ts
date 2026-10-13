@@ -1,5 +1,16 @@
 ﻿import { gql } from '@apollo/client';
 
+export const GOOGLE_LOGIN = gql`
+	mutation GoogleLogin($input: GoogleLoginInput!) {
+		googleLogin(input: $input) {
+			_id
+			memberNick
+			memberType
+			accessToken
+		}
+	}
+`;
+
 export const LIKE_TARGET_RESORT = gql`
 	mutation LikeTargetResort($resortId: String!) {
 		likeTargetResort(resortId: $resortId) {

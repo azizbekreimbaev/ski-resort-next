@@ -94,7 +94,7 @@ function createIsomorphicLink() {
 
 		const errorLink = onError(({ graphQLErrors, networkError, response, operation }) => {
 			// Assistant failures are shown inline, with retry controls, in its conversation.
-			if (operation.operationName === 'AskAssistant') return;
+			if (operation.operationName === 'AskAssistant' || operation.operationName === 'GoogleLogin') return;
 			if (graphQLErrors) {
 				graphQLErrors.map(({ message, locations, path, extensions }) => {
 					console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
