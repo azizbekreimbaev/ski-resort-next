@@ -5,8 +5,9 @@ environment variables listed in `.env.example`. Set actual values in an untracke
 or the deployment environment; do not commit configuration values.
 It exchanges the Google Firebase ID token through `googleLogin(input: GoogleLoginInput!)`
 and uses the returned SkiResort JWT through the existing session storage/Apollo flow.
-New users complete a nickname (3–12 characters) and phone after GOOGLE_PROFILE_REQUIRED.
-Phone is profile data, not SMS-verified. Existing accounts are not automatically linked.
+New and returning Google users send only the Firebase ID token and sign in directly.
+The backend generates a unique nickname for new accounts and leaves phone unset.
+Phone is optional for Google signup; existing accounts are not automatically linked.
 
 Before enabling the button:
 
@@ -21,12 +22,11 @@ use NEXT_PUBLIC variables. Rotate any key that has been exposed; Git history rem
 not revoke it.
 
 Firebase authentication uses memory persistence and is signed out after obtaining the token.
-An ID token awaiting profile completion stays only in component memory; cancel/reload discards it.
 Only a successful backend response creates a SkiResort session.
 
-Live acceptance: sign in with Google, complete a new profile, open a guarded member page,
-sign out, and sign in again without another profile prompt. Also check popup cancellation,
-nickname/phone collisions and blocked-account errors. Credentials, provider setup and
+Live acceptance: sign up with Google without entering nickname or phone, open a guarded member page,
+sign out, and sign in again without a profile prompt. Also check popup cancellation
+and blocked-account errors. Credentials, provider setup and
 database readiness must be confirmed by the backend operator.
 
 SDK reference: https://firebase.google.com/docs/auth/web/google-signin

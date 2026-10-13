@@ -8,9 +8,11 @@ import { UPDATE_MEMBER } from '../../../apollo/user/mutation';
 import { updateStorage, updateUserInfo } from '../../auth';
 import { uploadImages } from '../../uploadImages';
 import { homeImageUrl } from '../homepage/homeUtils';
+import { MemberAuthType } from '../../enums/member.enum';
 export default function MyProfile() {
 	const user = useReactiveVar(userVar);
 	const { t } = useTranslation('common');
+	const phoneRequired = user.memberAuthType !== MemberAuthType.GOOGLE;
 	const [form, setForm] = useState({
 		memberNick: '',
 		memberPhone: '',
@@ -42,7 +44,7 @@ export default function MyProfile() {
 		if (
 			form.memberNick.trim().length < 3 ||
 			form.memberNick.trim().length > 12 ||
-			!form.memberPhone.trim() ||
+			(phoneRequired && !form.memberPhone.trim()) ||
 			(form.memberFullName.trim() && (form.memberFullName.trim().length < 3 || form.memberFullName.trim().length > 100))
 		) {
 			setError(t('Please check the form values'));
@@ -56,7 +58,7 @@ export default function MyProfile() {
 						_id: user._id,
 						...form,
 						memberNick: form.memberNick.trim(),
-						memberPhone: form.memberPhone.trim(),
+						memberPhone: form.memberPhone.trim() || undefined,
 						memberFullName: form.memberFullName.trim() || null,
 					},
 				},
@@ -147,7 +149,7 @@ export default function MyProfile() {
 						key={key}
 						label={t(labels[key])}
 						disabled={busy}
-						required={key === 'memberNick' || key === 'memberPhone'}
+						required={key === 'memberNick' || (key === 'memberPhone' && phoneRequired)}
 						inputProps={
 							key === 'memberNick'
 								? { minLength: 3, maxLength: 12 }

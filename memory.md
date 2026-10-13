@@ -994,3 +994,9 @@ This inventory includes preserved edits from earlier branding/homepage/runtime t
 ## 2026-10-13 - Review and publish Firebase configuration protection
 - Verified firebase.md and .env.local are ignored and excluded from tracked files. Scanned tracked content for all six supplied Firebase values and common private credential signatures; no matches. Commit scope is .gitignore and this memory log only; local configuration remains local.
 - Whitespace verification passed. Runtime checks remain unavailable because Node.js is not on PATH. User authorized committing and pushing to develop and master; both remote branches matched before publication.
+
+## 2026-10-13 - Google sign-in without profile onboarding
+- Removed Google nickname/phone onboarding and stored pending ID token from account/join. Google login sends only idToken and redirects through the existing JWT/Apollo flow. Local login/signup remains unchanged.
+- Backend working tree already contained token-only signup, generated nicknames, conditional phone requirements and nullable GraphQL phone; preserved these existing edits and verified all 11 focused Google tests plus API typecheck.
+- Added GOOGLE to the frontend auth enum and made phone optional for Google users saving their profile; omitted blank phone values from mutations. Updated Google auth documentation and token-only/no-phone session regression.
+- Frontend regression, TypeScript and lint passed (existing About image warning). Production build generated all 122 pages with existing i18next, page-data and Browserslist warnings. Live OAuth remains unverified; backend token-only changes must be running before frontend use. No commit or push for this phase.
