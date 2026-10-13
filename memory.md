@@ -986,3 +986,11 @@ This inventory includes preserved edits from earlier branding/homepage/runtime t
 ## 2026-10-13 - Replace exposed Firebase configuration commit
 - User explicitly authorized replacing the latest commit and rewriting develop/master. Removed the deleted firebasesdk.md from the replacement commit; moved all Firebase web configuration to NEXT_PUBLIC_FIREBASE environment variables with empty examples and a missing-configuration guard. Updated docs/tests. Provider key rotation remains required externally; Git history rewriting does not revoke credentials.
 - Validation passed: Google auth tests (including missing configuration), TypeScript, lint, isolated production build (122 pages), whitespace check and exact-key scan of all 15 earlier commits.
+
+## 2026-10-13 - Configure local Firebase Google authentication
+- Read the supplied firebase.md web configuration and populated all six NEXT_PUBLIC_FIREBASE variables in ignored .env.local; enabled NEXT_PUBLIC_GOOGLE_AUTH_ENABLED. Preserved the existing Firebase/Apollo/session implementation.
+- Verified configuration values match the supplied file and .env.local is Git-ignored. Google auth regression, TypeScript, lint and build could not run because Node.js is unavailable on the execution PATH. Live Google/provider/backend acceptance remains unverified; restart Next.js to load the local environment.
+
+## 2026-10-13 - Review and publish Firebase configuration protection
+- Verified firebase.md and .env.local are ignored and excluded from tracked files. Scanned tracked content for all six supplied Firebase values and common private credential signatures; no matches. Commit scope is .gitignore and this memory log only; local configuration remains local.
+- Whitespace verification passed. Runtime checks remain unavailable because Node.js is not on PATH. User authorized committing and pushing to develop and master; both remote branches matched before publication.
