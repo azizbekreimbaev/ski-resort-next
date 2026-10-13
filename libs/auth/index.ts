@@ -153,7 +153,10 @@ export function setupSession() {
 		updateUserInfo,
 		() => {
 			deleteUserInfo();
-			void initializeApollo().clearStore();
+			// Session restoration can fail while public queries are waiting for it.
+			// Clear cached member data without cancelling those pending operations.
+			// The auth link rejects responses from the previous session generation.
+			void initializeApollo().cache.reset();
 		},
 		(code) => {
 			void sweetMixinErrorAlert(
