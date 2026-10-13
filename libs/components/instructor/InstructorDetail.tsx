@@ -1,3 +1,4 @@
+import useOptimisticLike from '../../hooks/useOptimisticLike';
 import React, { useEffect, useRef, useState } from 'react';
 import Seo from '../common/Seo';
 import Image from 'next/image';
@@ -96,7 +97,7 @@ export default function InstructorDetail() {
 			if (valid) void refetch().catch(() => undefined);
 		}
 	}, [user._id, valid, refetch]);
-	const [like, likeState] = useMutation(LIKE_TARGET_MEMBER);
+	const [like, likeState] = useOptimisticLike(LIKE_TARGET_MEMBER);
 	const [follow, followState] = useMutation(SUBSCRIBE);
 	const [unfollow, unfollowState] = useMutation(UNSUBSCRIBE);
 	const [failure, setFailure] = useState('');

@@ -1,4 +1,5 @@
-﻿import { makeVar, useApolloClient, useMutation, useReactiveVar } from '@apollo/client';
+import useOptimisticLike from './useOptimisticLike';
+import { makeVar, useApolloClient, useReactiveVar } from '@apollo/client';
 import { useTranslation } from 'next-i18next';
 import { userVar } from '../../apollo/store';
 import { LIKE_TARGET_RESORT, LIKE_TARGET_EQUIPMENT } from '../../apollo/user/mutation';
@@ -16,7 +17,7 @@ export default function useCatalogFavorite(domain: 'resort' | 'equipment') {
 			.filter((key) => key.startsWith(`${domain}:`))
 			.map((key) => key.slice(domain.length + 1)),
 	);
-	const [mutate] = useMutation(domain === 'resort' ? LIKE_TARGET_RESORT : LIKE_TARGET_EQUIPMENT);
+	const [mutate] = useOptimisticLike(domain === 'resort' ? LIKE_TARGET_RESORT : LIKE_TARGET_EQUIPMENT);
 	const toggle = async (id: string) => {
 		const key = `${domain}:${id}`;
 		if (pendingFavorites().has(key)) return;

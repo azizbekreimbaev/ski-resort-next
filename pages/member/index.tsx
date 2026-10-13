@@ -1,3 +1,4 @@
+import useOptimisticLike from '../../libs/hooks/useOptimisticLike';
 import React, { useRef, useState } from 'react';
 import Link from 'next/link';
 import { NextPage } from 'next';
@@ -33,7 +34,7 @@ const MemberPage: NextPage = () => {
 	});
 	const [subscribe] = useMutation(SUBSCRIBE);
 	const [unsubscribe] = useMutation(UNSUBSCRIBE);
-	const [like] = useMutation(LIKE_TARGET_MEMBER);
+	const [like] = useOptimisticLike(LIKE_TARGET_MEMBER);
 	const [pending, setPending] = useState(false);
 	const lock = useRef(false);
 	const member = profile.data?.getMember;

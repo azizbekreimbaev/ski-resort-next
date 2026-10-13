@@ -1,6 +1,7 @@
+import useOptimisticLike from '../../hooks/useOptimisticLike';
 import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import { useApolloClient, useMutation, useReactiveVar } from '@apollo/client';
+import { useApolloClient, useReactiveVar } from '@apollo/client';
 import { Alert, Button, CircularProgress, Pagination } from '@mui/material';
 import {
 	Favorite,
@@ -50,7 +51,7 @@ export default function InstructorDirectory() {
 	const [budget, setBudget] = useState<number | null>(null);
 	const [page, setPage] = useState(1);
 	const [pending, setPending] = useState<string[]>([]);
-	const [like] = useMutation(LIKE_TARGET_MEMBER);
+	const [like] = useOptimisticLike(LIKE_TARGET_MEMBER);
 	useEffect(() => {
 		let active = true;
 		setLoading(true);
@@ -120,16 +121,13 @@ export default function InstructorDirectory() {
 	useEffect(() => {
 		setPage(1);
 	}, [text, sort, audience, level, languages, experience, resort, weeks, budget]);
-	const availableLanguages = useMemo(
-		() => {
-			const preferred = ['Korean', 'English', 'Russian', 'Chinese'];
-			const additional = Array.from(new Set(members.flatMap((member) => member.instructorLanguages ?? [])))
-				.filter((language) => !preferred.includes(language))
-				.sort();
-			return [...preferred, ...additional];
-		},
-		[members],
-	);
+	const availableLanguages = useMemo(() => {
+		const preferred = ['Korean', 'English', 'Russian', 'Chinese'];
+		const additional = Array.from(new Set(members.flatMap((member) => member.instructorLanguages ?? [])))
+			.filter((language) => !preferred.includes(language))
+			.sort();
+		return [...preferred, ...additional];
+	}, [members]);
 	const maxPrice = Math.max(0, ...members.map((member) => weeklyPrice(member, weeks) ?? 0));
 	const filtered = members.filter((member) => {
 		const years = member.instructorExperienceYears;
@@ -172,10 +170,32 @@ export default function InstructorDirectory() {
 		}
 		if (pending.includes(member._id)) return;
 		setPending((current) => [...current, member._id]);
+		const liked = member.meLiked?.some((item) => item.myFavorite) ?? false;
+		setMembers((current) =>
+			current.map((item) =>
+				item._id === member._id
+					? {
+							...item,
+							memberLikes: Math.max(0, item.memberLikes + (liked ? -1 : 1)),
+							meLiked: liked ? [] : [{ memberId: user._id, likeRefId: member._id, myFavorite: true }],
+					  }
+					: item,
+			),
+		);
 		try {
-			await like({ variables: { input: member._id } });
-			setRevision((current) => current + 1);
+			const result = await like({ variables: { input: member._id } });
+			setMembers((current) =>
+				current.map((item) =>
+					item._id === member._id
+						? {
+								...item,
+								memberLikes: result.data?.likeTargetMember.memberLikes ?? item.memberLikes,
+						  }
+						: item,
+				),
+			);
 		} catch {
+			setMembers((current) => current.map((item) => (item._id === member._id ? member : item)));
 			setError(t('Unable to update like. Please try again.'));
 		} finally {
 			setPending((current) => current.filter((id) => id !== member._id));
@@ -374,7 +394,7 @@ export default function InstructorDirectory() {
 									return (
 										<article className="directory-instructor-card" key={member._id}>
 											<div className="instructor-photo">
-										<Link href={href} passHref>
+												<Link href={href} passHref>
 													<InstructorImage instructor={member} />
 												</Link>
 												<button
@@ -430,9 +450,7 @@ export default function InstructorDirectory() {
 											</div>
 											<div className="instructor-card-footer">
 												<div>
-													<small>
-														{t('Weeks', { count: weeks })}
-													</small>
+													<small>{t('Weeks', { count: weeks })}</small>
 													<strong>{price == null ? t('Price not listed') : homePrice(price, i18n.language)}</strong>
 												</div>
 												<Link href={href}>{t('View Profile')}</Link>

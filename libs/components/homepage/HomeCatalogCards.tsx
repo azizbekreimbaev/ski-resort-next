@@ -1,3 +1,4 @@
+import useOptimisticLike from '../../hooks/useOptimisticLike';
 import React, { useRef, useState } from 'react';
 import Link from 'next/link';
 import { Alert, Button, Chip, IconButton } from '@mui/material';
@@ -83,8 +84,7 @@ export function HomeResortCard({
 				)}
 			</div>
 			<div className="home-preview-body">
-				<div className="home-preview-facts">
-				</div>
+				<div className="home-preview-facts"></div>
 				<div className="home-resort-social">
 					<HomeViews count={resort.resortViews} suffix />
 					<span aria-label={`${resort.resortLikes.toLocaleString()} ${t('Likes')}`}>
@@ -132,7 +132,7 @@ export function HomeInstructorCard({ instructor }: { instructor: CatalogMember }
 	const { t, i18n } = useTranslation('common');
 	const user = useReactiveVar(userVar);
 	const client = useApolloClient();
-	const [likeMember] = useMutation(LIKE_TARGET_MEMBER);
+	const [likeMember] = useOptimisticLike(LIKE_TARGET_MEMBER);
 	const [followMember] = useMutation(SUBSCRIBE);
 	const [unfollowMember] = useMutation(UNSUBSCRIBE);
 	const lock = useRef(false);

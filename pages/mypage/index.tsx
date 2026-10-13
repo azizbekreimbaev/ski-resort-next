@@ -1,3 +1,4 @@
+import useOptimisticLike from '../../libs/hooks/useOptimisticLike';
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -77,7 +78,7 @@ const MyPage: NextPage = () => {
 	});
 	const [subscribe] = useMutation(SUBSCRIBE);
 	const [unsubscribe] = useMutation(UNSUBSCRIBE);
-	const [like] = useMutation(LIKE_TARGET_MEMBER);
+	const [like] = useOptimisticLike(LIKE_TARGET_MEMBER);
 	useEffect(() => {
 		if (ready && !user._id) void router.replace('/account/join?referrer=/mypage');
 	}, [ready, user._id, router]);

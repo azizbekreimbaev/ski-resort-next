@@ -1,7 +1,8 @@
+import useOptimisticLike from '../../hooks/useOptimisticLike';
 import React, { useRef, useState } from 'react';
 import Link from 'next/link';
 import { Alert, Button, Chip, Typography } from '@mui/material';
-import { useApolloClient, useMutation, useReactiveVar } from '@apollo/client';
+import { useApolloClient, useReactiveVar } from '@apollo/client';
 import { LIKE_TARGET_BOARD_ARTICLE } from '../../../apollo/user/mutation';
 import { userVar } from '../../../apollo/store';
 import { useTranslation } from 'next-i18next';
@@ -23,7 +24,7 @@ export default function ArticleCard({
 	const { t, i18n } = useTranslation('common');
 	const user = useReactiveVar(userVar);
 	const client = useApolloClient();
-	const [like, state] = useMutation(LIKE_TARGET_BOARD_ARTICLE);
+	const [like, state] = useOptimisticLike(LIKE_TARGET_BOARD_ARTICLE);
 	const lock = useRef(false);
 	const [failure, setFailure] = useState('');
 	const toggle = async () => {

@@ -1,4 +1,5 @@
-﻿import React, { useEffect, useRef, useState } from 'react';
+import useOptimisticLike from '../../hooks/useOptimisticLike';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
@@ -46,7 +47,7 @@ export default function ResourceDetail({ domain }: { domain: CatalogDomain }) {
 	const equipment = data?.getEquipment;
 	const instructor = data?.getMember;
 	const favorite = useCatalogFavorite(domain === 'equipment' ? 'equipment' : 'resort');
-	const [likeMember, likeState] = useMutation(LIKE_TARGET_MEMBER);
+	const [likeMember, likeState] = useOptimisticLike(LIKE_TARGET_MEMBER);
 	const [subscribe, subState] = useMutation(SUBSCRIBE);
 	const [unsubscribe, unsubState] = useMutation(UNSUBSCRIBE);
 	const [failure, setFailure] = useState('');

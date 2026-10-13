@@ -1,3 +1,4 @@
+import useOptimisticLike from '../../libs/hooks/useOptimisticLike';
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
@@ -41,7 +42,7 @@ function CommunityDetail() {
 		skip: !router.isReady || !valid,
 		fetchPolicy: 'network-only',
 	});
-	const [like, state] = useMutation(LIKE_TARGET_BOARD_ARTICLE);
+	const [like, state] = useOptimisticLike(LIKE_TARGET_BOARD_ARTICLE);
 	const [update, updateState] = useMutation(UPDATE_BOARD_ARTICLE);
 	const lock = useRef(false);
 	const [failure, setFailure] = useState('');
